@@ -26,14 +26,14 @@ const CustomDropdownMenu: React.FC<CustomDropdownMenuProps> = ({ buttonLabel, dr
     <div>
       <DropdownMenu onOpenChange={(open) => setisDropdownOpen(open)}>
         {/* Sort by button */}
-        <DropdownMenuTrigger asChild className='shadow-md hover:bg-card bg-primary-foreground xl:w-28'>
-          <Button className='text-primary'>
+        <DropdownMenuTrigger asChild className='shadow-md hover:bg-card bg-primary-foreground w-24 xl:w-28 lg:w-24 md:w-20'>
+          <Button className='text-primary text-sm'>
             {buttonLabel}
             {/* Toggle icon when user opens and closes drop down */}
             {isDropdownOpen ? (
-              <RiArrowDropUpLine className='ml-1 h-20 w-20 text-primary'/> // Up arrow when open
+              <RiArrowDropUpLine className='h-10 w-14 ml-1 xl:h-20 xl:w-20 lg:h-20 lg:w-20 md:h-16 md:w-16 text-primary'/> // Up arrow when open
             ) : (
-              <RiArrowDropDownLine className='ml-1 h-20 w-20 text-primary' /> // Down arrow when closed
+              <RiArrowDropDownLine className='h-10 w-14 ml-1 xl:h-20 xl:w-20 lg:h-20 lg:w-20 md:h-16 md:w-16 text-primary' /> // Down arrow when closed
             )}
           </Button>
         </DropdownMenuTrigger>

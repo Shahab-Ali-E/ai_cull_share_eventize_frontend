@@ -1,5 +1,4 @@
 "use client";
-import { useEffect, useRef } from 'react';
 
 //components
 import { Label } from '@/components/ui/label';
@@ -13,13 +12,14 @@ import { RiSearch2Line } from 'react-icons/ri';
 //lottie
 import { LazyLottie } from '@/components/lazy-lottie-load';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import CreateCullingWorkSpace from '@/components/Culling/CreateEvent';
+import { useState } from 'react';
 
 
 
 
 function CullingDashboard() {
-  //use ref for div ref to add lottie animation to it
-  // const rocketAnimationContainer = useRef<HTMLDivElement | null>(null);
+
   // Create a client
   const queryClient = new QueryClient();
 
@@ -45,18 +45,7 @@ function CullingDashboard() {
     {label:"Oldest", onClick: sortByOldest}
   ]
 
-  //useEffect for starting get-started-rocket animation
-  // useEffect(()=>{
-  //   if(rocketAnimationContainer.current){
-  //     lottie.loadAnimation({
-  //       container:rocketAnimationContainer.current,
-  //       renderer:'svg',
-  //       loop:true,
-  //       autoplay:true,
-  //       path:'../../../images/animated-icons/Rocket-launch.json'
-  //     });
-  //   }
-  // },[])
+  // if(loadingSpinner) return <Label>LoadingSpinner</Label>
 
   return (
     <div className='flex flex-col bg-foreground p-5'>
@@ -83,7 +72,7 @@ function CullingDashboard() {
           </div>
           {/* create event button */}
           <div>
-            <GradientButton className='xl:block xl:w-44 xl:h-10 lg:block lg:w-40 lg:h-10 md:hidden sm:hidden'>create event</GradientButton>
+            <GradientButton className='hidden xl:block xl:w-44 xl:h-10 lg:block lg:w-40 lg:h-10 md:hidden'>create event</GradientButton>
           </div>
         </div>
       </div>
@@ -113,10 +102,10 @@ function CullingDashboard() {
             </Label>
           </div>
 
-          {/* create event Button */}
-          <div className='mt-10'>
-            <GradientButton className='xl:w-52 xl:h-14 lg:w-48 lg:h-12 md:w-44 md:h-12'>create event</GradientButton>
-          </div>
+          {/* create event modal and loading spinner */}
+            <div className='mt-10'>
+              <CreateCullingWorkSpace   />
+            </div>
         </div>
       </div>
     </div>

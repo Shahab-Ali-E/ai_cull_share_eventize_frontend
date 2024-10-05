@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 import { useState } from "react";
 
 export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  icon?: React.ReactNode;  // Add icon as a prop
+  icon?: React.ReactNode;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
