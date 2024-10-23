@@ -1,20 +1,25 @@
-import DreamEventSlider from '@/components/Home/dreamEventSlider';
+
 import ImageCard from '@/components/Home/imageGlowingCard';
-import NavBar from '@/components/Home/navBar';
 import Services from '@/components/Home/services';
 import Slider from '@/components/Home/slider';  
+import Navbar from '@/components/navbar';
 import image_1 from "@/images/smart-culling-slider.jpeg"
 import sliderImagesMetaData from '@/utils/sliderImages';
+// import { useRouter } from "next/router";
 
 const Home = () => {
+  //for getting current active url
+  // const router = useRouter()
+  // console.log(router.pathname)
+
   return (
-    <div className='flex-1 flex-col items-center bg-primary-foreground'>
+    <div className='flex flex-col bg-primary-foreground min-h-screen px-10 text-primary space-y-20 overflow-hidden'>
         {/* nav bar */}
-        <NavBar />
+        <Navbar />
       
         {/* Slider with full height but not removed from document flow */}
         <div className='w-full relative '>
-          <Slider slides={sliderImagesMetaData[0]} />
+          {/* <Slider slides={sliderImagesMetaData[0]} /> */}
         </div>
 
         {/*------------- Content after the slider ------------------*/}
@@ -75,13 +80,6 @@ const Home = () => {
 
         {/* -----------------My Services Sliders------------------------ */}
         <div className='text-primary flex justify-center'>
-          {/* Event management slider */}
-          <div className='flex flex-col justify-center items-center p-5'>
-            <p className='pt-10 pb-16 md animate-fade-in font-bold m-2 sm:text-[22px] md:text-[22px] lg:text-[25px] xl:text-[27px]'>{`Real simple. Real quick. Features that you'll love`}</p>
-            <DreamEventSlider 
-              images={sliderImagesMetaData[2]}
-            />
-          </div>
           
       
         </div>

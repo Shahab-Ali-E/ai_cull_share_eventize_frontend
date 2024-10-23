@@ -13,10 +13,10 @@ import image7 from '@/images/smart-share-slider.jpeg'
 import image8 from '@/images/smart-share-slider.jpeg'
 
 // smart culling slider images
-import image9 from '@/images/smart-share-slider.jpeg'
-import image10 from '@/images/smart-share-slider.jpeg'
-import image11 from '@/images/smart-share-slider.jpeg'
-import image12 from '@/images/smart-share-slider.jpeg'
+import image9 from '@/images/detect_blur.jpg'
+import image10 from '@/images/similar.jpg'
+import image11 from '@/images/closed_eyes.jpg'
+import image12 from '@/images/identify-key-faces.jpg'
 
 export type sliderImages = {
   id: string;

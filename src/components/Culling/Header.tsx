@@ -2,9 +2,9 @@ import Image from 'next/image';
 import { IoMdHelpCircle } from "react-icons/io";
 import logo from '../../images/logo.png';
 import { ThemeToggle } from '../theme-toggle';
-import UserProfileDropDown, { UserProfileDropDownProps } from './UserProfileDropDown';
+import UserProfileDropDown, { UserProfileDropDownProps } from '@/components/user-profile';
 
-function CullingDashboardHeader({ profileImage, userEmail, userName, profileFallBack = "" }: UserProfileDropDownProps) {
+function CullingDashboardHeader({ profileImage, userEmail, profileFallBack = "" }: UserProfileDropDownProps) {
 
   return (
     <div className='flex items-center justify-between p-1 shadow-md shadow-gray-400 dark:shadow-black bg-secondary'>  
@@ -31,7 +31,6 @@ function CullingDashboardHeader({ profileImage, userEmail, userName, profileFall
           profileImage={profileImage}
           userEmail={userEmail}
           profileFallBack={profileFallBack}
-          userName={userName}
         />
         
       </div>

@@ -1,4 +1,18 @@
+import { withNextVideo } from "next-video/process";
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+    images:{
+        remotePatterns:[
+            {
+                protocol:'https',
+                hostname:'s3.eu-north-1.amazonaws.com'
+            },
+            {
+                protocol:'https',
+                hostname:'ik.imagekit.io'
+            }
+        ]
+    }
+};
 
-export default nextConfig;
+export default withNextVideo(nextConfig);

@@ -17,7 +17,7 @@ import { NEXT_PUBLIC_AUTH_LOGIN_URL } from '@/constants/ApiUrls';
 
 const Login = () => {
 
-  const handleGoogleLogin = async () => {
+  const handleGoogleLogin = () => {
     window.location.href = NEXT_PUBLIC_AUTH_LOGIN_URL;
   };
   

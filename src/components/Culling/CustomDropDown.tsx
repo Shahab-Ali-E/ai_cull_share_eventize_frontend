@@ -39,7 +39,7 @@ const CustomDropdownMenu: React.FC<CustomDropdownMenuProps> = ({ buttonLabel, dr
         </DropdownMenuTrigger>
 
         {/* Dropdown menu items */}
-        <DropdownMenuContent className='bg-primary-foreground mt-1 rounded-md xl:w-28 text-center p-1'>
+        <DropdownMenuContent className='bg-primary-foreground mt-1 rounded-md xl:w-28 text-center p-1 z-10 '>
           {dropdownItems.map((item, index) => (
             <DropdownMenuItem
               key={index}

@@ -24,7 +24,20 @@ const config: Config = {
 			striped:
 				"repeating-linear-gradient(45deg, #3B3A3D, #3B3A3D 5px, transparent 5px, transparent 20px)",
 			},
-			keyframes: {
+		keyframes: {
+			progress: {
+				"0%": { transform: "translateX(0) scaleX(0)" },
+				"40%": { transform: "translateX(0) scaleX(0.4)" },
+				"100%": { transform: "translateX(100%) scaleX(0.6)" },
+			},
+			"marquee-x": {
+				from: { transform: "translateX(0)" },
+				to: { transform: "translateX(calc(-100% - var(--gap)))" },
+			},
+			"marquee-y": {
+				from: { transform: "translateY(0)" },
+				to: { transform: "translateY(calc(-100% - var(--gap)))" },
+			},
 			"blink-red": {
 				"0%, 100%": {
 				backgroundColor: "rgba(239, 68, 68, 0.7)",
@@ -35,8 +48,11 @@ const config: Config = {
 				boxShadow: "0 0 30px 10px rgba(239, 68, 68, 1)",
 				},
 			},
-			},
-			animation: {
+		},
+		animation: {
+			progress: "progress 1s infinite linear",
+			"marquee-horizontal": "marquee-x var(--duration) infinite linear",
+        	"marquee-vertical": "marquee-y var(--duration) linear infinite",
 			"blink-red": "blink-red 2s infinite linear",
 		},
   		colors: {
