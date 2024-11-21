@@ -8,7 +8,7 @@ import { IconContext } from "react-icons/lib";
 import Autoplay from 'embla-carousel-autoplay'
 
 const CullingSlider = ({ images }: { images: sliderImages[] }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({},[Autoplay({delay:2000})]);
+  const [emblaRef, emblaApi] = useEmblaCarousel({}, [Autoplay({ delay: 2000 })]);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   const scrollPrev = useCallback(() => {
@@ -40,34 +40,34 @@ const CullingSlider = ({ images }: { images: sliderImages[] }) => {
   }, [emblaApi]);
 
   return (
-    <div className="flex flex-col xl:flex-row-reverse lg:flex-row-reverse md:flex-row-reverse">
-
+    <div className="flex flex-col items-center justify-center sm:flex-row-reverse sm:justify-center">
+      
       {/* Slider and its Buttons */}
-      <div className="embla flex-1 flex-row justify-center items-center pl-24 sm:order-first" ref={emblaRef}>
-        <div className=" embla__container flex-row max-w-md max-h-56 xl:max-w-xl xl:max-h-max lg:max-w-lg lg:max-h-80 md:max-w-md md:max-h-72">
+      <div className="embla flex-1 sm:mt-0 mt-10 sm:pl-24" ref={emblaRef}>
+        <div className="embla__container flex-row items-center max-w-sm sm:max-w-md max-h-56 xl:max-w-xl xl:max-h-max lg:max-w-lg lg:max-h-80 md:max-w-lg md:max-h-96">
           {images.map((ele, index) => (
-            // Image Slider
             <div
-              className={`embla__slide flex flex-col text-center max-w-64 xl:max-w-sm lg:max-w-sm md:max-w-xs overflow-hidden transition-transform duration-500 ease-in-out transform rounded-2xl ${
+              className={`embla__slide flex flex-col text-center overflow-hidden transition-transform duration-500 ease-in-out transform rounded-2xl ${
                 currentSlide === index
-                  ? "scale-100 opacity-100 z-20" 
-                  : "scale-y-75 opacity-60 -z-10"
+                  ? "opacity-100 z-20" // Active slide
+                  : currentSlide === index - 1
+                  ? "-translate-x-1/3 -rotate-3 z-10 opacity-70" // Left slide
+                  : currentSlide === index + 1
+                  ? "translate-x-1/3 rotate-3 z-10 opacity-70" // Right slide
+                  : "translate-x-1/2 z-0 opacity-0" // Farthest slide
               }`}
               key={index}
             >
-              <Image
-                src={ele.src}
-                alt={`Slide ${index + 1}`}
-                className="object-cover"
-              />
-
-              <p className="block mt-10 font-bold text-xl xl:hidden lg:hidden md:hidden">{currentSlide === index ? ele.description :""}</p>
+              <Image src={ele.src} alt={`Slide ${index + 1}`}/>
+              <p className="block mt-10 font-bold text-xl xl:hidden lg:hidden md:hidden">
+                {currentSlide === index ? ele.description : ""}
+              </p>
             </div>
           ))}
         </div>
-  
+
         {/* Buttons for Slider */}
-        <div className="flex flex-row justify-center gap-14 mt-4">
+        <div className="flex flex-row justify-center gap-10 mt-4 sm:mt-6">
           <button onClick={scrollPrev} disabled={currentSlide === 0}>
             <IconContext.Provider
               value={{
@@ -101,17 +101,19 @@ const CullingSlider = ({ images }: { images: sliderImages[] }) => {
         </div>
       </div>
 
-      {/* Vertical Line for other than small devices*/}
-      <div className="w-px bg-gradient-to-b from-black via-white via-50% to-black h-auto mx-10 hidden sm:block"></div>
-      
-      {/* Slider Description for all devices other then mobile*/}
-      <div className="p-4 invisible flex flex-col place-content-evenly xl:visible xl:w-[380px] lg:w-[380px] lg:visible md:w-[300px] md:visible">
+      {/* Vertical Line for larger devices */}
+      <div className="w-px xl:h-[40rem] lg:h-[35rem] md:h-[16rem] bg-gradient-to-b from-black via-white via-50% to-black mx-10 hidden sm:block"></div>
+
+      {/* Slider Description for larger devices */}
+      <div className="hidden sm:flex flex-col xl:space-y-24 lg:space-y-14 md:space-y-8 xl:w-[380px] lg:w-[250px] md:w-[200px]">
         {images.map((ele, index) => (
           <div key={index} className="flex flex-row justify-end mb-2">
             <button
               onClick={() => scrollTo(index)}
               className={`whitespace-nowrap overflow-hidden text-ellipsis transition-all duration-300 ease-in-out ${
-                currentSlide === index ? "text-xl xl:text-2xl lg:text-2xl md:text-xl font-bold" : "text-base xl:text-xl lg:text-xl md:text-lg opacity-50 font-light"
+                currentSlide === index
+                  ? "text-xl xl:text-2xl lg:text-xl md:text-sm font-bold"
+                  : "text-base xl:text-xl lg:text-lg md:text-xs opacity-50 font-light"
               }`}
             >
               {ele.description}

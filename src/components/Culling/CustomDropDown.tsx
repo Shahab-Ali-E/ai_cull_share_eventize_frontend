@@ -26,7 +26,7 @@ const CustomDropdownMenu: React.FC<CustomDropdownMenuProps> = ({ buttonLabel, dr
     <div>
       <DropdownMenu onOpenChange={(open) => setisDropdownOpen(open)}>
         {/* Sort by button */}
-        <DropdownMenuTrigger asChild className='shadow-md hover:bg-card bg-primary-foreground w-24 xl:w-28 lg:w-24 md:w-20'>
+        <DropdownMenuTrigger asChild className='shadow-md hover:bg-[#111111] bg-card w-24 xl:w-28 lg:w-24 md:w-20'>
           <Button className='text-primary text-sm'>
             {buttonLabel}
             {/* Toggle icon when user opens and closes drop down */}
@@ -39,11 +39,11 @@ const CustomDropdownMenu: React.FC<CustomDropdownMenuProps> = ({ buttonLabel, dr
         </DropdownMenuTrigger>
 
         {/* Dropdown menu items */}
-        <DropdownMenuContent className='bg-primary-foreground mt-1 rounded-md xl:w-28 text-center p-1 z-10 '>
+        <DropdownMenuContent className='bg-card mt-1 rounded-md xl:w-28 text-center p-1 z-10 '>
           {dropdownItems.map((item, index) => (
             <DropdownMenuItem
               key={index}
-              className='cursor-pointer text-primary hover:bg-card focus:border-none focus:outline-none p-2 rounded-md'
+              className='cursor-pointer text-primary hover:bg-[#111111] focus:border-none focus:outline-none p-2 rounded-md'
               onClick={item.onClick}
             >
               {item.label}

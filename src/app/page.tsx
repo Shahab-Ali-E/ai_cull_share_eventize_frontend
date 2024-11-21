@@ -1,16 +1,11 @@
 
 import ImageCard from '@/components/Home/imageGlowingCard';
-import Services from '@/components/Home/services';
-import Slider from '@/components/Home/slider';  
+import Services from '@/components/Home/services';  
 import Navbar from '@/components/navbar';
 import image_1 from "@/images/smart-culling-slider.jpeg"
-import sliderImagesMetaData from '@/utils/sliderImages';
-// import { useRouter } from "next/router";
 
 const Home = () => {
-  //for getting current active url
-  // const router = useRouter()
-  // console.log(router.pathname)
+ 
 
   return (
     <div className='flex flex-col bg-primary-foreground min-h-screen px-10 text-primary space-y-20 overflow-hidden'>

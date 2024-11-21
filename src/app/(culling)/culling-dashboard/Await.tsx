@@ -7,6 +7,6 @@ export default async function Await<T>({
   }) {
     // await new Promise(resolve=>setTimeout(resolve,2000))
     const data = await promise
-  
+
     return children(data)
   }

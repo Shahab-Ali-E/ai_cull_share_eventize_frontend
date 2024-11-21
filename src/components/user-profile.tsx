@@ -47,20 +47,20 @@ function UserProfileDropDown({ profileImage, userEmail, profileFallBack = "" }: 
     >
         <DropdownMenuTrigger asChild>
         <div className='flex flex-row items-center space-x-1 cursor-pointer'>
-            <Avatar className="ml-4 w-[52px] h-12 rounded-full overflow-hidden border-[3px] border-headingtext p-1">
+            <Avatar className="ml-4 w-[45px] h-11 rounded-full overflow-hidden border-[3px] border-headingtext p-1">
                 <AvatarImage src={profileImage} alt='User picture' className='rounded-full'/>
                 <AvatarFallback className='text-primary border border-primary'>{profileFallBack}</AvatarFallback>
             </Avatar>
             {isDropdownOpen ? (
-            <RiArrowDropUpLine className='h-8 w-8 text-primary' />
+            <RiArrowDropUpLine className='h-6 w-6 text-primary' />
             ) : (
-            <RiArrowDropDownLine className='h-8 w-8 text-primary' />
+            <RiArrowDropDownLine className='h-6 w-6 text-primary' />
             )}
         </div>
         </DropdownMenuTrigger>
 
         {/* Dropdown content */}
-        <DropdownMenuContent className="flex flex-col bg-primary-foreground items-center justify-center text-center p-7 space-y-4 w-full">
+        <DropdownMenuContent className="flex flex-col bg-primary-foreground items-center justify-center text-center p-5 space-y-4 w-full">
             <DropdownMenuItem className='flex flex-row xl:flex-col lg:flex-col md:flex-col items-center space-y-4 sm:space-x-5 focus:border-none focus:outline-none'>
                 <Avatar className="h-16 w-16 xl:h-32 xl:w-32 lg:h-32 lg:w-32 md:h-28 md:w-28 rounded-full">
                     <AvatarImage src={profileImage} alt='User picture' />

@@ -27,9 +27,14 @@ export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>
         else if (response.status === 401) {
             redirect('/login')
         } 
-        else if (response.status === 406 || response.status === 400) {
+        else if(response.status === 406 || response.status === 400 ){
             return {
-                error: jsonResponse.detail || 'Failed to create workspace',
+                error: jsonResponse.detail
+            }
+        }
+        else if (!response.ok) {
+            return {
+                error: 'Network error, failed to create workspace',
             }
         }
     } catch (e) {

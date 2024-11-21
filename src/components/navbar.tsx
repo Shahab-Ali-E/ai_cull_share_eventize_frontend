@@ -1,29 +1,50 @@
-import Link from "next/link"
-import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet"
-import { Button } from "@/components/ui/button"
-import { JSX, SVGProps } from "react"
+"use client";
+
+import Link from "next/link";
+import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
+import { Button } from "@/components/ui/button";
+import { JSX, SVGProps, useEffect, useState } from "react";
 import logo from "@/images/logo.png";
 import Image from "next/image";
 import { ThemeToggle } from "./theme-toggle";
-import { cookies } from "next/headers";
 import UserProfileDropDown from "./user-profile";
+import { getUserFromCookies } from "@/utils/getUserFromCookies";
+import { usePathname, useRouter } from "next/navigation"; // Import from next/navigation
 
-export default function Navbar() {
-    
-    // getting user details from cookies if the user was authenticated
-    const name: string | undefined = cookies().get('name')?.value;
-    const email: string | undefined = cookies().get('email')?.value;
-    const pictureURL: string | undefined = cookies().get("picture")?.value;
+interface NavbarProps {
+    fixed?: boolean; 
+}
 
-    // Cleaning the user data
-    const cleanedName: string = name?.replace(/^"|"$/g, '') ?? '';
-    const cleanedEmail: string = email?.replace(/^"|"$/g, '') ?? '';
-    const profileImageUrl: string = pictureURL?.replace(/^"|"$/g, '') ?? '';
-    const fallBack: string = cleanedName.split(" ").map(name => name[0]).join('').toUpperCase();
+export default function Navbar({fixed=false}:NavbarProps) {
+    const router = useRouter();
+    const pathname = usePathname();
+
+    const [user, setUser] = useState({
+        name: "",
+        email: "",
+        profileImageUrl: "",
+        fallBack: "",
+    });
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const userData = await getUserFromCookies();
+            setUser(userData);
+        };
+
+        fetchUser();
+    }, []);
+
+    // Check if the link is active
+    const isActive = (route: string) => pathname === route;
 
     return (
-        <div className="sticky top-4 z-50 flex items-center justify-between px-7 py-2 shadow-sm shadow-card backdrop-blur-lg bg-white/10 rounded-full">
-            <Link href="#" className="flex items-center gap-2" prefetch={false}>
+        <div
+        className={`${
+            fixed ? "sticky  w-full" : "mt-7"
+            } z-50 flex items-center justify-between px-7 py-2 text-primary shadow-md shadow-gray-300 dark:shadow-primary-foreground bg-[#e9e8e8] dark:bg-card rounded-full`}
+        >
+            <Link href="/" className="flex items-center gap-2" prefetch={false}>
                 <Image
                     src={logo}
                     alt="Logo"
@@ -31,37 +52,71 @@ export default function Navbar() {
                 />
             </Link>
             <div className="hidden md:flex gap-4">
-                <Link href="/" className="text-base font-medium px-5 py-2 hover:bg-primary-foreground hover:rounded-full transition-all duration-150 ease-in-out" prefetch={false}>
+                <Link
+                    href="/"
+                    className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+                        isActive("/") ? "bg-muted rounded-full" : ""
+                    }`}
+                    prefetch={false}
+                >
                     Home
                 </Link>
-                <Link href="/services" className="text-base font-medium px-5 py-2 hover:bg-primary-foreground hover:rounded-full transition-all duration-150 ease-in-out" prefetch={false}>
+                <Link
+                    href="/services"
+                    className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+                        isActive("/services") ? "bg-muted rounded-full" : ""
+                    }`}
+                    prefetch={false}
+                >
                     Event Arrangement
                 </Link>
-                <Link href="/culling-home" className="text-base font-medium px-5 py-2 hover:bg-primary-foreground hover:rounded-full transition-all duration-150 ease-in-out" prefetch={false}>
+                <Link
+                    href="/culling-home"
+                    className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+                        isActive("/culling-home") ? "bg-muted rounded-full" : ""
+                    }`}
+                    prefetch={false}
+                >
                     Culling
                 </Link>
-                <Link href="#" className="text-base font-medium px-5 py-2 hover:bg-primary-foreground hover:rounded-full transition-all duration-150 ease-in-out" prefetch={false}>
+                <Link
+                    href="/smart-share"
+                    className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+                        isActive("/smart-share") ? "bg-muted rounded-full" : ""
+                    }`}
+                    prefetch={false}
+                >
                     Smart Share
                 </Link>
-                <Link href="#" className="text-base font-medium px-5 py-2 hover:bg-primary-foreground hover:rounded-full transition-all duration-150 ease-in-out" prefetch={false}>
+                <Link
+                    href="/contact"
+                    className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+                        isActive("/contact") ? "bg-muted rounded-full" : ""
+                    }`}
+                    prefetch={false}
+                >
                     Contact
                 </Link>
             </div>
-            <div className="flex items-center invisible sm:visible gap-4">
+            <div className="flex items-center gap-4">
                 <div className="hidden sm:block">
                     <ThemeToggle />
                 </div>
-                {/* Check if the user was authenticated then show its badge/profile otherwise show the signup button */}
-                {name && email ? (             
-                    // User profile
-                    <UserProfileDropDown 
-                        profileImage={profileImageUrl}
-                        userEmail={cleanedEmail}
-                        profileFallBack={fallBack}
+                {/* Check if the user was authenticated, then show their profile, otherwise show the SignUp button */}
+                {user.name && user.email ? (
+                    <UserProfileDropDown
+                        profileImage={user.profileImageUrl}
+                        userEmail={user.email}
+                        profileFallBack={user.fallBack}
                     />
                 ) : (
-                    // Sign up button
-                    <Button variant="default" className="rounded-full px-6 hover:scale-105 transition-all ease-in-out duration-200">SignUp</Button>
+                    <Button
+                        onClick={() => router.push('/login')} // Correct usage
+                        variant="default"
+                        className="rounded-full px-6 hover:scale-105 transition-all ease-in-out duration-200"
+                    >
+                        SignUp
+                    </Button>
                 )}
             </div>
             <Sheet>
@@ -73,19 +128,49 @@ export default function Navbar() {
                 </SheetTrigger>
                 <SheetContent side="left" className="bg-card text-primary">
                     <div className="grid w-[200px] p-4 gap-5">
-                        <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                        <Link
+                            href="/"
+                            className={`text-lg font-medium hover:underline underline-offset-4 ${
+                                isActive("/") ? "underline" : ""
+                            }`}
+                            prefetch={false}
+                        >
                             Home
                         </Link>
-                        <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                        <Link
+                            href="/about"
+                            className={`text-lg font-medium hover:underline underline-offset-4 ${
+                                isActive("/about") ? "underline" : ""
+                            }`}
+                            prefetch={false}
+                        >
                             About
                         </Link>
-                        <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                        <Link
+                            href="/services"
+                            className={`text-lg font-medium hover:underline underline-offset-4 ${
+                                isActive("/services") ? "underline" : ""
+                            }`}
+                            prefetch={false}
+                        >
                             Services
                         </Link>
-                        <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                        <Link
+                            href="/portfolio"
+                            className={`text-lg font-medium hover:underline underline-offset-4 ${
+                                isActive("/portfolio") ? "underline" : ""
+                            }`}
+                            prefetch={false}
+                        >
                             Portfolio
                         </Link>
-                        <Link href="#" className="text-lg font-medium hover:underline underline-offset-4" prefetch={false}>
+                        <Link
+                            href="/contact"
+                            className={`text-lg font-medium hover:underline underline-offset-4 ${
+                                isActive("/contact") ? "underline" : ""
+                            }`}
+                            prefetch={false}
+                        >
                             Contact
                         </Link>
                     </div>

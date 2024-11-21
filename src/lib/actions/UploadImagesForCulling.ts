@@ -6,18 +6,19 @@ import { redirect } from 'next/navigation';
 
 // Interface for the upload
 interface uploadCullingImages {
-  workSpaceName: string;
+  workSpaceId: string;
   imagesData: FormData
 }
 
-export const uploadCullingImagesToServer = async ({ workSpaceName,imagesData }: uploadCullingImages) => {
+export const uploadCullingImagesToServer = async ({ workSpaceId,imagesData }: uploadCullingImages) => {
     try {
         // Get the cookies from the incoming request
         const cookieHeader = cookies().toString();
 
-        const apiUrl = `${UPLOAD_CULLING_IMAGES}/${workSpaceName}`;
+        const apiUrl = `${UPLOAD_CULLING_IMAGES}/${workSpaceId}`;
 
         const response = await fetch(apiUrl, {
+            cache:'no-cache',
             method: "POST",
             credentials: "include",
             headers: {
@@ -32,7 +33,11 @@ export const uploadCullingImagesToServer = async ({ workSpaceName,imagesData }: 
 
         if (response.status === 401) {
             redirect("/login");
-        } else if (response.status === 500 || !response.ok) {
+        }
+        else if(response.status === 415){
+            return { error: "Max storage reached !" }; 
+        } 
+        else if (response.status === 500 || !response.ok) {
             return {
                 error: jsonResponse.detail,
             };

@@ -4,17 +4,17 @@ import React from 'react';
 import { Label } from '../ui/label';
 import Link from 'next/link';
 import { FcEmptyTrash } from 'react-icons/fc';
-import WarningDialog from '../Errors/CustomWarning';
+import CustomPopupDialog from '../custom-popup-dialog';
+import { DeleteWorkSpace } from "@/lib/actions/DeleteWorkSpace";
 
 
 interface WorkspaceCardProps {
-  workSpaceId: number;
+  workSpaceId: string;
   workspaceName: string;
   createdDate: string;
   size: number;
   initials: string;
   href: string;
-  onDelete: (id: number) => void; // Add onDelete prop
 }
 
 // Function to convert size from bytes to MB or GB
@@ -28,11 +28,7 @@ const formatSize = (sizeInBytes: number) => {
   }
 };
 
-const WorkspaceCard = ({ workSpaceId, workspaceName, createdDate, size, initials, href, onDelete }: WorkspaceCardProps) => {
-
-  const handleDelete = () => {
-    onDelete(workSpaceId);
-  };
+const WorkspaceCard = ({ workSpaceId, workspaceName, createdDate, size, initials, href }: WorkspaceCardProps) => {
 
   return (
       <div className='flex flex-col rounded-lg bg-gray-200 dark:bg-primary-foreground shadow-lg shadow-card overflow-hidden transition-transform transform hover:scale-105 duration-300 ease-in-out'>
@@ -52,15 +48,16 @@ const WorkspaceCard = ({ workSpaceId, workspaceName, createdDate, size, initials
             <Label className='text-muted-foreground text-xs'>{createdDate}</Label>
 
             {/* Delete warning button with confirmation */}
-            <WarningDialog
+            <CustomPopupDialog
               triggerButton={
                 <button className='text-primary' title='Delete workspace'>
                   <FcEmptyTrash className='h-7 w-7 hover:scale-125 transition-all ease-in-out duration-150' />
                 </button>
               }
-              message={`This action cannot be undone. This will permanently delete the workspace '${workspaceName}'.`}
-              onCancel={() => console.log('Cancel clicked')}
-              onConfirm={handleDelete}
+              message={`This can't be undone`}
+              title={"Delete folder?"}
+              onConfirm={()=>DeleteWorkSpace({workSpaceName:workspaceName})}
+              loadingText='Deleting...'
             />
           </div>
         </div>

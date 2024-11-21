@@ -43,7 +43,7 @@ const Search = ({ search }: { search?: string }) => {
             onChange={e => setText(e.target.value)}
             placeholder="search in culling"
             icon={<RiSearch2Line size={15} />}
-            className="bg-gray-200 dark:bg-primary-foreground text-primary xl:w-[23rem] lg:w-80 md:w-72 text-base py-6"
+            className="bg-card text-primary text-base py-6 rounded-full"
         />
     </div>
   )

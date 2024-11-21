@@ -14,7 +14,6 @@ import { WorkSpacesSkeleton } from '@/components/Culling/WorkSpaceSkeleton';
 //api
 import { getAllWorkSpaces } from '@/lib/actions/GetUserWorkSpaces';
 
-
 type SearchParams = {
   sort_order:string|undefined,
   sort_by:string|undefined,
@@ -31,26 +30,33 @@ const CullingDashboard = async ({
 
   return (
     <section className="flex flex-col p-5 min-h-screen overflow-y-auto">
-      <div className="flex flex-row pb-5 border-b border-muted-foreground">
-        {/* My cullings and search box */}
-        <div className="flex flex-col space-y-4 w-1/2">
+      <div className="relative flex flex-row pb-5 border-b border-muted-foreground space-x-4">
+        {/* Left side: My Cullings label and Search box */}
+        <div className="flex flex-col w-auto sm:w-1/3 space-y-4 ">
           <Label className="font-bold text-primary text-xl xl:text-3xl lg:text-3xl md:text-2xl">
             My Cullings
           </Label>
-          {/* for searching workspace */}
-          <Search />
+          
+          {/* Search component */}
+          <div className="flex-1">
+            <Search />
+          </div>
         </div>
-        {/* Create event button */}
-        <div className="flex flex-row items-end justify-end space-x-6 w-1/2">
-          {/* sort by button */}
+
+        {/* Right side: Sort by and Create Workspace buttons */}
+        <div className="absolute right-0 bottom-5 flex items-end justify-end w-auto space-x-6">
+          {/* Sort by button */}
           <SortByDropDown />
 
-          {/* create culling workspace */}
-          <CreateCullingWorkSpace />
+          {/* Create culling workspace button, hidden on small screens */}
+          <div className="hidden sm:block">
+            <CreateCullingWorkSpace />
+          </div>
         </div>
       </div>
+
       {/* rest of culling dashboard page */}
-      <div className="flex flex-col p-5 min-h-screen overflow-y-auto">
+      <div className="flex flex-col relative p-5 min-h-screen overflow-y-auto">
         <Suspense fallback={<WorkSpacesSkeleton />}>
           <Await promise={workSpacesPromise}>
             {
@@ -58,6 +64,14 @@ const CullingDashboard = async ({
             }
           </Await>
         </Suspense>
+
+        {/* Spacer div to push the CreateCullingWorkSpace component to the bottom */}
+        <div className="flex-grow"></div>
+
+        {/* Responsive Create Workspace component at the bottom */}
+        <div className="mt-5 flex justify-center visible sm:invisible">
+          <CreateCullingWorkSpace />
+        </div>
       </div>
     </section>
   );

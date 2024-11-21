@@ -1,7 +1,7 @@
 "use client"
 
 //component
-import CustomDialogBox from "../custom-dialog"
+import CustomInputialog from "../custom-input-dialog"
 
 // api and validaton
 import { CreateWorkSpace } from "@/lib/actions/CreateWorkSpace"
@@ -25,7 +25,7 @@ export default function CreateCullingWorkSpace() {
     };
   
     return (
-        <CustomDialogBox 
+        <CustomInputialog 
             buttonTitle="Create WorkSpace"
             dialogTitle="create workspace"
             onCreate={createWorkSpaceBackend}

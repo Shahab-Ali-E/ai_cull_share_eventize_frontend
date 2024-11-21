@@ -1,7 +1,4 @@
 import React from 'react'
-//video
-import Video from 'next-video';
-import cullingVideo from '../../../videos/AlgoCull.mp4'
 
 //data's
 import sliderImagesMetaData from '@/utils/sliderImages'; //slider carousal data
@@ -19,40 +16,43 @@ import Navbar from '@/components/navbar';
 
 const CullingHome =()=> {
   return (
-    <section className='flex flex-col bg-primary-foreground min-h-screen px-10 text-primary space-y-20 overflow-hidden'>
+    <section className='flex flex-col bg-primary-foreground min-h-screen px-10 text-primary space-y-10 sm:space-y-20 overflow-hidden'>
       {/* nav bar */}
       <Navbar />
 
       {/* head */}
-      <section className='flex'>
+      <section className="flex flex-col sm:flex-row">
         {/* some text and get started button */}
-        <div className='flex flex-col justify-center w-full'>
+        <div className="flex flex-col justify-center w-full text-center sm:text-left sm:w-1/2">
           {/* some text */}
-          <RevealYAxis className='w-fit'>
-            <Label className='font-bold text-4xl uppercase'>The fastest way to <br />
-            intelligent culling</Label>
+          <RevealYAxis className="w-full">
+            <Label className="font-bold text-3xl sm:text-4xl uppercase">
+              The fastest way to <br />
+              intelligent culling
+            </Label>
           </RevealYAxis>
-          <RevealYAxis className='w-fit'>
-            <Label className='text-2xl mt-4'>Fast forward the process. Skip the boring.</Label>
+          <RevealYAxis className="w-full">
+            <Label className="text-lg sm:text-2xl mt-4">
+              Fast forward the process. Skip the boring.
+            </Label>
           </RevealYAxis>
 
           {/* get started button */}
-          <div>
-            <ShiningButton
-              label='Get Started' 
-            />
+          <div className="mt-2 sm:mt-6 flex justify-center sm:justify-start">
+            <ShiningButton label="Get Started" href='/culling-dashboard'/>
           </div>
         </div>
 
         {/* video */}
-        <div className='flex flex-col w-full justify-center'>
-          {/* <Video src={cullingVideo} controls={false} loop={true} autoPlay={true} className=''/> */}
+        <div className="w-full sm:w-1/2 flex justify-center items-center sm:visible invisible">
+          {/* <Video src={cullingVideo} controls={false} loop={true} autoPlay={true} className='' /> */}
         </div>
       </section>
 
+
       {/* body section */}
-      <section className='flex flex-col space-y-32 p-24'>
-        <div className='flex flex-col items-center text-center space-y-10'>
+      <section className='flex flex-col space-y-16 sm:space-y-32 p-0 sm:p-24 '>
+        <div className='flex flex-col items-center text-center space-y-5 sm:pace-y-10'>
           <RevealYAxis className='w-full'>
             <div className="flex items-center text-center">
               
@@ -60,7 +60,7 @@ const CullingHome =()=> {
               <div className="flex-grow h-[2.5px] rounded-full bg-gradient-to-l from-headingtext to-white mx-2"></div>
 
               {/* Text */}
-              <Label className='text-4xl uppercase font-semibold text-headingtext px-4'>
+              <Label className='text-2xl xl:text-4xl lg:text-4xl md:text-4xl uppercase font-semibold text-headingtext px-4'>
                 Elevate Your Post-Processing Workflow
               </Label>
 
@@ -69,17 +69,15 @@ const CullingHome =()=> {
             </div>
           </RevealYAxis>
 
-          <RevealYAxis className='w-[35rem]'>
-            <Label className='text-xl'>
+          <RevealYAxis className='flex w-auto sm:w-[32rem]'>
+            <Label className='text-sm sm:text-xl'>
               Smart Cull will help you speed up and simplify every step of the process—importing, culling, and exporting. Get your time back and use it to focus on important things.
             </Label>
           </RevealYAxis>
         </div>
 
-
-
         {/* steps how to perform culling */}
-        <div className='flex flex-col mt-32'>
+        <div className='flex flex-col mt-0 sm:mt-32 '>
           {cullingStepsData.map((stepData:cullingStepsDataProps, index) => (
             <HowToCullSteps
               index={index}
@@ -92,14 +90,14 @@ const CullingHome =()=> {
         </div>
 
         {/* slider carousal */}
-        <div className='flex flex-col justify-center space-y-28'>
+        <div className='flex flex-col justify-center space-y-16'>
           <RevealYAxis className='text-center'>
             <div className="flex items-center justify-center"> {/* Removed extra space between elements */}
               {/* Line before text */}
               <div className="flex-grow h-[2.5px] rounded-full bg-gradient-to-l from-headingtext to-white hidden sm:block"></div>
 
               {/* Text */}
-              <Label className='text-4xl uppercase font-semibold text-headingtext px-4 w-fit'> {/* Added px-4 for padding around text */}
+              <Label className='text-2xl xl:text-4xl lg:text-4xl md:text-4xl uppercase font-semibold text-headingtext px-4 w-fit'> {/* Added px-4 for padding around text */}
                 Simple, quick, and packed <br /> with features you&#39;ll love
               </Label>
 
@@ -107,13 +105,14 @@ const CullingHome =()=> {
               <div className="flex-grow h-[2.5px] rounded-full bg-gradient-to-r from-headingtext to-white hidden sm:block"></div>
             </div>
           </RevealYAxis>
-          <DreamEventSlider
-            images={sliderImagesMetaData[2]}
-          />
+            {/* carousal */}
+            <DreamEventSlider
+              images={sliderImagesMetaData[2]}
+            />
         </div>
 
         {/* trusted by most of photographer marquee */}
-        <div className='flex flex-col space-y-28 overflow-hidden'>
+        <div className='flex flex-col space-y-10 sm:space-y-28 overflow-hidden'>
 
           <RevealYAxis className='text-center'>
             <div className="flex items-center justify-center">
@@ -121,7 +120,7 @@ const CullingHome =()=> {
               <div className="flex-grow h-[2.5px] rounded-full bg-gradient-to-l from-headingtext to-white hidden sm:block"></div>
 
               {/* Text */}
-              <Label className='text-4xl uppercase font-semibold text-headingtext px-4 w-fit'> {/* Added px-4 for padding around text */}
+              <Label className='text-2xl xl:text-4xl lg:text-4xl md:text-4xl uppercase font-semibold text-headingtext px-4 w-fit'> {/* Added px-4 for padding around text */}
                 Trusted by most of photographer
               </Label>
 

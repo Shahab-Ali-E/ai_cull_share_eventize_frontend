@@ -17,7 +17,7 @@ export default function ShiningButton({ label, href, className }: ShiningButtonP
         className
       )}
     >
-      <div className="relative flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-tl from-[#6095eb] from-30% to-[#F2B3C2] font-bold text-white xl:text-xl xl:px-7 xl:py-4 lg:text-xl lg:px-6 lg:py-4 md:text-lg md:px-5 md:py-3 sm:text-base">
+      <div className="relative flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-tl from-[#6095eb] from-30% to-[#F2B3C2] font-bold text-white sm:text-sm sm:px-4 sm:py-2 md:text-base md:px-5 md:py-3 lg:text-lg lg:px-6 lg:py-4 xl:text-xl xl:px-7 xl:py-4">
         {label}
         <ArrowRight className="transition-all group-hover:translate-x-2 group-hover:scale-125" />
         <div

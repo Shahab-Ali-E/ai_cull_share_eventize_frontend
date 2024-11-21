@@ -26,7 +26,7 @@ function SortByDropDown() {
         { label: 'A - Z', onClick: () => handleSortBy('asc', 'name')},
         { label: 'Z - A', onClick: () => handleSortBy('desc', 'name') },
         { label: 'Date', onClick: () => handleSortBy('desc', 'created_at')},
-        { label: 'Larg Size', onClick: () => handleSortBy('asc', 'size')},
+        { label: 'Large Size', onClick: () => handleSortBy('asc', 'size')},
         { label: 'Small Size', onClick: () => handleSortBy('desc', 'size')},
     ];
     

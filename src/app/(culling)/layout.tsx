@@ -33,14 +33,14 @@ function CullingLayout({ children }: { children: React.ReactNode }) {
   // console.log(pictureURL)
 
   return (
-    <div className="flex flex-col bg-secondary">
+    <section className="flex flex-col bg-primary-foreground">
       <CullingDashboardHeader 
         profileImage={profileImageUrl}
         userEmail={cleanedEmail}
         profileFallBack={fallBack}
       />
       <div>{children}</div>
-    </div>
+    </section>
   );
 }
 

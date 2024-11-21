@@ -14,6 +14,8 @@ import uploaddIcon from '@/images/icons/upload_icon_svg.svg';
 import { MdDeleteSweep } from "react-icons/md";
 import { FcAddImage } from 'react-icons/fc';
 import useCullingStore from '@/zustand/CullingStore';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
 
 interface DropZoneProps {
     className?: string;
@@ -21,7 +23,7 @@ interface DropZoneProps {
     rejected: FileRejection[];
     setFiles: (files: FileWithPreview[] | ((prevFiles: FileWithPreview[]) => FileWithPreview[])) => void;
     setRejected: (rejectedFiles: FileRejection[] | ((prevRejected: FileRejection[]) => FileRejection[])) => void;
-    workSpaceName:string;
+    workSpaceId:string;
 }
 
 export interface FileWithPreview extends File {
@@ -32,17 +34,21 @@ export interface FileWithPreview extends File {
 function DropZone({
     className,
     files,
-    rejected,
+    // rejected,
     setFiles,
     setRejected,
-    workSpaceName
+    workSpaceId
 }: DropZoneProps) {
 
     const {handleUploadImages} = useCullingStore(); //zustand store for to get uplaodImage function
-    
     const [showAlert, setShowAlert] = useState(false); // Control the alert visibility
-
     const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
+
+    const router = useRouter();
+    const isFirst = useRef(true);
+    const pathname = usePathname();
+    const searchParams = useSearchParams();
+
 
     // This function will trigger when the user drops a file on it
     const onDrop = (acceptedFiles: FileWithPreview[], rejectedFiles: FileRejection[]) => {
@@ -64,16 +70,29 @@ function DropZone({
         }
     };
 
-
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: { 'image/*': [] },
         onDrop,
     } as DropzoneOptions);
 
+    // clean the uplaoded files when user go back to dashbaord
+    useEffect(() => {
+        if (isFirst.current) {
+            isFirst.current = false;
+            return;
+        }
+        // This will run on route changes, but not on the initial mount as you wanted
+        return(()=>{
+            setFiles([])
+            setRejected([])
+        })
+    }, [pathname, searchParams]);
+
     // Clean up object URLs on component unmount
     useEffect(() => {
+        console.log("files",files)
         return () => {
-        files.forEach((file) => URL.revokeObjectURL(file.preview));
+            files.forEach((file) => URL.revokeObjectURL(file.preview));
         };
     }, [files]);
 
@@ -102,6 +121,12 @@ function DropZone({
     const truncateFileName = (name: string, maxLength: number): string => {
         return name.length > maxLength ? name.slice(0, maxLength) + '...' : name;
     };
+
+    // for handling uploading images
+    const handleUploadImagesToServer = ({workSpaceId}:{workSpaceId:string})=>{
+        handleUploadImages({ workSpaceId: workSpaceId });
+        router.refresh();
+    }
 
     return (
         <form className={className}>
@@ -136,11 +161,13 @@ function DropZone({
                 <AlertUploadImage 
                     isOpen={showAlert} 
                     onPreview={handlePreview} 
-                    onUploadToServer={()=>handleUploadImages({workSpaceName:workSpaceName})}
+                    onUploadToServer={()=>handleUploadImagesToServer({workSpaceId:workSpaceId})}
                 />
 
+                {/* show warning toast */}
+
                 {/* File preview section */}
-                <div className="flex gap-4">
+                <div className="flex flex-row-reverse gap-4">
                     <Button
                         type="button"
                         className="px-7 py-5 gap-x-2 text-base font-medium transform transition-transform duration-300 hover:scale-105"
@@ -166,30 +193,30 @@ function DropZone({
                 <h3 className="title text-lg font-semibold text-primary mt-10 border-b pb-3">
                     Images Preview
                 </h3>
-                <ul className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-12">
+                <ul className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3">
                     {files.map((file) => (
-                    <li
-                        key={file.id}
-                        className="relative h-48 w-52 xl:h-56 xl:w-60 lg:h-56 lg:w-60 md:h-52 md:w-60 rounded-lg shadow-md overflow-hidden group"
-                    >
-                        <Image
-                            src={file.preview}
-                            alt={file.name}
-                            width={192}
-                            height={192}
-                            className="h-full w-full object-cover"
-                        />
-                    <button
-                            type="button"
-                            className="w-8 h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white hover:scale-110 transition-all ease-in-out z-20"
-                            onClick={() => removeFile(file.id)}
+                        <li
+                            key={file.id}
+                            className="relative rounded-sm shadow-md overflow-hidden group"
                         >
-                            <IoCloseCircle className="w-8 h-8 text-red-600" />
-                        </button>
-                        <p className="absolute inset-0 flex items-center justify-center text-white text-base font-medium opacity-0 group-hover:opacity-100 bg-opacity-40 bg-black rounded-lg">
-                            {truncateFileName(file.name, 15)}
-                        </p>
-                    </li>
+                            <Image
+                                src={file.preview}
+                                alt={file.name}
+                                width={300}
+                                height={300}
+                                className="object-cover h-64 w-[600px]"
+                            />
+                            <button
+                                type="button"
+                                className="w-8 h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white hover:scale-110 transition-all ease-in-out z-20"
+                                onClick={() => removeFile(file.id)}
+                            >
+                                <IoCloseCircle className="w-8 h-8 text-red-600" />
+                            </button>
+                            <p className="absolute inset-0 flex items-center justify-center text-white text-base font-medium opacity-0 group-hover:opacity-100 bg-opacity-40 bg-black rounded-lg">
+                                {truncateFileName(file.name, 15)}
+                            </p>
+                        </li>
                     ))}
                 </ul>
             </section>

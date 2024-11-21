@@ -7,11 +7,11 @@ import UserProfileDropDown, { UserProfileDropDownProps } from '@/components/user
 function CullingDashboardHeader({ profileImage, userEmail, profileFallBack = "" }: UserProfileDropDownProps) {
 
   return (
-    <div className='flex items-center justify-between p-1 shadow-md shadow-gray-400 dark:shadow-black bg-secondary'>  
+    <div className='flex items-center justify-between p-1 shadow-md shadow-gray-300 dark:shadow-card bg-inherit'>  
       
       {/* Website logo */}
       <div className='flex items-center'>
-        <Image src={logo} alt='logo-here' height={30} width={100} />
+        <Image src={logo} alt='logo-here' height={28} width={68} />
       </div>
 
       {/* User icons and other elements */}
