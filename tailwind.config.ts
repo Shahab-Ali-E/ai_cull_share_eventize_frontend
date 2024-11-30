@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 
+
 const config: Config = {
     darkMode: ["class"],
     content: [
@@ -9,6 +10,11 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		fontFamily: {
+			mclawsui: ['mclawsui-macdonald','mclawsui'],
+			SpeedeeBold: ['Speedee-Bold-macdonald','Speedee-Bold'],
+			BebasNeueRegular: ['BebasNeue-Regular','BebasNeue-Regular']
+		},
 		boxShadow: {
 			glow: "0 0 20px rgba(255, 204, 112, 0.7), 0 0 40px rgba(200, 80, 192, 0.5), 0 0 60px rgba(65, 88, 208, 0.3)",
 			glow2:"0 0 20px rgba(50, 255, 50, 0.7), 0 0 40px rgba(20, 200, 20, 0.5), 0 0 60px rgba(5, 150, 5, 0.3)",
@@ -59,6 +65,7 @@ const config: Config = {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
 			headingtext: 'hsl(var(--heading-text))',
+			redishtext: 'hsl(var(--redish-text))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
   				foreground: 'hsl(var(--card-foreground))'

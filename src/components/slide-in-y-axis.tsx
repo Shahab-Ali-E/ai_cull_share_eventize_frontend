@@ -6,9 +6,10 @@ import React, { useEffect, useRef } from 'react';
 interface RevealXAxisProps {
   children: React.JSX.Element;
   className?: string;
+  placeHolderColor?:string;
 }
 
-function RevealYAxis({ children, className }: RevealXAxisProps) {
+function RevealYAxis({ children, className, placeHolderColor="#00B8B8" }: RevealXAxisProps) {
     //hooks
     const ref = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref);
@@ -48,14 +49,14 @@ function RevealYAxis({ children, className }: RevealXAxisProps) {
             initial="hidden"
             animate={slidePlaceHolder}
             transition={{ duration: 0.5, ease: "easeIn" }} 
-            className='bg-headingtext'
             style={{
-            position: "absolute",
-            top: 4,
-            bottom: 4,
-            left: 0,
-            right: 0,
-            zIndex: 20,
+                backgroundColor:placeHolderColor,
+                position: "absolute",
+                top: 4,
+                bottom: 4,
+                left: 0,
+                right: 0,
+                zIndex: 20,
             }}
         />
     </div>

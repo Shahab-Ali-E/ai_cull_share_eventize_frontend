@@ -16,6 +16,8 @@ export const PersonalInformationSchema = z.object({
     .min(10, { message: "Phone number must be at least 10 digits" })
     .max(14, { message: "Phone number must not exceed 14 digits" })
 });
+// type of personal information schema
+export type PersonalInformationType  = z.infer<typeof PersonalInformationSchema>
 
 // Step 2 schema for event details
 export const EventDetailsSchema = z.object({
@@ -35,55 +37,50 @@ export const EventDetailsSchema = z.object({
     .max(4000, { message: "Guests must not exceed 4000" }),
   budget: z
     .number()
-    .min(5, { message: "Budget must be at least 10k" })
-    .max(50, { message: "Budget must not exceed 50M" }),
-  specifyEventType: z
-    .string()
-    .max(200, { message: "Specify event type must not exceed 200 characters" })
-    .optional(),
+    .min(10000, { message: "Budget must be at least 10k" })
+    .max(100000000, { message: "Budget must not exceed 100M" }),
 });
+// type of Event Details schema
+export type EventDetailsSchemaType  = z.infer<typeof EventDetailsSchema>
 
 // Step 3 schema for destination
 export const DestinationDetailSchema = z.object({
   selectCountry: z
     .string()
-    .min(2, { message: "Country must be at least 2 characters long" })
+    .min(2, { message: "Country must be selected" })
     .max(100, { message: "Country must not exceed 100 characters" }),
-  preferredDestination: z
+  city: z
     .string()
-    .min(3, { message: "Preferred destination must be at least 3 characters long" })
+    .min(3, { message: "city must be selected" })
     .max(100, { message: "Preferred destination must not exceed 100 characters" }),
-  alternativePreferredDestination: z
+  alternativeCity: z
     .string()
-    .min(3, { message: "Alternative preferred destination must be at least 3 characters long" })
-    .max(100, { message: "Alternative preferred destination must not exceed 100 characters" }),
+    .optional(),
 });
+// type of Destination Detail schema
+export type DestinationDetailType  = z.infer<typeof DestinationDetailSchema>
+
 
 // Step 4: Additional Information
 export const AdditionalInformationSchema = z.object({
+  portFolio: z.
+  string({message:"portFolio must be selected"}).max(50,{message:"portFolio must be selected"}).optional(),
   specialRequirements: z
-    .string()
-    .max(500, { message: "Special requirements must not exceed 500 characters" })
-    .optional(),
-  uploadFiles: z
-    .array(
-      z.object({
-        name: z.string(), // File name
-        size: z.number().max(5 * 1024 * 1024, { message: "File size must not exceed 5MB" }),
-        type: z.enum(["image/png", "image/jpeg", "application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"], {
-          message: "File must be an image, PDF, or Word document",
-        }),
-      })
-    )
-    .optional(),
+  .string()
+  .max(500, { message: "Special requirements must not exceed 500 characters" })
+  .optional(),
 });
+// type of Additional Information schema
+export type AdditionalInformationType  = z.infer<typeof AdditionalInformationSchema>
 
 // Step 5: Review and Submit
 export const ReviewAndSubmitSchema = z.object({
   summary: z
-    .string()
-    .min(20,{ message: "Summary cannot be empty" }),
+  .string()
+  .min(20,{ message: "Summary cannot be empty" }),
   consent: z
-    .boolean()
-    .refine((value) => value === true, { message: "You must confirm that the information is accurate" }), 
+  .boolean()
+  .refine((value) => value === true, { message: "You must confirm that the information is accurate" }), 
 });
+// type of Review And Submit schema
+export type ReviewAndSubmitType  = z.infer<typeof ReviewAndSubmitSchema>

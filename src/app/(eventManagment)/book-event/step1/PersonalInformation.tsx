@@ -7,34 +7,38 @@ import { PersonalInformationSchema } from "@/schemas/BookEvent";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import * as z from "zod";
-import SubmitButton from "@/components/bookevent/SubmitButton";
+import SubmitButton from "@/components/event-arrangment/bookevent/SubmitButton";
 import { Input } from "@/components/ui/input";
 import { PhoneInput } from "@/components/ui/phone-input";
-import StepDescription from "@/components/bookevent/StepDescription";
+import StepDescription from "@/components/event-arrangment/bookevent/StepDescription";
 import { useRouter } from "next/navigation";
+import type { PersonalInformationType } from "@/schemas/BookEvent";
+import useEventFormStore from "@/zustand/EventFormStore";
+import { cn } from "@/lib/utils";
 
 function PersonalInformation() {
-    const router = useRouter();
+  const router = useRouter();
+
+  // Using event form Zustand store
+  const { personalInformation, setPersonalInformation } = useEventFormStore();
+
   // Define your form
-  const personalInformationForm = useForm<z.infer<typeof PersonalInformationSchema>>({
+  const personalInformationForm = useForm<PersonalInformationType>({
+    mode: "onBlur",
     resolver: zodResolver(PersonalInformationSchema),
-    defaultValues: {
-      fullName: "",
-      email: "",
-      phone: "",
-    },
+    defaultValues: { ...personalInformation },
   });
 
-  // Define a submit handler.
-  function onSubmit(data: z.infer<typeof PersonalInformationSchema>) {
-    console.log("Form submitted with data:", data);
-    router.push('/book-event/step2')
+  // Define a submit handler
+  function onSubmit(submittedData: PersonalInformationType) {
+    setPersonalInformation({ ...personalInformation, ...submittedData });
+    router.push("/book-event/step2");
   }
 
   return (
@@ -45,27 +49,38 @@ function PersonalInformation() {
       >
         {/* Description */}
         <StepDescription
-          heading="Personal information"
-          description="Please provide your name, email address, and phone number."
+          heading="Personal Information"
+          description="Please provide accurate personal details to help us coordinate effectively."
+          className="mb-11"
         />
 
         {/* Form Fields */}
         <div className="flex flex-col space-y-6">
-          {/* Full name */}
+          {/* Full Name */}
           <FormField
             control={personalInformationForm.control}
             name="fullName"
-            render={({ field }) => (
+            render={({ field, fieldState: { error } }) => (
               <FormItem>
-                <FormLabel className="text-primary">Full Name</FormLabel>
+                <FormLabel className="flex text-primary justify-between">
+                  Full Name
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="e.g. John Doe"
-                    className="flex flex-grow border border-primary text-primary rounded-sm"
+                    className={cn(
+                      "flex flex-grow border text-primary rounded-sm",
+                      error ? "border-destructive" : "border-muted-foreground"
+                    )}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormDescription>
+                  Provide your complete name as it appears on official documents.
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -74,17 +89,27 @@ function PersonalInformation() {
           <FormField
             control={personalInformationForm.control}
             name="email"
-            render={({ field }) => (
+            render={({ field, fieldState: { error } }) => (
               <FormItem>
-                <FormLabel className="text-primary">Email</FormLabel>
+                <FormLabel className="flex text-primary justify-between">
+                  Email
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
                 <FormControl>
                   <Input
                     placeholder="e.g. JohnDoe@gmail.com"
-                    className="w-full border border-primary text-primary rounded-sm"
+                    className={cn(
+                      "w-full border text-primary rounded-sm",
+                      error ? "border-destructive" : "border-muted-foreground"
+                    )}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormDescription>
+                  Enter a valid email address for event-related updates and communication.
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -93,18 +118,28 @@ function PersonalInformation() {
           <FormField
             control={personalInformationForm.control}
             name="phone"
-            render={({ field }) => (
+            render={({ field, fieldState: { error } }) => (
               <FormItem>
-                <FormLabel className="text-primary">Phone</FormLabel>
+                <FormLabel className="flex text-primary justify-between">
+                  Phone
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
                 <FormControl>
                   <PhoneInput
                     defaultCountry="PK"
                     placeholder="e.g. 31232193120"
-                    className="w-full text-primary border border-primary rounded-sm"
+                    className={cn(
+                      "w-full text-primary border rounded-sm",
+                      error ? "border-destructive" : "border-muted-foreground"
+                    )}
                     {...field}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormDescription>
+                  Provide an active phone number where we can reach you if needed.
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -112,7 +147,7 @@ function PersonalInformation() {
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <SubmitButton text="Next Step" />
+          <SubmitButton text="Next" />
         </div>
       </form>
     </Form>

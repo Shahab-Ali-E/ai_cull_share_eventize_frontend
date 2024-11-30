@@ -14,69 +14,78 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import * as z from "zod";
-import SubmitButton from "@/components/bookevent/SubmitButton";
-import StepDescription from "@/components/bookevent/StepDescription";
-import EventComboxBox from "@/components/bookevent/EventComboBox";
+import SubmitButton from "@/components/event-arrangment/bookevent/SubmitButton";
+import StepDescription from "@/components/event-arrangment/bookevent/StepDescription";
+import EventComboxBox from "@/components/event-arrangment/bookevent/EventComboBox";
 import { EventTypes } from "./Data";
 import { Textarea } from "@/components/ui/textarea";
-import {Input} from "@/components/ui/input";
-import { CalendarIcon } from "lucide-react"
-import { Calendar } from "@/components/ui/calendar"
+import { Input } from "@/components/ui/input";
+import { CalendarIcon } from "lucide-react";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import BackButton from "@/components/bookevent/BackButton";
+import BackButton from "@/components/event-arrangment/bookevent/BackButton";
 import { useRouter } from "next/navigation";
+import type { EventDetailsSchemaType } from "@/schemas/BookEvent";
+import useEventFormStore from "@/zustand/EventFormStore";
+import { cn } from "@/lib/utils";
 
 function EventDetails() {
   const router = useRouter();
+
+  // Zustand store
+  const { eventInformation, setEventInformation } = useEventFormStore();
+
   // Define your form
-  const EventDetailForm = useForm<z.infer<typeof EventDetailsSchema>>({
+  const eventDetailForm = useForm<EventDetailsSchemaType>({
+    mode: "onBlur",
     resolver: zodResolver(EventDetailsSchema),
-    defaultValues: {
-      budget:0,
-      eventType:'',
-      numberOfGuests:0,
-      specifyEventType:'',
-      eventDate:undefined,
-      eventTypeDescription:'',
-    },
+    defaultValues: { ...eventInformation },
   });
 
-  // Watch the eventType field
-  const eventType = EventDetailForm.watch("eventType");
-
-  // Define a submit handler.
-  function onSubmit(data: z.infer<typeof EventDetailsSchema>) {
-    console.log("Form submitted with data of step 2", data);
-    router.push('/book-event/step3')
+  // Define a submit handler
+  function onSubmit(submittedData: EventDetailsSchemaType) {
+    setEventInformation({
+      ...eventInformation,
+      ...submittedData,
+      eventDescription: submittedData.eventTypeDescription,
+    });
+    router.push("/book-event/step3");
   }
 
+  const eventType = eventDetailForm.watch("eventType");
+
   return (
-    <Form {...EventDetailForm}>
+    <Form {...eventDetailForm}>
       <form
-        className="flex flex-col w-full space-y-14"
-        onSubmit={EventDetailForm.handleSubmit(onSubmit)}
+        onSubmit={eventDetailForm.handleSubmit(onSubmit)}
+        className="flex flex-col w-full justify-between"
       >
         {/* Description */}
         <StepDescription
           heading="Event Information"
-          description="Please provide your name, email address, and phone number."
+          description="Please provide your event details below."
+          className="mb-12"
         />
 
         {/* Form Fields */}
         <div className="flex flex-col space-y-6">
           {/* Event Type */}
           <FormField
-            control={EventDetailForm.control}
+            control={eventDetailForm.control}
             name="eventType"
-            render={({ field }) => (
+            render={({ field, fieldState: { error } }) => (
               <FormItem>
-                <FormLabel className="text-primary">Event Type</FormLabel>
+                <FormLabel className="flex text-primary justify-between">
+                  Event Type
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
                 <FormControl>
                   <EventComboxBox
                     data={EventTypes}
@@ -85,135 +94,175 @@ function EventDetails() {
                     setValue={field.onChange}
                   />
                 </FormControl>
-                <FormMessage />
+                <FormDescription>
+                  Please select the type of event you are organizing, such as a wedding, corporate gathering, or other specific events.
+                </FormDescription>
               </FormItem>
             )}
           />
 
-          {/* event description */}
-          {
-            eventType === 'other' ?
-            (
-              <FormField
-                control={EventDetailForm.control}
-                name="eventTypeDescription"
-                render={({ field }) => (
-                  <FormItem className="ease-in-out transition-all duration-300">
-                    <FormLabel className="text-primary">Event type detail</FormLabel>
-                      <FormControl>
-                        <Textarea 
-                          placeholder="Tell us a bit about event you want"
-                          className="border border-muted-foreground resize-none text-primary"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
-                      </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            )
-            :
-            null
-          }
+          {/* Event Type Description */}
+          {eventType === "other" && (
+            <FormField
+              control={eventDetailForm.control}
+              name="eventTypeDescription"
+              render={({ field, fieldState: { error } }) => (
+                <FormItem>
+                  <FormLabel className="flex text-primary justify-between">
+                    Event Type Detail
+                    <FormMessage className="text-destructive">
+                      {error?.message}
+                    </FormMessage>
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Tell us a bit about the event you want"
+                      className={cn(
+                        "resize-none border text-primary rounded-sm",
+                        error ? "border-destructive" : "border-muted-foreground"
+                      )}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Provide additional details about your event if the listed types do not fully describe it.
+                  </FormDescription>
+                </FormItem>
+              )}
+            />
+          )}
 
-          {/* event date */}
+          {/* Event Date */}
           <FormField
-            control={EventDetailForm.control}
+            control={eventDetailForm.control}
             name="eventDate"
-            render={({ field }) => (
-              <FormItem className="flex flex-col">
-                <FormLabel className="text-primary">Event date</FormLabel>
+            render={({ field, fieldState: { error } }) => (
+              <FormItem>
+                <FormLabel className="flex text-primary justify-between">
+                  Event Date
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
                       <Button
-                        variant={"outline"}
-                        className={`
-                          w-full border border-muted-foreground bg-primary-foreground text-primary p-5 rounded-sm text-left font-normal
-                          ${!field.value && "text-muted-foreground"}
-                        `}
+                        variant="outline"
+                        className={cn(
+                          "w-full border text-primary bg-muted rounded-sm flex justify-between items-center p-5",
+                          error ? "border-destructive" : "border-muted-foreground"
+                        )}
                       >
                         {field.value ? (
                           format(field.value, "PPP")
                         ) : (
-                          <span>Pick a date</span>
+                          <span className="text-muted-foreground">Pick a date</span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-primary-foreground" align="start">
+                  <PopoverContent className="w-auto p-0 bg-primary-foreground">
                     <Calendar
                       mode="single"
+                      initialFocus
+                      disabled={(date)=>{
+                        const todayDate = new Date;
+
+                        // selecting upcoming 10
+                        const tenDayAhead = new Date();
+                        tenDayAhead.setDate(todayDate.getDate()+10);
+
+                        // disable it for dates less then today date and upcoming 10 days
+                        return date < todayDate || date < tenDayAhead;
+                      }}
                       selected={field.value}
                       onSelect={field.onChange}
-                      initialFocus
                     />
                   </PopoverContent>
                 </Popover>
                 <FormDescription>
-                  select event date on which date you want to occur your event.
+                  Select the date on which the event will take place. Ensure the date aligns with your availability and planning schedule.
                 </FormDescription>
-                <FormMessage />
               </FormItem>
             )}
           />
 
           {/* Number of Guests */}
           <FormField
-            control={EventDetailForm.control}
-            name="numberOfGuests"
-            render={({ field }) => (
+            control={eventDetailForm.control}
+            name="numberOfGuests" // Make sure this matches the Zustand property
+            render={({ field, fieldState: { error } }) => (
               <FormItem>
-                <FormLabel className="text-primary">Number of Guests</FormLabel>
+                <FormLabel className="flex text-primary justify-between">
+                  Number of Guests
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
                 <FormControl>
-                 <Input
+                  <Input
                     type="number"
                     min={20}
                     max={4000}
-                    placeholder="e.g. 20 - 4000"
-                    className="flex flex-grow border border-primary text-primary rounded-sm"
+                    placeholder="e.g., 20 - 4000"
+                    className={cn(
+                      "flex-grow border text-primary rounded-sm",
+                      error ? "border-destructive" : "border-muted-foreground"
+                    )}
                     {...field}
+                    onChange={(e)=>
+                      field.onChange(parseInt(e.target.value || "20"))
+                    }
                   />
                 </FormControl>
                 <FormDescription>
-                  estimated number of guests in your event
+                  Enter the estimated number of attendees for your event. This helps in better planning and resource allocation.
                 </FormDescription>
-                <FormMessage />
               </FormItem>
             )}
           />
 
           {/* Budget */}
           <FormField
-            control={EventDetailForm.control}
+            control={eventDetailForm.control}
             name="budget"
-            render={({ field }) => (
+            render={({ field, fieldState: { error } }) => (
               <FormItem>
-                <FormLabel className="text-primary">Budget</FormLabel>
-                  <FormControl>
+                <FormLabel className="flex text-primary justify-between">
+                  Budget
+                  <FormMessage className="text-destructive">
+                    {error?.message}
+                  </FormMessage>
+                </FormLabel>
+                <FormControl>
                   <Input
-                      type="number"
-                      min={0}
-                      placeholder="e.g. 100000"
-                      className="flex flex-grow border border-primary text-primary rounded-sm"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    enter the estimated budget of your event
-                  </FormDescription>
-                <FormMessage />
+                    min={10000}
+                    type="number"
+                    placeholder="e.g., 100000"
+                    className={cn(
+                      "flex-grow border text-primary rounded-sm",
+                      error ? "border-destructive" : "border-muted-foreground"
+                    )}
+                    {...field}
+                    onChange={(e) =>
+                      field.onChange(parseInt(e.target.value || "10000"))
+                    }
+                  />
+                </FormControl>
+                <FormDescription>
+                  Specify your estimated budget for the event. This helps in tailoring services to your financial plan.
+                </FormDescription>
               </FormItem>
             )}
           />
         </div>
 
-        {/* Submit Button */}
+        {/* Submit and Back Buttons */}
         <div className="flex justify-between">
           <BackButton />
-          <SubmitButton text="Next Step" />
+          <SubmitButton text="Next" />
         </div>
       </form>
     </Form>

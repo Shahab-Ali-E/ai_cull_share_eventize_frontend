@@ -23,7 +23,8 @@ function WorkSpaceBeforeCullHeader({showCullingButton }: {showCullingButton: boo
   const { files, uploadedImagesS3Urls, isImagesUploading, handleUploadImages, setCullingTaskIds, currentActiveWorkSpaceData } = useCullingStore();
 
   const filesPresentNoUrls = files.length > 0 && uploadedImagesS3Urls?.length === 0;
-  const noFilesUrlsPresent = files.length === 0 && uploadedImagesS3Urls?.length > 0;
+
+  console.log("show culling button",showCullingButton)
 
   // for getting all 4 task id's from the id which we will get culling was started
   useEffect(() => {
@@ -144,7 +145,7 @@ function WorkSpaceBeforeCullHeader({showCullingButton }: {showCullingButton: boo
             </GradientButton>
           )}
 
-          {(noFilesUrlsPresent || showCullingButton) && (
+          {showCullingButton && (
             <GradientButton 
               className='xl:w-48 lg:w-44 md:w-40'
               onClick={() => handleStartCulling()}

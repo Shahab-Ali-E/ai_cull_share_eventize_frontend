@@ -2,8 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import { Label } from '@/components/ui/label';
 import yellow_under_lines from '@/images/icons/Yellow_under_line.png';
-import { cullingStepsDataProps } from '@/utils/howToStartCullingGuide';
 import RevealXAxis from '../slide-in-x-axis';
+import { cullingStepsDataProps } from '@/@types/Types';
 
 interface HowToCullStepsProps extends cullingStepsDataProps {
   index: number;

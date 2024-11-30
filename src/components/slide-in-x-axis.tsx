@@ -27,7 +27,7 @@ function RevealXAxis({ children, className, direction = 'left' }: RevealXAxisPro
         x,
         opacity
       }}
-      className={`${className} transition-all`} // Increased duration for smoother animation
+      className={`${className} transition-all`}
     >
       {children}
     </motion.div>

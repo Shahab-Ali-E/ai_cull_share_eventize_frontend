@@ -1,6 +1,6 @@
 export const EventTypes = [
     {
-      value: "Birthday",
+      value: "birthday",
       label: "Birthday",
     },
     {
@@ -12,12 +12,8 @@ export const EventTypes = [
       label: "Corporate",
     },
     {
-      value: "concert",
-      label: "Concert",
-    },
-    {
       value: "other",
       label: "Other...",
-    },
+    }
 ]
   

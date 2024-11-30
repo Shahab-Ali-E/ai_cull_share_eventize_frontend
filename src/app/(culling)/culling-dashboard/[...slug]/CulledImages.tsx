@@ -5,10 +5,10 @@ import Image from 'next/image';
 import React from 'react';
 
 // images
-import blur_image from '@/images/detect_blur.jpg';
+import blur_image from '@/images/blur_image_after_cull.jpg';
 import closed_eye_image from '@/images/closed_eyes.jpg';
-import duplicate_image from '@/images/closed_eyes.jpg';
-import fine_collection from '@/images/closed_eyes.jpg';
+import duplicate_image from '@/images/duplicate_after_cull.jpg';
+import fine_collection from '@/images/fine_after_cull.jpg';
 import useCullingStore from '@/zustand/CullingStore';
 
 function CulledImages() {

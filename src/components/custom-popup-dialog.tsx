@@ -21,6 +21,7 @@ interface CustomPopupDialogProps {
   title: string;
   isLoading?: boolean;
   loadingText?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onConfirm: () => Promise<{error:any; success:undefined} | { success: boolean; error?: undefined; }>;
 }
 

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev -H 127.0.0.1 -p 3000",
+    "clean-build": "rm -rf .next && npm run build",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -32,7 +33,7 @@
     "cmdk": "^1.0.0",
     "date-fns": "^4.1.0",
     "embla-carousel-autoplay": "^8.3.0",
-    "embla-carousel-react": "^8.4.0",
+    "embla-carousel-react": "^8.5.1",
     "framer-motion": "^11.7.0",
     "imagekitio-next": "^1.0.0",
     "lottie-react": "^2.4.0",

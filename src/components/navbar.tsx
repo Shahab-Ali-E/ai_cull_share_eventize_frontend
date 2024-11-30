@@ -62,9 +62,9 @@ export default function Navbar({fixed=false}:NavbarProps) {
                     Home
                 </Link>
                 <Link
-                    href="/services"
+                    href="/event-arrangment"
                     className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-                        isActive("/services") ? "bg-muted rounded-full" : ""
+                        isActive("/event-arrangment") ? "bg-muted rounded-full" : ""
                     }`}
                     prefetch={false}
                 >
@@ -144,16 +144,16 @@ export default function Navbar({fixed=false}:NavbarProps) {
                             }`}
                             prefetch={false}
                         >
-                            About
+                            Event Arrangment
                         </Link>
                         <Link
-                            href="/services"
+                            href="/event-arrangment"
                             className={`text-lg font-medium hover:underline underline-offset-4 ${
-                                isActive("/services") ? "underline" : ""
+                                isActive("/event-arrangment") ? "underline" : ""
                             }`}
                             prefetch={false}
                         >
-                            Services
+                            Culling
                         </Link>
                         <Link
                             href="/portfolio"
@@ -162,7 +162,7 @@ export default function Navbar({fixed=false}:NavbarProps) {
                             }`}
                             prefetch={false}
                         >
-                            Portfolio
+                            Smart Share
                         </Link>
                         <Link
                             href="/contact"

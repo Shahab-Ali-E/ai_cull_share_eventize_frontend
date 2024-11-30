@@ -68,6 +68,7 @@ body {
   :root {
     --background: 0 0% 100%;
     --heading-text: 180 100% 36%;
+    --redish-text: 359 100% 64%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
     --card-foreground: 240 10% 3.9%;
@@ -98,6 +99,7 @@ body {
   .dark {
     --background: 240 10% 3.9%;
     --heading-text:180 100% 36%;
+    --redish-text: 359 100% 64%;
     --foreground: 0 0% 98%;
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
@@ -125,6 +127,37 @@ body {
   }
 }
 
+@font-face {
+  font-family: 'mclawsui-macdonald';
+  src: url('./fonts/mclawsui.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Speedee-Bold-macdonald';
+  src: url('./fonts/Speedee-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'BebasNeue-Regular';
+  src: url('./fonts/BebasNeue-Regular.ttf') format('truetype');
+}
+
+/* animation for menu card */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.animate-fadeInOut {
+  animation: fadeInOut 3s ease-in-out infinite;
+}
 
 @layer base {
   * {

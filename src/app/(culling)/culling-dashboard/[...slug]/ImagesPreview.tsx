@@ -13,6 +13,8 @@ function ImagePreview({images }:{images:string}) {
           width={200}
           alt={`Image`}
           className="rounded-sm object-cover h-32 w-32 sm:h-64 sm:w-80"
+          quality={100}
+          unoptimized={true}
         />
       </div>
   );

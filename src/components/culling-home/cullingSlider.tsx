@@ -2,12 +2,12 @@
 import useEmblaCarousel from "embla-carousel-react";
 import React, { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
-import { sliderImages } from "@/utils/sliderImages";
+import { BaseDataType } from "@/@types/Types";
 import { FaArrowCircleLeft, FaArrowCircleRight } from "react-icons/fa";
 import { IconContext } from "react-icons/lib";
 import Autoplay from 'embla-carousel-autoplay'
 
-const CullingSlider = ({ images }: { images: sliderImages[] }) => {
+const CullingSlider = ({ images }: { images: BaseDataType[] }) => {
   const [emblaRef, emblaApi] = useEmblaCarousel({}, [Autoplay({ delay: 2000 })]);
   const [currentSlide, setCurrentSlide] = useState<number>(0);
 

@@ -43,10 +43,17 @@ function WorkSpacePage({ workSpaceData, error }: WorkSpacePageProps) {
   }, [workSpaceData, error, resetStateForNewWorkspace, setCurrentActiveWorkSpaceData, setUploadedImagesS3Urls, toast]);
 
   const hasImagesUploaded = currentActiveWorkSpaceData.temporary_images_urls.length !== 0;
-  
+  const showCullingButton =
+    !workSpaceData?.culling_done &&
+    !workSpaceData?.culling_in_progress &&
+    workSpaceData?.temporary_images_urls?.length !== 0;
+
   return (
     <section className="flex flex-col min-h-screen p-2">
-      <WorkSpaceBeforeCullHeader showCullingButton={hasImagesUploaded} />
+      <WorkSpaceBeforeCullHeader 
+        showCullingButton={showCullingButton} 
+      />
+      
       <div className="flex flex-col mt-10 p-5">
         {currentActiveWorkSpaceData.culling_done ? (
           <CulledImages />
@@ -54,10 +61,10 @@ function WorkSpacePage({ workSpaceData, error }: WorkSpacePageProps) {
           <StartCulling />
         ) : hasImagesUploaded ? (
           <>
-            <Label className='text-primary text-lg sm:text-2xl font-semibold'>Images Preview:</Label>
-            <div className="flex flex-wrap gap-3 mt-5">
+            <Label className='text-primary text-lg sm:text-2xl font-semibold '>Images Preview:</Label>
+            <div className="flex flex-wrap gap-3 mt-5 justify-center">
               {uploadedImagesS3Urls?.map((images, index) => (
-                <div key={index} className="flex justify-center">
+                <div key={index} className="flex">
                   <ImagePreview images={images}/> 
                 </div>
               ))}
