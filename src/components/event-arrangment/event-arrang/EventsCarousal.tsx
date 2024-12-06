@@ -36,7 +36,7 @@ function EventCarousal() {
 
   return (
     <div className="mx-auto w-[75%] sm:w-[70%]">
-      <Carousel setApi={setApi} className="w-full" plugins={[Autoplay({delay:2000, stopOnMouseEnter:true})]}>
+      <Carousel setApi={setApi} className="w-full" plugins={[Autoplay({delay:3000})]}>
         <CarouselContent>
           {eventArrangmentSliderImages.map((data, index) => (
             <CarouselItem key={index}>

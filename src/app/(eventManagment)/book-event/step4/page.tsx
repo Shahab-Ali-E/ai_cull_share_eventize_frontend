@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import AdditionalInformation from './AdditionalInformation'
+import FormSkeleton from '../loading'
 
 function Page() {
   return (
-    <AdditionalInformation />
+    <Suspense fallback={<FormSkeleton />}>
+      <AdditionalInformation />
+    </Suspense>
   )
 }
 

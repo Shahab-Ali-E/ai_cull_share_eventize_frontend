@@ -54,12 +54,17 @@ const config: Config = {
 				boxShadow: "0 0 30px 10px rgba(239, 68, 68, 1)",
 				},
 			},
+			sparkle: {
+				"0%, 100%": { opacity: "0.75", scale: "0.9" },
+				"50%": { opacity: "1", scale: "1" },
+			}
 		},
 		animation: {
 			progress: "progress 1s infinite linear",
 			"marquee-horizontal": "marquee-x var(--duration) infinite linear",
         	"marquee-vertical": "marquee-y var(--duration) linear infinite",
 			"blink-red": "blink-red 2s infinite linear",
+			sparkle: "sparkle 2s ease-in-out infinite",
 		},
   		colors: {
   			background: 'hsl(var(--background))',

@@ -23,6 +23,7 @@ class FatalError extends Error {}
 export const getTaskStatus = async ({ task_id }: getTaskStatusProps) => {
   if (typeof window !== 'undefined') {  // Ensures this is only run in the client-side
     try {
+      
       // Define the API URL
       const apiUrl = `${GET_TASK_STATUS}/${task_id}`;
 
@@ -30,10 +31,6 @@ export const getTaskStatus = async ({ task_id }: getTaskStatusProps) => {
       await fetchEventSource(apiUrl, {
         method: 'GET',
         credentials: 'include',
-        // headers: {
-        //   'Content-Type': 'text/event-stream',
-        //   'Cookie': cookieHeader 
-        // },
         onopen(response) {
           return new Promise<void>((resolve, reject) => {
             if (response.ok && response.headers.get('content-type') === 'text/event-stream') {

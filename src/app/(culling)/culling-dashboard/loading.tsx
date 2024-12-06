@@ -12,14 +12,19 @@ export default function Loading() {
 
             {/* Search Bar and Buttons Skeleton */}
             <div className="flex items-center w-full">
-            {/* Search Bar Skeleton */}
-            <Skeleton className="h-10 w-80 rounded-md" />
-            <div className='flex ml-auto space-x-4'>
-                {/* Sort By Dropdown Skeleton */}
-                <Skeleton className="h-11 w-24 rounded-md " />
-                {/* Create Workspace Button Skeleton */}
-                <Skeleton className="h-11 w-48 rounded-full hidden sm:block" />
-            </div>
+                {/* Search Bar Skeleton */}
+                <Skeleton className="h-10 w-80 rounded-md" />
+                <div className='flex items-end ml-auto space-x-4'>
+                    {/* storage usage skeleton */}
+                    <div className="flex flex-col space-y-2 justify-end items-end">
+                        <Skeleton className="h-2 w-96 rounded-full" />
+                        <Skeleton className="h-5 w-20 rounded-sm" />
+                    </div>
+                    {/* Sort By Dropdown Skeleton */}
+                    <Skeleton className="h-11 w-24 rounded-md " />
+                    {/* Create Workspace Button Skeleton */}
+                    <Skeleton className="h-11 w-48 rounded-full hidden sm:block" />
+                </div>
             </div>
             
             {/* Divider Line Skeleton */}

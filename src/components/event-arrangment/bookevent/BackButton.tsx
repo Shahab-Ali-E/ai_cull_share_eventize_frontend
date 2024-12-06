@@ -10,6 +10,7 @@ function BackButton() {
   const router  = useRouter();
   return (
     <Button
+      type='button'
       variant={"outline"}
       className="mt-10 flex space-x-3 rounded-sm border border-muted-foreground text-primary lg:py-5 lg:text-xl"
       onClick={()=>{router.back()}}

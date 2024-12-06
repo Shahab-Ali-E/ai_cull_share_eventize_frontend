@@ -1,27 +1,18 @@
 "use server";
 
-import { GET_CULLED_IMAGES } from "@/constants/ApiUrls";
+import { GET_USER_STORAGE_USED } from "@/constants/ApiUrls";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export interface CulledImagesMetadataResponse {
-  id: string; // UUID as string in the frontend
-  name: string;
-  file_type: string;
-  download_path: string;
-  link_validity: string; // ISO 8601 date string
+interface GetUserStorageResponseType{
+    message:string,
+    total_smart_culling_storage:number,
+    total_smart_culling_storage_used:string,
+    total_smart_share_storage:number,
+    total_smart_share_storage_used:string,
 }
 
-export const GetCulledImagesMetadata = async ({
-  workSpaceId,
-  detection_status,
-}: {
-  workSpaceId: string;
-  detection_status?: string;
-}): Promise<{
-  data: CulledImagesMetadataResponse[] | [];
-  error: string | null;
-}> => {
+export const GetUserStorage = async ():Promise<{data?:GetUserStorageResponseType; error?:string | null;}> => {
   try {
     // getting jwt token from clerk so that we can access backend resorces
     const { getToken } = await auth();
@@ -30,9 +21,8 @@ export const GetCulledImagesMetadata = async ({
       console.error("Failed to fetch Clerk token");
       redirect("/sign-in");
     }
-    const api_url = `${GET_CULLED_IMAGES}/${workSpaceId}/${detection_status}`;
 
-    const response = await fetch(api_url, {
+    const response = await fetch(GET_USER_STORAGE_USED, {
       method: "GET",
       credentials: "include",
       headers: {
@@ -48,16 +38,15 @@ export const GetCulledImagesMetadata = async ({
       redirect("/sign-in");
     } else if (response.status === 500 || !response.ok) {
       return {
-        data: [],
         error:
-          jsonResponse.detail ||
-          "An error occurred while fetching culled images metadata.",
-      };
+            jsonResponse.detail ||
+            "An error occurred while fetching culled images metadata.",
+        };
     } else {
       return { data: jsonResponse, error: null };
     }
   } catch (e) {
-    console.error("An error occurred while fetching the workspaces:", e);
-    return { data: [], error: "Failed to fetch culled images metadata" };
+        console.error("An error occurred while fetching the workspaces:", e);
+        return {error: "Failed to fetch culled images metadata" };
   }
 };

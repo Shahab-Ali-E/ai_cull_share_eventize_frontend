@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import PersonalInformation from './PersonalInformation';
+import FormSkeleton from '../loading';
 
 // Personal Information step
 function Page() {
   return (
-    <PersonalInformation />
+    <Suspense fallback={<FormSkeleton />}>
+      <PersonalInformation />
+    </Suspense>
   );
 }
 

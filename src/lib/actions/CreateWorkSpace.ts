@@ -1,22 +1,30 @@
 'use server'
 
 import { CREATE_CULLING_WORKSPACE } from "@/constants/ApiUrls"
-import { cookies } from "next/headers";
+import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation"
 
 
 export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>{
 
-    const cookieHeader = cookies().toString();
+    // getting jwt token from clerk so that we can access backend resorces
+    const {getToken} = await auth();
+    const token = await getToken({template:"AI_Cull_Share_Eventize"})
+    if (!token) {
+        console.error("Failed to fetch Clerk token");
+        redirect("/sign-in");
+    }
+    
     const apiUrl = `${CREATE_CULLING_WORKSPACE}/${workSpaceName}`;
 
     try {
         const response = await fetch(apiUrl, {
             method: 'POST',
             credentials: 'include',
-            headers:{
-                Cookie: cookieHeader,
-            }
+            headers: {
+                Authorization: `Bearer ${token}`, // Passing the token here
+                "Content-Type": "application/json",
+            },
         })
 
         const jsonResponse = await response.json()
@@ -25,7 +33,7 @@ export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>
             return { success: "Workspace created successfully !" };
         }
         else if (response.status === 401) {
-            redirect('/login')
+            redirect('/sign-in')
         } 
         else if(response.status === 406 || response.status === 400 ){
             return {

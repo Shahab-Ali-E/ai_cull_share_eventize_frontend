@@ -8,9 +8,11 @@ export default function BookEventLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // getting user information
+  
   return (
     <div className="flex flex-col w-full min-h-screen justify-center items-center space-y-10">
-      {/* hader */}
+      {/* header */}
       <div className='text-center'>
         <Header
           title="Book Now!"

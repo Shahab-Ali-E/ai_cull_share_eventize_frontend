@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import Review from './Review'
+import ReviewLoadingSkeleton from './loading'
 
-function page() {
+function Page() {
   return (
-    <Review />
+    <Suspense fallback={<ReviewLoadingSkeleton />}>
+      <Review />
+    </Suspense>
   )
 }
 
-export default page
+export default Page

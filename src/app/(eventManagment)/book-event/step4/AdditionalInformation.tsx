@@ -3,8 +3,7 @@
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
-import { AdditionalInformationSchema } from "@/schemas/BookEvent";
+import { AdditionalInformationSchema, AdditionalInformationType } from "@/schemas/BookEvent";
 import {
   Form,
   FormControl,
@@ -32,14 +31,14 @@ function AdditionalInformation() {
   console.log("event information ",eventInformation)
 
   // Define the form
-  const AdditionalInformationForm = useForm<z.infer<typeof AdditionalInformationSchema>>({
+  const AdditionalInformationForm = useForm<AdditionalInformationType>({
     mode: "onBlur",
     resolver: zodResolver(AdditionalInformationSchema),
     defaultValues: { ...additionalInformation },
   });
 
   // Handle form submission
-  const onSubmit = (submittedData: z.infer<typeof AdditionalInformationSchema>) => {
+  const onSubmit = (submittedData: AdditionalInformationType) => {
     setAdditionalInformation({ ...additionalInformation, ...submittedData });
     router.push("/book-event/step5");
   };

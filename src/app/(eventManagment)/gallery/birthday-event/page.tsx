@@ -19,7 +19,7 @@ function Page() {
         />
       </div>
       {/* other content */}
-      <div className="flex flex-col space-y-8 sm:space-y-20 mt-24 sm:mt-56">
+      <div className="flex flex-col space-y-8 sm:space-y-20 mt-24 sm:mt-72">
         <div className="flex flex-col space-y-0 sm:space-y-3 justify-center items-center">
           {/* heading */}
           <RevelHeading
@@ -40,7 +40,7 @@ function Page() {
         </div>
 
         {/* pricing */}
-        <div className="flex flex-col">
+        <div className="flex flex-col w-full items-center">
           <PricingSectionCards 
             data={birthdayPricingData}
           />

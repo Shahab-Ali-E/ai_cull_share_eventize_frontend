@@ -1,7 +1,7 @@
 'use server';
 
 import { UPLOAD_CULLING_IMAGES } from '@/constants/ApiUrls';
-import { cookies } from 'next/headers';
+import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
 // Interface for the upload
@@ -12,8 +12,13 @@ interface uploadCullingImages {
 
 export const uploadCullingImagesToServer = async ({ workSpaceId,imagesData }: uploadCullingImages) => {
     try {
-        // Get the cookies from the incoming request
-        const cookieHeader = cookies().toString();
+        // getting jwt token from clerk so that we can access backend resorces
+    const {getToken} = await auth();
+    const token = await getToken({template:"AI_Cull_Share_Eventize"})
+    if (!token) {
+        console.error("Failed to fetch Clerk token");
+        redirect("/sign-in");
+    }
 
         const apiUrl = `${UPLOAD_CULLING_IMAGES}/${workSpaceId}`;
 
@@ -22,7 +27,7 @@ export const uploadCullingImagesToServer = async ({ workSpaceId,imagesData }: up
             method: "POST",
             credentials: "include",
             headers: {
-                Cookie: cookieHeader,
+                Authorization: `Bearer ${token}`, // Passing the token here
             },
             body:imagesData
         });

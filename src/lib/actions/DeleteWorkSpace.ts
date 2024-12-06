@@ -1,7 +1,7 @@
 'use server';
 
 import { DELETE_CULLING_WORKSPACE } from '@/constants/ApiUrls';
-import { cookies } from 'next/headers';
+import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
 interface DeleteWorkSpaceProps {
@@ -10,21 +10,28 @@ interface DeleteWorkSpaceProps {
 
 export const DeleteWorkSpace = async ({ workSpaceName }: DeleteWorkSpaceProps) => {
   try {
-    const cookieHeader = cookies().toString();
+    // getting jwt token from clerk so that we can access backend resorces
+    const {getToken} = await auth();
+    const token = await getToken({template:"AI_Cull_Share_Eventize"})
+    if (!token) {
+        console.error("Failed to fetch Clerk token");
+        redirect("/sign-in");
+    }
     const apiUrl = `${DELETE_CULLING_WORKSPACE}/${workSpaceName}`;
 
     const response = await fetch(apiUrl, {
       method: "DELETE",
       credentials: "include",
       headers: {
-        Cookie: cookieHeader,
+        Authorization: `Bearer ${token}`, // Passing the token here
+        "Content-Type": "application/json",
       },
     });
 
     const jsonResponse = await response.json();
 
     if (response.status === 401) {
-      redirect("/login");
+      redirect("/sign-in");
     } else if (response.status === 500 || !response.ok) {
       return {
         error: jsonResponse.detail || 'Failed to delete workspace',

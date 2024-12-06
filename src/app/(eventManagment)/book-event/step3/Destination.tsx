@@ -6,14 +6,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import StepDescription from "@/components/event-arrangment/bookevent/StepDescription";
 import EventComboxBox from '@/components/event-arrangment/bookevent/EventComboBox';
 import { AzerbaijanCities, Countries, DubaiCities, PakistanCities, ThailandCities, TurkeyCities } from './Data';
 import BackButton from '@/components/event-arrangment/bookevent/BackButton';
 import SubmitButton from '@/components/event-arrangment/bookevent/SubmitButton';
 import useEventFormStore from '@/zustand/EventFormStore';
-import { cn } from "@/lib/utils";
 import type {DestinationDetailType} from "@/schemas/BookEvent"
 
 function Destination() {

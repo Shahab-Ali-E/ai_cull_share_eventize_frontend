@@ -13,7 +13,7 @@ export const PersonalInformationSchema = z.object({
     .max(50, { message: "Email must not exceed 50 characters" }),
   phone: z
     .string()
-    .min(10, { message: "Phone number must be at least 10 digits" })
+    .min(13, { message: "Phone number must be at least 10 digits" })
     .max(14, { message: "Phone number must not exceed 14 digits" })
 });
 // type of personal information schema
@@ -30,7 +30,10 @@ export const EventDetailsSchema = z.object({
     .max(100,{ message: "Event type must not exceed 100 characters" })
     .optional(),
   eventDate: z
-    .date({required_error: "event date is required.",}),
+    .preprocess((val) => (typeof val === "string" ? new Date(val) : val), z.date())
+    .refine((date) => !isNaN(date.getTime()), {
+      message: "Invalid date format",
+  }),
   numberOfGuests: z
     .number()
     .min(10, { message: "Guests must be at least 10" })
@@ -75,12 +78,10 @@ export type AdditionalInformationType  = z.infer<typeof AdditionalInformationSch
 
 // Step 5: Review and Submit
 export const ReviewAndSubmitSchema = z.object({
-  summary: z
-  .string()
-  .min(20,{ message: "Summary cannot be empty" }),
-  consent: z
-  .boolean()
-  .refine((value) => value === true, { message: "You must confirm that the information is accurate" }), 
+  ...PersonalInformationSchema.shape,
+  ...EventDetailsSchema.shape,
+  ...DestinationDetailSchema.shape,
+  ...AdditionalInformationSchema.shape
 });
 // type of Review And Submit schema
-export type ReviewAndSubmitType  = z.infer<typeof ReviewAndSubmitSchema>
+export type ReviewAndSubmitSchemaType  = z.infer<typeof ReviewAndSubmitSchema>

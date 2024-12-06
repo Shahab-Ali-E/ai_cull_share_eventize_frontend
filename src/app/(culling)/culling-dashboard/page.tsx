@@ -13,6 +13,7 @@ import { WorkSpacesSkeleton } from '@/components/Culling/WorkSpaceSkeleton';
 
 //api
 import { getAllWorkSpaces } from '@/lib/actions/GetUserWorkSpaces';
+import StorageUsed from '@/components/Culling/StorageUsed';
 
 type SearchParams = {
   sort_order:string|undefined,
@@ -32,7 +33,7 @@ const CullingDashboard = async ({
     <section className="flex flex-col p-5 min-h-screen overflow-y-auto">
       <div className="relative flex flex-row pb-5 border-b border-muted-foreground space-x-4">
         {/* Left side: My Cullings label and Search box */}
-        <div className="flex flex-col w-auto sm:w-1/3 space-y-4 ">
+        <div className="flex flex-col w-auto sm:w-1/3 space-y-4">
           <Label className="font-bold text-primary text-xl xl:text-3xl lg:text-3xl md:text-2xl">
             My Cullings
           </Label>
@@ -44,7 +45,12 @@ const CullingDashboard = async ({
         </div>
 
         {/* Right side: Sort by and Create Workspace buttons */}
-        <div className="absolute right-0 bottom-5 flex items-end justify-end w-auto space-x-6">
+        <div className="absolute right-0 bottom-5 flex items-end justify-end sm:justify-around w-1/2">
+          <div className='w-1/2 hidden sm:block'>
+            {/* storage bar */}
+            <StorageUsed />
+          </div>
+          
           {/* Sort by button */}
           <SortByDropDown />
 

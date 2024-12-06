@@ -5,7 +5,7 @@ import React from 'react'
 
 function Page() {
   return (
-    <section className='flex flex-col min-h-screen'>
+    <section className='flex flex-col min-h-screen space-y-16'>
         <div className='flex flex-col mt-0 sm:mt-10 space-y-0 sm:space-y-24 justify-center items-center'>
             {/* heading */}
             <RevelHeading
@@ -17,7 +17,7 @@ function Page() {
         </div>
 
         {/* corporate events */}
-        <div className="flex flex-col">
+        <div className="flex flex-col space-y-20">
             {
                 corporateEventsData.map((data, index) => (
                     <div key={index}>
@@ -26,8 +26,7 @@ function Page() {
                             description={data.description}
                             src={data.src}
                         />
-                        {/* Add space before <hr> */}
-                        <hr className={`bg-primary h-[2px] m-10 sm:m-20 ${index === corporateEventsData.length - 1 ? 'hidden' : ''}`} />
+                       
                     </div>
                 ))
             }

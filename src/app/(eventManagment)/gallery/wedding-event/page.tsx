@@ -29,7 +29,7 @@ function page() {
         </div>
 
         {/* other content */}
-        <div className='flex flex-col space-y-20 sm:space-y-7 mt-2'>
+        <div className='flex flex-col space-y-10 sm:space-y-20 mt-10 sm:mt-20'>
             <div className='flex flex-col justify-center items-center'>
                 {/* heading */}
                 <RevelHeading
@@ -43,7 +43,7 @@ function page() {
             </div>
 
             {/* themes */}
-            <div>
+            <div className='flex flex-col space-y-10 sm:space-y-20'>
                 {
                     dataForGallery.map((data,index)=>(
                         <div key={index} className='flex flex-col space-y-5'>

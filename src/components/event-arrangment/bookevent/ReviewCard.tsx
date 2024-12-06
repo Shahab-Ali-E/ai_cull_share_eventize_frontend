@@ -9,14 +9,15 @@ interface ReviewCardData {
 }
 
 interface ReviewCardProps {
+  cardHeading:string;
   data: ReviewCardData[]; // Array of data for each item
 }
 
-function ReviewCard({ data }: ReviewCardProps) {
+function ReviewCard({ data, cardHeading }: ReviewCardProps) {
   return (
     <Card className="bg-primary-foreground rounded-lg shadow-lg w-full">
       <CardHeader className="text-xl font-semibold">
-        Personal Info
+        {cardHeading}
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-2 gap-4">

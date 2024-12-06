@@ -127,6 +127,8 @@ body {
   }
 }
 
+
+
 @font-face {
   font-family: 'mclawsui-macdonald';
   src: url('./fonts/mclawsui.ttf') format('truetype');
@@ -157,6 +159,59 @@ body {
 
 .animate-fadeInOut {
   animation: fadeInOut 3s ease-in-out infinite;
+}
+
+.cl-internal-bolkfx {
+  color: hsl(var(--muted-foreground));
+}
+
+.cl-formFieldLabel{
+  color: hsl(var(--muted-foreground));
+}
+
+.cl-formFieldInput{
+  /* background-color: hsl(var(--card)) */
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
+  background-color: hsl(var(--secondary))
+}
+
+.cl-footer{
+  background: hsl(var(--card));
+}
+
+.cl-signIn-emailCode, .cl-signIn-password, .cl-signIn-havingTrouble{
+  border-bottom: none;
+}
+
+/* .cl-otpCodeFieldInput{
+ background-color: hsl(var(--secondary));
+ color: hsl(var(--primary));
+} */
+
+/* .cl-formButtonPrimary{
+  color: hsl(var(--primary));
+  border:2px solid red;
+} */
+/* .cl-internal-1pz8pdy{
+  color: hsl(var(--muted-foreground))
+} */
+
+/* nav bar of profile section */
+
+
+.cl-internal-13u79ez{
+  background: transparent;
+  display: flex;
+}
+
+/* .cl-internal-1mm78hd{
+  background-color: hsl(var(--primary-foreground));
+} */
+
+/* hidding place holder */
+.cl-internal-1dauvpw{
+  display: none
 }
 
 @layer base {
