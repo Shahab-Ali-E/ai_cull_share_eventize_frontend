@@ -97,7 +97,7 @@ function Review() {
           resetForm();
           toast({
             title: "Successfully submitted ✅",
-            description: `successfull submitted the form with id ${response.formId}`,
+            description: `Successfull submitted the form with id ${response.formId}`,
             variant: "default",
           });
         }

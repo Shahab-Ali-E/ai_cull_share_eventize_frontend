@@ -1,27 +1,91 @@
 // // ImagesPreviewComponent.tsx
 
-import React from 'react';
-import Image from 'next/image';
+// import React from 'react';
+// import Image from 'next/image';
 
-function ImagePreview({images }:{images:string}) {
+// function ImagePreview({images }:{images:string}) {
+
+//   return (
+//       <div className="shadow-md shadow-card rounded-sm">
+//         <Image
+//           src={images}
+//           height={200}
+//           width={200}
+//           alt={`Image`}
+//           className="rounded-sm object-cover h-32 w-32 sm:h-64 sm:w-80"
+//           // quality={100}
+//           // unoptimized={true}
+//         />
+//       </div>
+//   );
+// }
+
+// export default ImagePreview;
+
+"use client";
+
+import React, { useState } from "react";
+import { Label } from "@/components/ui/label";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { FaListUl } from "react-icons/fa";
+import { IoGrid } from "react-icons/io5";
+import SmartCullImagesPreview from "@/components/Culling/WorkSpaceComponents/SmartCullImagesPreview";
+import { CulledImagesMetadataResponse } from "@/@types/smart-culling";
+
+interface ImagesHighlightsProps {
+  noOfImages: number;
+  images: CulledImagesMetadataResponse[];
+}
+
+function ImagesHighlights({ noOfImages, images }: ImagesHighlightsProps) {
+  const [isGridView, setIsGridView] = useState(true);
 
   return (
-      <div className="shadow-md shadow-card rounded-sm">
-        <Image
-          src={images}
-          height={200}
-          width={200}
-          alt={`Image`}
-          className="rounded-sm object-cover h-32 w-32 sm:h-64 sm:w-80"
-          quality={100}
-          unoptimized={true}
-        />
+    <div className="flex flex-col space-y-7 w-full">
+      {/* high lights */}
+      <div className="flex justify-between">
+        <div className="flex space-x-3 items-center text-primary">
+          <Label className="text-2xl font-semibold tracking-wider">
+            Highlights
+          </Label>
+          <Badge className="rounded-sm px-3 py-2 font-bold hover:bg-card-foreground">
+            {noOfImages}
+          </Badge>
+        </div>
+
+        {/* view images either in list or grid */}
+        <div className="flex text-primary items-center bg-gray-200 dark:bg-accent p-1 rounded-full">
+          <Button
+            onClick={() => setIsGridView(true)}
+            variant={isGridView ? "secondary" : "ghost"}
+            className={`flex items-center rounded-full ${
+              isGridView ? "bg-card hover:bg-card" : "hover:bg-gray-200 dark:hover:bg-accent"
+            }`}
+          >
+            <IoGrid />
+          </Button>
+          <Button
+            onClick={() => setIsGridView(false)}
+            variant={!isGridView ? "secondary" : "ghost"}
+            className={`flex items-center rounded-full ${
+              !isGridView ? "bg-card hover:bg-card" : "hover:bg-gray-200 dark:hover:bg-accent"
+            }`}
+          >
+            <FaListUl />
+          </Button>
+        </div>
       </div>
+
+      {/* Images display */}
+      <div>
+        <SmartCullImagesPreview images={images} isInGridView={isGridView} />
+      </div>
+    </div>
   );
 }
 
-export default ImagePreview;
-
+export default ImagesHighlights;
 
 // "use client";
 // import { useEffect, useState, useRef } from "react";

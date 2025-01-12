@@ -12,7 +12,7 @@ function BackButton() {
     <Button
       type='button'
       variant={"outline"}
-      className="mt-10 flex space-x-3 rounded-sm border border-muted-foreground text-primary lg:py-5 lg:text-xl"
+      className="mt-14 flex space-x-3 rounded-sm border border-muted-foreground text-primary lg:py-5 lg:text-xl"
       onClick={()=>{router.back()}}
     >
         <IoIosArrowBack className="h-4 w-4 opacity-50"/>

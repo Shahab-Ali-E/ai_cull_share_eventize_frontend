@@ -9,7 +9,7 @@ function HowItWorks({data}:{data:HowItWorksDataType[]}) {
     <div className="flex flex-col sm:flex-row justify-between items-center space-y-20 sm:space-y-0">
       {data.map((data, index) => (
         <div key={index}>
-            <RevealYAxis placeHolderColor='#ff4446'>
+            <RevealYAxis placeHolderColor='#00B8B8'>
                 {/* Image */}
                 <div className="flex justify-center items-center">
                     <Image 
@@ -22,13 +22,13 @@ function HowItWorks({data}:{data:HowItWorksDataType[]}) {
             </RevealYAxis>
             {/* Heading and description */}
             <div className="flex flex-col text-center space-y-5 max-w-xs">
-                <RevealYAxis placeHolderColor='#ff4446'>
+                <RevealYAxis placeHolderColor='#00B8B8'>
                     {/* Heading */}
                     <Label className="text-primary text-2xl font-bold">
                         {data.heading}
                     </Label>
                 </RevealYAxis>
-                <RevealYAxis placeHolderColor='#ff4446'>
+                <RevealYAxis placeHolderColor='#00B8B8'>
                     {/* Description */}
                     <Label className="text-primary text-sm tracking-wide">
                         {data.description}

@@ -12,7 +12,7 @@ export default function SubmitButton({ text }: SubmitButtonProps) {
   const { pending } = useFormStatus();
   return (
     <Button
-      className="mt-10 rounded-sm bg-redishtext hover:bg-[#ca3d3d] text-white lg:py-5 lg:text-xl flex items-center justify-center"
+      className="mt-14 rounded-sm bg-headingtext hover:bg-teal-400 text-white lg:py-5 lg:text-xl flex items-center justify-center"
       type="submit"
     >
       <span className='text-base flex items-center'>

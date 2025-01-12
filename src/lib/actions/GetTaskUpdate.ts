@@ -1,21 +1,8 @@
 'use server';
 
+import { getTaskStatusProps, progressDataInterface } from '@/@types/smart-culling';
 import { GET_TASK_STATUS } from '@/constants/ApiUrls';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
-
-
-// Interface for the upload
-interface getTaskStatusProps {
-  task_id: string;
-}
-
-// Interface for data for task
-interface progressDataInterface {
-  state: string;
-  status: string;
-  progress?: string;
-  result?: string;
-}
 
 class RetriableError extends Error {}
 class FatalError extends Error {}

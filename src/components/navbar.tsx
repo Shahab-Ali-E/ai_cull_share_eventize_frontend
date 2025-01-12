@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
-import { JSX, Suspense, SVGProps, useEffect } from "react";
+import { JSX, SVGProps, useEffect } from "react";
 import logo from "@/images/logo.png";
 import Image from "next/image";
 import { ThemeToggle } from "./theme-toggle";
@@ -172,27 +172,27 @@ export default function Navbar({ fixed = false }: NavbarProps) {
               Home
             </Link>
             <Link
-              href="/about"
-              className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/about") ? "underline" : ""
-              }`}
-              prefetch={false}
-            >
-              Event Arrangment
-            </Link>
-            <Link
               href="/event-arrangment"
               className={`text-lg font-medium hover:underline underline-offset-4 ${
                 isActive("/event-arrangment") ? "underline" : ""
               }`}
               prefetch={false}
             >
+              Event Arrangment
+            </Link>
+            <Link
+              href="/culling-home"
+              className={`text-lg font-medium hover:underline underline-offset-4 ${
+                isActive("/culling-home") ? "underline" : ""
+              }`}
+              prefetch={false}
+            >
               Culling
             </Link>
             <Link
-              href="/portfolio"
+              href="/smart-share"
               className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/portfolio") ? "underline" : ""
+                isActive("/smart-share") ? "underline" : ""
               }`}
               prefetch={false}
             >

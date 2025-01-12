@@ -1,20 +1,20 @@
-'use client'
+"use client";
 
-import React from 'react';
-import { Label } from '../ui/label';
-import Link from 'next/link';
-import { FcEmptyTrash } from 'react-icons/fc';
-import CustomPopupDialog from '../custom-popup-dialog';
+import React from "react";
+import { Label } from "../ui/label";
+import Link from "next/link";
+import { FcEmptyTrash } from "react-icons/fc";
+import CustomPopupDialog from "../custom-popup-dialog";
 import { DeleteWorkSpace } from "@/lib/actions/DeleteWorkSpace";
-
+import { Skeleton } from "../ui/skeleton";
 
 interface WorkspaceCardProps {
-  workSpaceId: string;
   workspaceName: string;
   createdDate: string;
   size: number;
   initials: string;
   href: string;
+  disabled?: boolean;
 }
 
 // Function to convert size from bytes to MB or GB
@@ -28,40 +28,93 @@ const formatSize = (sizeInBytes: number) => {
   }
 };
 
-const WorkspaceCard = ({ workSpaceId, workspaceName, createdDate, size, initials, href }: WorkspaceCardProps) => {
-
+const WorkspaceCard = ({
+  workspaceName,
+  createdDate,
+  size,
+  initials,
+  href,
+  disabled = false,
+}: WorkspaceCardProps) => {
   return (
-      <div className='flex flex-col rounded-lg bg-gray-200 dark:bg-primary-foreground shadow-lg shadow-card overflow-hidden transition-transform transform hover:scale-105 duration-300 ease-in-out'>
-        {/* Workspace initials */}
-          <Link href={href} passHref>
-            <div className='w-full text-center bg-gradient-to-bl from-[#9b85e9] to-[#81f0e6] p-2 hover:cursor-pointer'>
-                <Label className='text-white text-9xl font-bold opacity-90 hover:cursor-pointer'>{initials}</Label>
-            </div>
-          </Link>
-        {/* Workspace details */}
-        <div className='flex flex-row p-4'>
-          <div className='flex flex-col w-1/2 space-y-2'>
-            <Label className='text-primary text-2xl font-bold'>{workspaceName}</Label>
-            <Label className='text-muted-foreground text-xs'>Size: {formatSize(size)}</Label>
-          </div>
-          <div className='flex flex-col items-end justify-between space-y-5 w-1/2'>
-            <Label className='text-muted-foreground text-xs'>{createdDate}</Label>
+    <div
+      className={`relative flex flex-col rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out hover:shadow-muted hover:shadow-xl ${
+        disabled ? "cursor-not-allowed opacity-70" : ""
+      }`}
+    >
+      {disabled && (
+        <Skeleton className="absolute inset-0 z-10 pointer-events-none text-center text-primary top-[5%] text-2xl font-semibold"></Skeleton>
+      )}
+      {/* Workspace initials */}
+      <Link href={href} passHref>
+        <div
+          className={`w-full text-center bg-gradient-to-bl from-[#9b85e9] to-[#81f0e6] p-2 hover:cursor-pointer ${
+            disabled ? "" : ""
+          }`}
+        >
+          {disabled ? (
+            <Skeleton className="py-12 text-white font-bold text-3xl">
+              Culling in progress...
+            </Skeleton>
+          ) : (
+            <Label className="text-white text-9xl font-bold opacity-90 ">
+              {initials}
+            </Label>
+          )}
+        </div>
+      </Link>
+      {/* Workspace details */}
+      <div className="flex flex-row p-4">
+        <div className="flex flex-col w-1/2 space-y-2">
+          <Label
+            className={`text-primary text-2xl font-bold ${
+              disabled ? "cursor-not-allowed" : ""
+            }`}
+          >
+            {workspaceName}
+          </Label>
+          <Label
+            className={`text-muted-foreground text-xs ${
+              disabled ? "cursor-not-allowed" : ""
+            }`}
+          >
+            Size: {formatSize(size)}
+          </Label>
+        </div>
+        <div className="flex flex-col items-end justify-between space-y-5 w-1/2">
+          <Label
+            className={`text-muted-foreground text-xs ${
+              disabled ? "cursor-not-allowed" : ""
+            }`}
+          >
+            {createdDate}
+          </Label>
 
-            {/* Delete warning button with confirmation */}
-            <CustomPopupDialog
-              triggerButton={
-                <button className='text-primary' title='Delete workspace'>
-                  <FcEmptyTrash className='h-7 w-7 hover:scale-125 transition-all ease-in-out duration-150' />
-                </button>
-              }
-              message={`This can't be undone`}
-              title={"Delete folder?"}
-              onConfirm={()=>DeleteWorkSpace({workSpaceName:workspaceName})}
-              loadingText='Deleting...'
-            />
-          </div>
+          {/* Delete warning button with confirmation */}
+          <CustomPopupDialog
+            triggerButton={
+              <button
+                className={`text-primary ${
+                  disabled ? "cursor-not-allowed" : ""
+                }`}
+                title="Delete workspace"
+                disabled={disabled}
+              >
+                <FcEmptyTrash
+                  className={`h-7 w-7 transition-all ease-in-out duration-150 ${
+                    disabled ? "cursor-not-allowed" : "hover:scale-125"
+                  }`}
+                />
+              </button>
+            }
+            message={`This can't be undone`}
+            title={"Delete workspace?"}
+            onConfirm={() => DeleteWorkSpace({ workSpaceName: workspaceName })}
+            loadingText="Deleting..."
+          />
         </div>
       </div>
+    </div>
   );
 };
 

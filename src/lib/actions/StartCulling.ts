@@ -13,7 +13,7 @@ interface uploadCullingImages {
 export const StartCulling = async ({
   workSpaceId,
   imagesUrl,
-}: uploadCullingImages) => {
+}: uploadCullingImages):Promise<{data?:{task_id:string}; error?:string}> => {
   try {
     // getting jwt token from clerk so that we can access backend resorces
     const { getToken } = await auth();

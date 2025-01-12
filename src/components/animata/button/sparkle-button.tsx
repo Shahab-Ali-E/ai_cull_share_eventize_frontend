@@ -107,7 +107,7 @@ const options: ISourceOptions = {
   ],
 };
 
-export default function SparkleButton() {
+export default function SparkleButton({children, onClick, className}:{children:React.ReactNode; onClick?: () => void; className?:string}) {
   const [particleState, setParticlesReady] = useState<"loaded" | "ready">();
   const [isHovering, setIsHovering] = useState(false);
 
@@ -126,12 +126,13 @@ export default function SparkleButton() {
 
   return (
     <button
-      className="group relative my-8 rounded-full bg-gradient-to-r from-blue-300/30 via-blue-500/30 via-40% to-purple-500/30 p-1 text-white transition-transform hover:scale-110 active:scale-105"
+      className={`group relative my-8 rounded-full bg-gradient-to-r from-blue-300/30 via-blue-500/30 via-40% to-purple-500/30 p-1 text-white transition-transform hover:scale-105 ${className}`}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
+      onClick={onClick}
     >
-      <div className="relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-300 via-blue-500 via-40% to-purple-500 px-4 py-2 text-white">
-        <Sparkle className="size-6 -translate-y-0.5 animate-sparkle fill-white" />
+      <div className="relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#82EBE6] via-blue-500 via-40% to-[#9181f7] px-4 py-2 text-white">
+        <Sparkle className="size-5 -translate-y-0.5 animate-sparkle fill-white" />
         <Sparkle
           style={{
             animationDelay: "1s",
@@ -153,7 +154,7 @@ export default function SparkleButton() {
           className="absolute left-3 top-3 size-1.5 animate-sparkle fill-white"
         />
 
-        <span className="font-semibold">Generate thumbnails</span>
+        <span className="font-semibold">{children}</span>
       </div>
       {!!particleState && (
         <Particles

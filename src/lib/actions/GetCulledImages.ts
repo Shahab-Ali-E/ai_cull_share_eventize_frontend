@@ -1,16 +1,11 @@
 "use server";
 
+import { CulledImagesMetadataResponse } from "@/@types/smart-culling";
 import { GET_CULLED_IMAGES } from "@/constants/ApiUrls";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
-export interface CulledImagesMetadataResponse {
-  id: string; // UUID as string in the frontend
-  name: string;
-  file_type: string;
-  download_path: string;
-  link_validity: string; // ISO 8601 date string
-}
+
 
 export const GetCulledImagesMetadata = async ({
   workSpaceId,

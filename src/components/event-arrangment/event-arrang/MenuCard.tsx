@@ -40,7 +40,7 @@ const MenuCard = ({ heading, description, href, src, index }: MenuCardProps) => 
             <div className="mt-6">
               <Link
                 href={href}
-                className="flex w-fit items-center bg-[#ff4446] hover:bg-[#c33638] p-3 px-4 rounded-sm gap-x-2"
+                className="flex w-fit items-center bg-headingtext hover:bg-teal-300 p-3 px-4 rounded-sm gap-x-2"
               >
                 See more
                 <IoIosArrowForward height={20} width={20} className="h-4 w-4" />

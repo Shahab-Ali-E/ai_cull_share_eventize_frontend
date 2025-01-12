@@ -16,9 +16,7 @@ function Page() {
         buttonText="Book Now"
         buttonHref="/book-event/step1"
         className="mt-10"
-        revelPlaceHolderColor="#ff4446"
-        gradientColorLeft="#6f0b35"
-        gradientColorRight="#f61f23"
+        revelPlaceHolderColor='#00B8B8'
       />
 
       {/* body */}
@@ -28,7 +26,7 @@ function Page() {
           {/* heading */}
           <RevelHeading
             heading="HOW IT WORKS"
-            placeholderColor="#ff4446"
+            placeholderColor="#00B8B8"
             description="Sign up, complete a simple form, and leave the rest to us. We'll handle every aspect of your event planning with precision and care, ensuring a seamless and memorable experience."
           />
 
@@ -41,7 +39,7 @@ function Page() {
           {/* heading */}
           <RevelHeading
             heading="YOUR DREAM EVENT"
-            placeholderColor="#ff4446"
+            placeholderColor="#00B8B8"
             description="We provide countless options from Wedding to Birthday party or corporate event
               We have various interactive ideas, you can mix and match all
               elements to design the perfect event for you."
@@ -56,7 +54,7 @@ function Page() {
           {/* heading */}
           <RevelHeading
             heading="OUR MENUS"
-            placeholderColor="#ff4446"
+            placeholderColor="#00B8B8"
             description="Explore our diverse food menus and craft a personalized culinary experience tailored to your event. Let us help you bring your unique style to life with a selection of dishes that perfectly suit your taste and vision."
           />
           

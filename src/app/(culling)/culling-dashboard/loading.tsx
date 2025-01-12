@@ -21,7 +21,7 @@ export default function Loading() {
                         <Skeleton className="h-5 w-20 rounded-sm" />
                     </div>
                     {/* Sort By Dropdown Skeleton */}
-                    <Skeleton className="h-11 w-24 rounded-md " />
+                    <Skeleton className="h-9 w-24 rounded-md " />
                     {/* Create Workspace Button Skeleton */}
                     <Skeleton className="h-11 w-48 rounded-full hidden sm:block" />
                 </div>

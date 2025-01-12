@@ -1,7 +1,7 @@
 import CullingTimelineProgress from '@/components/Culling/WorkSpaceComponents/CullingTimelineProgress'
 import React from 'react'
 
-function StartCulling() {
+function StartCulling({workSpaceId}:{workSpaceId:string}) {
   const cullingData = [
       { id: "1", title: "Getting your images" },
       { id: "2", title: "Blur images separation"},
@@ -9,9 +9,11 @@ function StartCulling() {
       { id: "4", title: "Duplicate images separation" },
       { id: "5", title: "Finalizing your culling" },
   ];
+  console.log("work space id",workSpaceId)
   return (
     <div className='flex flex-col justify-center items-center min-h-screen'>
-        <CullingTimelineProgress 
+        <CullingTimelineProgress
+            workSpaceId={workSpaceId} 
             title='Culling Progress'
             events={cullingData}
         />

@@ -19,11 +19,20 @@ export const GET_BEFORE_CULL_PRESIGNED_URL:string = `${CULLING_BASE_URL}/before_
 export const GET_CULLED_IMAGES:string = `${CULLING_BASE_URL}/culled_images_metadata`
 
 export const CREATE_CULLING_WORKSPACE:string = `${CULLING_BASE_URL}/create_directory` //create a working directory in backend
-export const UPLOAD_CULLING_IMAGES:string = `${CULLING_BASE_URL}/upload-images` //for uplaoding images to backend 
+export const UPLOAD_CULLING_IMAGES:string = `${CULLING_BASE_URL}/upload_images` //for uplaoding images to backend 
 export const START_CULLING:string = `${CULLING_BASE_URL}/start_culling/` //for uplaoding images to backend 
 export const DELETE_CULLING_WORKSPACE:string = `${CULLING_BASE_URL}/delete-folder` //for uplaoding images to backend 
 
 export const GET_TASK_STATUS:string = `${BASE_URL}/task_status` //for uplaoding images to backend //task AP
+
+
+// Smart Share API
+const SMART_SHARE_BASE_URL:string = `${BASE_URL}/smart_share` //base Url for smart share
+export const GET_ALL_EVENTS:string = `${SMART_SHARE_BASE_URL}/get_all_events` //get all events from backend
+export const GET_EVENT_BY_ID:string = `${SMART_SHARE_BASE_URL}/get_event_by_id` //get event by id
+export const CREATE_EVENT:string = `${SMART_SHARE_BASE_URL}/create_event` // for create event
+export const UPDATE_EVENT:string = `${SMART_SHARE_BASE_URL}/update_event` // for updating event
+export const DELETE_EVENT:string = `${SMART_SHARE_BASE_URL}/delete_event` // for deleting event
 
 // Event Arrangment API
 const EVENT_ARRANGMENT_BASE_URL:string = `${BASE_URL}/event_arrangment` //base url for event arrangment

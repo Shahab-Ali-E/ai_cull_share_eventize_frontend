@@ -30,17 +30,17 @@ function SideBar() {
           <div key={index} className="flex items-center space-x-3">
             {index < currentStepIndex ? (
               // Passed step with tick
-              <div className="rounded-full bg-redishtext h-9 w-9 flex items-center justify-center text-white text-base font-bold">
+              <div className="rounded-full bg-headingtext h-9 w-9 flex items-center justify-center text-white text-base font-bold">
                 <IoIosCheckmark className="text-white h-9 w-9" />
               </div>
             ) : pathname === step.route ? (
               // Current active step
-              <div className="rounded-full bg-redishtext h-9 w-9 flex items-center justify-center text-white text-base font-bold">
+              <div className="rounded-full bg-headingtext h-9 w-9 flex items-center justify-center text-white text-base font-bold">
                 {step.step}
               </div>
             ) : (
               // Upcoming steps
-              <div className="rounded-full bg-transparent border border-muted-foreground h-10 w-10 flex items-center justify-center text-muted-foreground text-sm font-bold">
+              <div className="rounded-full bg-transparent border border-muted-foreground h-10 w-10 flex items-center justify-center text-muted-foreground text-xs font-bold">
                 {step.step}
               </div>
             )}
@@ -50,8 +50,8 @@ function SideBar() {
                   pathname === step.route
                     ? 'text-lg font-bold text-primary'
                     : index < currentStepIndex
-                    ? 'text-base font-semibold text-primary'
-                    : 'text-base font-semibold text-muted-foreground'
+                    ? 'text-sm font-semibold text-primary'
+                    : 'text-sm font-semibold text-muted-foreground'
                 }`}
               >
                 {step.title}

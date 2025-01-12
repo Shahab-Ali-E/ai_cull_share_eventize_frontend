@@ -13,8 +13,8 @@ export const PersonalInformationSchema = z.object({
     .max(50, { message: "Email must not exceed 50 characters" }),
   phone: z
     .string()
-    .min(13, { message: "Phone number must be at least 10 digits" })
-    .max(14, { message: "Phone number must not exceed 14 digits" })
+    .min(7, { message: "Phone number must be at least 7 digits" })
+    .max(15, { message: "Phone number must not exceed 15 digits" })
 });
 // type of personal information schema
 export type PersonalInformationType  = z.infer<typeof PersonalInformationSchema>

@@ -1,31 +1,29 @@
-'use client'
-
-import CulledImageCard from '@/components/Culling/WorkSpaceComponents/CulledImageCard';
-import Image from 'next/image';
+import CulledImageRow from '@/components/Culling/WorkSpaceComponents/CulledImageRow';
+import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'; // Assuming you’re using `shadcn` components
 import React from 'react';
 
-// images
-import blur_image from '@/images/blur_image_after_cull.jpg';
-import closed_eye_image from '@/images/closed_eyes.jpg';
-import duplicate_image from '@/images/duplicate_after_cull.jpg';
-import fine_collection from '@/images/fine_after_cull.jpg';
-import useCullingStore from '@/zustand/CullingStore';
-
-function CulledImages() {
-  const {currentActiveWorkSpaceData} = useCullingStore();
-
-  const cards = [
-    { title: 'Blur Images', Image: <Image src={blur_image} alt="Blurred" className="w-full h-full object-cover" />, href:`/culling-dashboard/${currentActiveWorkSpaceData.id}/Blur` },
-    { title: 'Closed Eye Images', Image: <Image src={closed_eye_image} alt="Closed Eye" className="w-full h-full object-cover" />, href:`/culling-dashboard/${currentActiveWorkSpaceData.id}/ClosedEye`  },
-    { title: 'Duplicate Images', Image: <Image src={duplicate_image} alt="Duplicate" className="w-full h-full object-cover" />, href:`/culling-dashboard/${currentActiveWorkSpaceData.id}/Duplicate` },
-    { title: 'Fine Collection', Image: <Image src={fine_collection} alt="Fine Collection" className="w-full h-full object-cover" />, href:`/culling-dashboard/${currentActiveWorkSpaceData.id}/FineCollection`  },
+function CulledImages({ workSpaceId }: { workSpaceId: string }) {
+  const folders = [
+    { title: 'Blur Images', href: `/culling-dashboard/${workSpaceId}/Blur` },
+    { title: 'Closed Eye Images', href: `/culling-dashboard/${workSpaceId}/ClosedEye` },
+    { title: 'Duplicate Images', href: `/culling-dashboard/${workSpaceId}/Duplicate` },
+    { title: 'Fine Collection', href: `/culling-dashboard/${workSpaceId}/FineCollection` },
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-col-2 lg:grid-cols-4 xl:grid-col-4 min-h-screen justify-items-center mt-0 sm:mt-16">
-      {cards.map((card, idx) => (
-        <CulledImageCard key={idx} title={card.title} Image={card.Image} href={card.href} />
-      ))}
+    <div className="min-h-screen">
+      <Table>
+        <TableHeader>
+          <TableRow className="text-lg text-primary">
+            <TableCell className="font-semibold px-7">Folder</TableCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {folders.map((folder, idx) => (
+            <CulledImageRow key={idx} title={folder.title} href={folder.href} />
+          ))}
+        </TableBody>
+      </Table>
     </div>
   );
 }

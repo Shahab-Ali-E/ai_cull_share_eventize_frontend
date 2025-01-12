@@ -22,7 +22,9 @@ interface CustomPopupDialogProps {
   isLoading?: boolean;
   loadingText?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onConfirm: () => Promise<{error:any; success:undefined} | { success: boolean; error?: undefined; }>;
+  onConfirm: () => Promise<
+    { error: unknown; success: undefined } | { success: boolean; error?: undefined }
+  >;
 }
 
 const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
@@ -34,35 +36,32 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const {toast} = useToast();
+  const { toast } = useToast();
   const router = useRouter();
 
   const handleConfirm = async () => {
     setLoading(true);
     try {
-        const response = await onConfirm();
+      const response = await onConfirm();
 
-        if (response.error) {
-            toast({
-                title: "Error",
-                description: response.error,
-                variant: "destructive",
-            });
-        } 
-        else {
-            router.refresh()
-            setTimeout(()=>{
-                setLoading(false)
-            },1000)
-        }
-    } catch (error) {
+      if (response.error) {
         toast({
-            title: "Error",
-            description: String(error),
-            variant: "destructive",
+          title: "Error",
+          description: Array.isArray(response.error)
+            ? response.error[0].msg
+            : response.error,
+          variant: "destructive",
         });
-    } 
-    finally {
+      } else {
+        router.refresh();
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: String(error),
+        variant: "destructive",
+      });
+    } finally {
       setLoading(false);
       setOpen(false);
     }
@@ -84,7 +83,9 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
         ) : (
           <>
             <DialogHeader className="flex flex-row bg-accent justify-between items-center px-5 py-3">
-              <DialogTitle className="text-lg font-semibold">{title}</DialogTitle>
+              <DialogTitle className="text-lg font-semibold">
+                {title}
+              </DialogTitle>
             </DialogHeader>
             <DialogDescription className="text-sm text-muted-foreground p-1 px-5">
               {message}

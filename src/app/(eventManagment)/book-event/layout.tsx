@@ -21,7 +21,7 @@ export default function BookEventLayout({
       </div>
       
       {/* form */}
-      <div className="flex flex-col p-5 min-h-screen w-full xl:w-[80%] lg:w-[80%] md:w-full space-x-0 space-y-5 sm:space-y-0 sm:space-x-5 sm:flex-row">
+      <div className="flex flex-col p-px min-h-screen w-full xl:w-[80%] lg:w-[80%] md:w-full space-x-0 space-y-5 sm:space-y-0 sm:space-x-5 sm:flex-row">
         {/* side steps components */}
           <div className='flex flex-shrink-0'>
             <SideBar />

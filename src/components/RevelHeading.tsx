@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 const RevelHeading: React.FC<RevelingHeadingProps> = ({
   heading,
   description,
-  placeholderColor = '#ff4446',
+  placeholderColor = '#00B8B8',
   className = '',
   headingClassName = '',
   descriptionClassName = '',
@@ -27,7 +27,7 @@ const RevelHeading: React.FC<RevelingHeadingProps> = ({
           {/* Text */}
           <Label
             className={cn(
-              "text-2xl xl:text-4xl lg:text-4xl md:text-4xl uppercase font-semibold px-4 w-fit",
+              "text-2xl sm:text-4xl uppercase font-semibold px-4 w-fit",
               headingClassName
             )}
             style={{ color: placeholderColor }}

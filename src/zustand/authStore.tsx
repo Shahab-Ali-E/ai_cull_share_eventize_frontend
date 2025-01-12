@@ -11,7 +11,7 @@ const useAuthStore = create<AuthStore>((set) => ({
     isAuthenticated: false,
 
     // state setter
-    setIsAuthenticated: (value: boolean) => set({ isAuthenticated: value }),
+    setIsAuthenticated: (value) => set({isAuthenticated:value}),
 
     // logout method
     logout: () => set({ isAuthenticated: false })

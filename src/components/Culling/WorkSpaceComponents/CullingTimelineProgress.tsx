@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
 interface CullingTimelineProgressProps {
+    workSpaceId:string;
     events?: TimelineEvent[];
     title?: string;
     containerClassName?: string;
@@ -23,13 +24,14 @@ export default function CullingTimelineProgress({
     title,
     containerClassName,
     timelineStyles,
+    workSpaceId
 }: CullingTimelineProgressProps) {
-    const { cullingTaskIds, currentActiveWorkSpaceData, clearCullingTaskIds } = useCullingStore();
+    const { cullingTaskIds, clearCullingTaskIds } = useCullingStore();
     const { toast } = useToast();
     const [taskStatuses, setTaskStatuses] = useState<TimelineEvent[]>(events || []);
     const router = useRouter();
 
-    const taskIds = cullingTaskIds[currentActiveWorkSpaceData.id] || [];
+    const taskIds = cullingTaskIds[workSpaceId] || [];
 
     const updateTaskStatus = useCallback((taskIndex: number, status: "Pending" | "Progress" | "Completed" | "Retry" | "Failed", progress?: number) => {
       setTaskStatuses((prev) =>
@@ -45,7 +47,26 @@ export default function CullingTimelineProgress({
       try {
         await Promise.all(
           taskIds.map(async (taskId, i) => {
-            return fetchEventSource(`${GET_TASK_STATUS}/${taskId}`, {
+            return fetchEventSource(`${GET_TASK_STATUS}/${taskId}`, 
+              {
+                method: "GET",
+                headers:{Accept:"text/event-stream"},
+                onopen:async(response)=> {
+                  if (response.ok && response.status === 200) {
+                    console.log("Connection made", response);
+                  } else if (
+                    response.status >= 400 &&
+                    response.status < 500 &&
+                    response.status !== 429
+                  ) {
+                    const errorText = await response.text();
+                    toast({
+                      title: "Server Error",
+                      description: errorText || "An unexpected error occurred.",
+                      variant: "destructive",
+                    });
+                  }
+                },
               onmessage(ev) {
                 try {
                   const parsedData = JSON.parse(ev.data);
@@ -63,22 +84,21 @@ export default function CullingTimelineProgress({
                 }
               },
               onerror(err) {
-                if (err.name !== "AbortError") {
-                  toast({
-                    title: "Error",
-                    description: `Failed to fetch task status: ${err}`,
-                    variant: "destructive",
-                  });
-                }
+                toast({
+                  title: "Unable to start culling",
+                  description: err || "Sorry can't start culling",
+                  variant: "destructive",
+                });           
               },
             });
           })
         );
       } finally {
-        clearCullingTaskIds(currentActiveWorkSpaceData.id);
+        clearCullingTaskIds(workSpaceId);
         router.refresh();
       }
-    }, [taskIds, clearCullingTaskIds, currentActiveWorkSpaceData.id, updateTaskStatus]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [taskIds, clearCullingTaskIds, workSpaceId, updateTaskStatus]);
     
   
     useEffect(() => {
@@ -95,9 +115,7 @@ export default function CullingTimelineProgress({
     return (
         <div
             className={cn(
-                "flex flex-col justify-center items-center rounded-lg bg-white dark:bg-primary-foreground px-12 py-8 text-foreground",
-                "shadow-[0px_0px_15px_5px_rgba(173,216,230,0.3),0px_0px_30px_10px_rgba(173,216,230,0.2),0px_0px_60px_20px_rgba(173,216,230,0.1)]",
-                "dark:shadow-[0px_0px_15px_5px_rgba(150,150,150,0.3),0px_0px_60px_60px_rgba(150,150,150,0.2),0px_0px_60px_20px_rgba(150,150,150,0.1)]",
+                "flex flex-col justify-center items-center rounded-lg bg-white dark:bg-card px-12 py-8 text-foreground",
                 containerClassName,
             )}
         >

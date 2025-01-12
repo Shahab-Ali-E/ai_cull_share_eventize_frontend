@@ -33,7 +33,7 @@ function CarousalCard({heading, description, href, image}:{heading?:string, desc
               <Link 
                 href={href}
                 // variant="secondary"
-                className='flex w-fit items-center bg-redishtext text-sm hover:bg-[#c33638] text-white p-3 px-3 sm:px-4 rounded-sm gap-x-2'
+                className='flex w-fit items-center bg-headingtext text-sm hover:bg-teal-300 text-white p-3 px-3 sm:px-4 rounded-sm gap-x-2'
               >
                 See more
                 <IoIosArrowForward height={20} width={20} className='h-4 w-4'/> 

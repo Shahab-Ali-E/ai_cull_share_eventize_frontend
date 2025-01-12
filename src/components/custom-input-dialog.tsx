@@ -19,28 +19,36 @@ import { useToast } from "@/hooks/use-toast";
 
 // api and validation
 import { validateWorkspaceName } from "@/utils/workSpaceValidation";
-import GradientButton from "./ui/gradient-button";
 import { Spinner } from "@/components/ui/spinner";
 
 interface CustomInputialogProps {
-  onCreate: (workspaceName: string) => Promise<{ error?: string; success?: string }>;
+  onCreate: (
+    Name: string
+  ) => Promise<{ error?: string; success?: string }>;
   dialogTitle: string;
-  buttonTitle: string;
+  triggerButton: React.ReactNode; 
+  usage?:"Workspace" | "Event"
 }
 
-export default function CustomInputialog({ onCreate, dialogTitle, buttonTitle }: CustomInputialogProps) {
-  const [workSpaceName, setWorkSpaceName] = useState<string>("");
+export default function CustomInputialog({
+  onCreate,
+  dialogTitle,
+  triggerButton,
+  usage="Workspace"
+
+}: CustomInputialogProps) {
+  const [enteredName, setEnteredName] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-  const {toast} = useToast()
+  const { toast } = useToast();
 
   const router = useRouter();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const validationError = validateWorkspaceName(value);
-    setWorkSpaceName(value);
+    setEnteredName(value);
     setError(validationError);
   };
 
@@ -48,19 +56,18 @@ export default function CustomInputialog({ onCreate, dialogTitle, buttonTitle }:
   const currentDate = new Date();
 
   // Format the date in the desired format
-  const formattedDate = new Intl.DateTimeFormat('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
     hour12: true,
   }).format(currentDate);
 
-
   const handleCreate = async () => {
-    const validationError = validateWorkspaceName(workSpaceName);
+    const validationError = validateWorkspaceName(enteredName);
     if (validationError) {
       setError(validationError);
       return;
@@ -68,22 +75,21 @@ export default function CustomInputialog({ onCreate, dialogTitle, buttonTitle }:
 
     setIsLoading(true);
 
-    try {   
-      const res = await onCreate(workSpaceName);
-  
+    try {
+      const res = await onCreate(enteredName);
+
       if (res.error) {
-        console.log("error workspace");
+        console.log(`error${usage}`);
         console.log(res.error);
         setIsLoading(false);
         toast({
-          variant: 'destructive',
+          variant: "destructive",
           title: "Server Error",
-          description: res.error
+          description: res.error,
         });
-      } 
-      else {  
+      } else {
         // Delay closing the dialog to show the spinner before hiding it
-        router.refresh(); 
+        router.refresh();
         setTimeout(() => {
           setIsLoading(false);
         }, 1000);
@@ -91,55 +97,54 @@ export default function CustomInputialog({ onCreate, dialogTitle, buttonTitle }:
         //close the dialog box
         setOpen(false);
 
-        // show toast when workspace created
+        // show toast when event or workspace created
         toast({
-          variant: 'default',
+          variant: "default",
           title: `🎉 ${res.success}`,
-          description: `${formattedDate}`
+          description: `${formattedDate}`,
         });
-      } 
-    }
-    catch (error:unknown) {
-      // show toast when workspace created
+      }
+    } catch (error: unknown) {
+      // show toast when event or workspace created
       toast({
-        variant: 'destructive',
+        variant: "destructive",
         title: "Server Error",
-        description: String(error)
+        description: String(error),
       });
     }
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <GradientButton className="w-full h-11 xl:h-11 lg:h-12 md:h-12 shadow-chart-2 sm:shadow-none">
-          {buttonTitle}
-        </GradientButton>
-      </DialogTrigger>
-      <DialogContent className="bg-primary-foreground max-w-[400px] sm:w-full rounded-md">
+      <DialogTrigger asChild>{triggerButton}</DialogTrigger>
+      <DialogContent className={`bg-primary-foreground max-w-[400px] sm:w-full rounded-md ${isLoading||"text-primary"}`}>
         {isLoading ? (
           <div className="flex flex-col justify-center items-center h-full p-14">
             <Spinner size="medium">
-                <span className="text-primary">creating...</span>
-            </Spinner> 
+              <span className="text-primary">creating...</span>
+            </Spinner>
           </div>
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-primary text-xl">{dialogTitle}</DialogTitle>
+              <DialogTitle className="text-primary text-xl">
+                {dialogTitle}
+              </DialogTitle>
               <DialogDescription>
-                Enter a unique workspace name that hasn’t been used before.
+                Enter a unique {usage} name that hasn’t been used before.
               </DialogDescription>
             </DialogHeader>
             <div className="flex items-center gap-4">
-              <Label htmlFor="workSpaceName" className="text-primary">
+              <Label htmlFor={`${usage}Name`} className="text-primary">
                 Name
               </Label>
               <div className="flex flex-col w-full">
                 <Input
-                  id="workSpaceName"
-                  value={workSpaceName}
-                  className={`w-full text-primary ${error ? "border-red-500" : "border-primary"}`}
+                  id={`${usage}Name`}
+                  value={enteredName}
+                  className={`w-full text-primary ${
+                    error ? "border-red-500" : "border-primary"
+                  }`}
                   onChange={handleInputChange}
                 />
                 {error && (
@@ -151,7 +156,11 @@ export default function CustomInputialog({ onCreate, dialogTitle, buttonTitle }:
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit" className="w-full xl:w-28" onClick={handleCreate}>
+              <Button
+                type="submit"
+                className="w-full xl:w-28"
+                onClick={handleCreate}
+              >
                 Create
               </Button>
             </DialogFooter>

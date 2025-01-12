@@ -6,7 +6,7 @@ import {
   GET_ALL_CULLING_WORKSPACES,
   GET_CULLING_WORKSPACES_BY_ID,
 } from "@/constants/ApiUrls";
-import { WorkspaceDataInterface } from "@/zustand/CullingStore";
+import { SingleWorkspaceDataInterface, MultipleWorkspaceDataInterface } from "@/@types/smart-culling";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -23,7 +23,7 @@ export const getAllWorkSpaces = async ({
   sort_by?: string;
   limit?: number;
   sort_order?: string;
-}): Promise<{ data?: WorkspaceDataInterface[]; error?: string }> => {
+}): Promise<{ data?: MultipleWorkspaceDataInterface[]; error?: string }> => {
   // getting jwt token from clerk so that we can access backend resorces
   const { getToken } = await auth();
   const token = await getToken({ template: "AI_Cull_Share_Eventize" });
@@ -78,7 +78,7 @@ export const GetWorkSpaceById = async ({
   workSpaceId,
 }: {
   workSpaceId: string;
-}): Promise<{ data?: WorkspaceDataInterface; error?: string }> => {
+}): Promise<{ data?: SingleWorkspaceDataInterface; error?: string }> => {
   // getting jwt token from clerk so that we can access backend resorces
   const { getToken } = await auth();
   const token = await getToken({ template: "AI_Cull_Share_Eventize" });

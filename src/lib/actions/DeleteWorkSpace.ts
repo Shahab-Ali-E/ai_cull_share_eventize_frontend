@@ -4,11 +4,7 @@ import { DELETE_CULLING_WORKSPACE } from '@/constants/ApiUrls';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
-interface DeleteWorkSpaceProps {
-  workSpaceName: string;  // Change the name to workSpaceId (not workSpaceName)
-}
-
-export const DeleteWorkSpace = async ({ workSpaceName }: DeleteWorkSpaceProps) => {
+export const DeleteWorkSpace = async ({ workSpaceName }: {workSpaceName:string}) => {
   try {
     // getting jwt token from clerk so that we can access backend resorces
     const {getToken} = await auth();
