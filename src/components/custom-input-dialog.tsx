@@ -15,11 +15,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 
 // api and validation
 import { validateWorkspaceName } from "@/utils/workSpaceValidation";
 import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 interface CustomInputialogProps {
   onCreate: (
@@ -41,7 +41,6 @@ export default function CustomInputialog({
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
-  const { toast } = useToast();
 
   const router = useRouter();
 
@@ -82,10 +81,8 @@ export default function CustomInputialog({
         console.log(`error${usage}`);
         console.log(res.error);
         setIsLoading(false);
-        toast({
-          variant: "destructive",
-          title: "Server Error",
-          description: res.error,
+        toast.error("Server Error",{
+          description: res.error
         });
       } else {
         // Delay closing the dialog to show the spinner before hiding it
@@ -98,18 +95,14 @@ export default function CustomInputialog({
         setOpen(false);
 
         // show toast when event or workspace created
-        toast({
-          variant: "default",
-          title: `🎉 ${res.success}`,
-          description: `${formattedDate}`,
+        toast.success(res.success,{
+          description: `${formattedDate}`
         });
       }
     } catch (error: unknown) {
       // show toast when event or workspace created
-      toast({
-        variant: "destructive",
-        title: "Server Error",
-        description: String(error),
+      toast.error("Server Error",{
+        description: String(error)
       });
     }
   };
@@ -127,7 +120,7 @@ export default function CustomInputialog({
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle className="text-primary text-xl">
+              <DialogTitle className="text-primary text-lg">
                 {dialogTitle}
               </DialogTitle>
               <DialogDescription>
@@ -158,7 +151,7 @@ export default function CustomInputialog({
             <DialogFooter>
               <Button
                 type="submit"
-                className="w-full xl:w-28"
+                className="w-full xl:w-24"
                 onClick={handleCreate}
               >
                 Create

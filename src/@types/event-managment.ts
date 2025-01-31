@@ -25,27 +25,39 @@ export interface AdditionalInformationType {
   specialRequirements?: string | undefined;
 }
 
-export interface SubmitFormType extends PersonalInformationType, EventInformationType, DestinationDetailType, AdditionalInformationType{
-    userId?:string | null;
-};
-
+export interface SubmitFormType
+  extends PersonalInformationType,
+    EventInformationType,
+    DestinationDetailType,
+    AdditionalInformationType {
+  userId?: string | null;
+}
 
 // Main interface for Zustand store
-export interface EventManagementFormType {
-    // Getters
-    personalInformation: PersonalInformationType;
-    eventInformation: EventInformationType;
-    destinationDetails: DestinationDetailType;
-    additionalInformation: AdditionalInformationType;
-    loading:boolean;
-  
-    // Setters
-    setPersonalInformation: (personalInformation: PersonalInformationType) => void;
-    setEventInformation: (eventInformation: EventInformationType) => void;
-    setDestinationDetails: (destinationDetails: DestinationDetailType) => void;
-    setAdditionalInformation: (additionalInformation: AdditionalInformationType) => void;
-    setLoading : (loading:boolean) => void;
+export interface EventArrangementType {
+  // Getters
+  toggleView: boolean;
 
-    // Reset all fields
-    resetForm: () => void;
+  // ---- event arrangment book form states
+  personalInformation: PersonalInformationType;
+  eventInformation: EventInformationType;
+  destinationDetails: DestinationDetailType;
+  additionalInformation: AdditionalInformationType;
+  loading: boolean;
+
+  // Setters
+  setToggleView: (toggleView: boolean) => void;
+  // ---- event arrangment book form states
+  setPersonalInformation: (
+    personalInformation: PersonalInformationType
+  ) => void;
+  setEventInformation: (eventInformation: EventInformationType) => void;
+  setDestinationDetails: (destinationDetails: DestinationDetailType) => void;
+  setAdditionalInformation: (
+    additionalInformation: AdditionalInformationType
+  ) => void;
+  setLoading: (loading: boolean) => void;
+
+  // Reset all fields
+  resetForm: () => void;
 }

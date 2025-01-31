@@ -9,32 +9,25 @@ import { Label } from "@/components/ui/label";
 
 //icons and images
 import { IoCloseCircle } from "react-icons/io5";
-import uploaddIcon from "@/images/icons/uploadImageIcon.png";
-import useCullingStore from "@/zustand/CullingStore";
+import uploadIcon from "@/images/icons/uploadImageIcon.png";
 import { useRouter } from "next/navigation";
 
 import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
+  DialogTitle,
 } from "@/components/ui/dialog";
+import useSmartShareStore from "@/zustand/SmartShare";
+import { toast } from "sonner";
+import { uploadSmartShareImages } from "@/lib/actions/SmartShare/UploadImages";
+import UploadImagesToServerLoading from "@/components/Culling/WorkSpaceComponents/LoadingUploadImageServer";
 
 interface SmartShareDropZoneProps {
   className?: string;
-  files: FileWithPreview[];
-  rejected: FileRejection[];
-  setFiles: (
-    files:
-      | FileWithPreview[]
-      | ((prevFiles: FileWithPreview[]) => FileWithPreview[])
-  ) => void;
-  setRejected: (
-    rejectedFiles:
-      | FileRejection[]
-      | ((prevRejected: FileRejection[]) => FileRejection[])
-  ) => void;
-  workSpaceId: string;
+  eventId: string;
 }
 
 export interface FileWithPreview extends File {
@@ -42,14 +35,11 @@ export interface FileWithPreview extends File {
   preview: string;
 }
 
-function SmartShareDropZone({
-  className,
-  files,
-  setFiles,
-  setRejected,
-  workSpaceId,
-}: SmartShareDropZoneProps) {
-  const { handleUploadImages } = useCullingStore(); //zustand store for to get uplaodImage function
+function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
+  const { setUploadedImagesUrls } = useSmartShareStore(); //zustand store for to get uplaodImage function
+  const [files, setFiles] = useState<FileWithPreview[]>([]); // for setting files which are accepcted
+  const [, setRejected] = useState<FileRejection[]>([]); // for setting files which are rejected
+  const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false); // Control the alert visibility
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
 
@@ -115,53 +105,83 @@ function SmartShareDropZone({
     }
   };
 
-  // Truncate file names to avoid overflow
-  const truncateFileName = (name: string, maxLength: number): string => {
-    return name.length > maxLength ? name.slice(0, maxLength) + "..." : name;
-  };
 
   // for handling uploading images
-  const handleUploadImagesToServer = ({
-    workSpaceId,
+  const handleUploadImagesToServer = async ({
+    eventId,
   }: {
-    workSpaceId: string;
+    eventId: string;
   }) => {
-    handleUploadImages({ workSpaceId: workSpaceId });
-    router.refresh();
+    if (files.length > 0) {
+      setImagesUploading(true);
+
+      const formData = new FormData();
+      files.forEach((file) => {
+        formData.append("images", file);
+      });
+
+      try {
+        const { data, error } = await uploadSmartShareImages({
+          eventId: eventId,
+          imagesData: formData,
+        });
+
+        if (error) {
+          toast.error("Sorry, can't upload images", {
+            description: error,
+          });
+        } else {
+          console.log("data from upload culling", data);
+          setUploadedImagesUrls(data.data);
+          router.refresh();
+        }
+      } catch {
+        toast.error("Sorry, something went wrong while uploading images");
+      } finally {
+        setFiles([]);
+        setImagesUploading(false);
+      }
+    }
   };
+  if (imagesUploading) {
+    return <UploadImagesToServerLoading isOpen={imagesUploading} />;
+  }
 
   return (
-    <form className={`min-h-[27rem] w-full h-full ${className}`}>
+    <form className={`min-h-[27rem] h-full ${className}`}>
       {files.length === 0 ? (
-        <div {...getRootProps()} className="flex h-full w-full">
+        <div
+          {...getRootProps()}
+          className="flex h-full w-full justify-center items-center"
+        >
           <input {...getInputProps()} />
           <div
-            className={`flex flex-col items-center justify-center w-full p-8 md:p-12 lg:p-16 border-4 border-dashed ${
+            className={`flex flex-col items-center justify-center w-full h-full p-8 md:p-12 lg:p-16 border-2 border-dashed ${
               isDragActive
                 ? "border-primary bg-card"
                 : "border-muted-foreground"
             } rounded-lg cursor-pointer transition duration-300 ease-in-out`}
           >
             <Image
-              src={uploaddIcon}
+              src={uploadIcon}
               height={64}
               width={64}
-              className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
+              className="h-14 w-14 md:h-16 md:w-16 lg:h-24 lg:w-24"
               alt="upload-logo"
               unoptimized
             />
             <div className="mt-4 space-y-2 text-center text-primary">
               {isDragActive ? (
-                <Label className="text-sm sm:text-lg font-semibold">
+                <Label className="text-sm sm:text-sm font-semibold">
                   Drop your images here
                 </Label>
               ) : (
-                <Label className="text-sm sm:text-lg font-semibold">
+                <Label className="text-xs sm:text-sm font-semibold">
                   Tap to upload images
                 </Label>
               )}{" "}
               <br />
-              <span className="text-muted-foreground text-sm">
+              <span className="text-muted-foreground text-xs">
                 File must be JPEG, JPG or PNG and up to 40MB
               </span>
             </div>
@@ -169,38 +189,21 @@ function SmartShareDropZone({
         </div>
       ) : (
         //  File preview section
-        <section className="w-full">
-          {/* Hidden input for file selection */}
-          <input {...getInputProps()} ref={fileInputRef} className="hidden" />
-
+        <section className="flex flex-col w-full min-h-screen">
+          {/* File preview section */}
           <Dialog open={showImagePreviewModal} onOpenChange={handlePreview}>
-            <DialogContent className="flex flex-col gap-y-0 w-full h-3/4 rounded-2xl border-2 overflow-hidden p-0 text-primary">
-              <DialogHeader className="flex flex-row bg-accent border-b border-muted-foreground text-primary items-center justify-start rounded-t-md space-x-3 px-6 py-3">
-                <Button
-                  type="button"
-                  variant={"secondary"}
-                  className="mt-1 border border-muted-foreground bg-secondary"
-                  onClick={handleAddMoreClick}
-                >
-                  Add more
-                </Button>
-
-                <Button
-                  type="button"
-                  className="border border-muted-foreground text-primary bg-card hover:bg-card"
-                  onClick={() => {
-                    handleUploadImagesToServer({ workSpaceId });
-                  }}
-                >
-                  upload all
-                </Button>
+            <DialogContent className="flex flex-col gap-y-0 w-11/12 sm:w-2/5 h-3/4 rounded-sm border-2 overflow-hidden p-0 text-primary max-w-full">
+              <DialogHeader className="flex flex-row bg-accent text-primary items-center justify-start rounded-none px-6 py-4">
+                <DialogTitle className="text-sm sm:text-lg font-semibold">
+                  Images preview
+                </DialogTitle>
               </DialogHeader>
 
-              <DialogDescription className="p-6 h-full w-full bg-accent overflow-y-scroll scrollbar-thin scrollbar-thumb-primary scrollbar-track-rounded-full scrollbar-track-accent">
-                <Label className="text-lg font-semibold text-primary border-b pb-3">
-                  Images Preview
-                </Label>
-                <ul className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <DialogDescription className="px-6 py-1 h-full w-full bg-accent overflow-y-scroll scrollbar-thin scrollbar-thumb-primary scrollbar-track-rounded-full scrollbar-track-accent">
+                {/* <Label className="text-lg font-semibold text-primary border-b pb-3">
+                
+              </Label> */}
+                <ul className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-3">
                   {files.map((file) => (
                     <li
                       key={file.id}
@@ -214,20 +217,41 @@ function SmartShareDropZone({
                         className="object-cover w-full h-full"
                       />
                       <button
-                        className="w-8 h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
+                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
                         onClick={() => removeFile(file.id)}
                       >
-                        <IoCloseCircle className="w-8 h-8 text-red-600" />
+                        <IoCloseCircle className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
                       </button>
-                      <p className="absolute inset-0 flex items-center justify-center text-white text-base font-medium opacity-0 group-hover:opacity-100 bg-opacity-40 bg-black rounded-lg">
-                        {truncateFileName(file.name, 15)}
-                      </p>
                     </li>
                   ))}
                 </ul>
               </DialogDescription>
+              <DialogFooter className="border-t border-muted-foreground px-20 py-3 sm:px-24 sm:py-5 bg-secondary gap-y-3 sm:gap-y-0">
+                <Button
+                  type="button"
+                  variant={"secondary"}
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
+                  onClick={handleAddMoreClick}
+                >
+                  Add more
+                </Button>
+
+                <Button
+                  type="button"
+                  variant={"default"}
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
+                  onClick={() => {
+                    handleUploadImagesToServer({ eventId });
+                  }}
+                >
+                  Upload
+                </Button>
+              </DialogFooter>
             </DialogContent>
           </Dialog>
+
+          {/* Hidden input for file selection */}
+          <input {...getInputProps()} ref={fileInputRef} className="hidden" />
         </section>
       )}
     </form>

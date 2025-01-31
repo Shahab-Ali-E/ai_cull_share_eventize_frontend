@@ -47,6 +47,6 @@ export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>
         }
     } catch (e) {
         console.error("An error occurred while creating the workspace:", e)
-        return { error: "An error occurred while deleting the workspace." };
+        return { error: "An error occurred while creating the workspace." };
     }
 }

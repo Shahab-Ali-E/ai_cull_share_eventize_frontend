@@ -19,7 +19,7 @@ export const DeleteWorkSpace = async ({ workSpaceName }: {workSpaceName:string})
       method: "DELETE",
       credentials: "include",
       headers: {
-        Authorization: `Bearer ${token}`, // Passing the token here
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
     });

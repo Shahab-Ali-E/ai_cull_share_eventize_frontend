@@ -2,33 +2,28 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 // API calls
-import { CullingStore } from "@/@types/smart-culling";
+import { CullingStore, MultipleWorkspaceDataInterface } from "@/@types/smart-culling";
 
-const useCullingStore = create<CullingStore>(
+const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskIds: Record<string, string[]>; workspacesData: MultipleWorkspaceDataInterface[]; }]]>(
   persist(
   (set) => ({
     // Initial state
     // files: [],
     // rejectedFiles: [],
+    toggleView:true,
     uploadedImagesS3Urls: [],
-    currentActiveWorkSpaceData: {
-      id: "",
-      created_at: "",
-      name: "",
-      total_size: 0,
-      temporary_images_urls: [],
-      culling_done: false,
-      culling_in_progress: false,
-    },
+    workspacesData: [],
     // isImagesUploading: false,
     // uploadImagesError: null,
     // isAlertOpen: false,
     cullingTaskIds: {},
     cullingInProgress: false,
 
+
     // Setters
-    setCurrentActiveWorkSpaceData: (workSpace) =>
-      set({ currentActiveWorkSpaceData: workSpace }),
+    setWorkSpacesData: (workSpaces) =>
+      set({ workspacesData: workSpaces }),
+    setToggleView: () => set((state) => ({ toggleView: !state.toggleView })),
     // setFiles: (files) =>
     //   set((state) => ({
     //     files: Array.isArray(files) ? files : files(state.files),
@@ -41,21 +36,6 @@ const useCullingStore = create<CullingStore>(
     //   })),
     setUploadedImagesS3Urls: (urls) => set({ uploadedImagesS3Urls: urls }),
 
-    resetStateForNewWorkspace: (workspaceId: string) =>
-      set((state) => {
-        if (state.currentActiveWorkSpaceData.id !== workspaceId) {
-          return {
-            files: [],
-            rejectedFiles: [],
-            uploadedImagesS3Urls: [],
-            // currentActiveWorkSpaceData: { id: workspaceId, created_at: '', name: '', total_size: 0, temporary_images_urls: [], culling_done:false },
-            isImagesUploading: false,
-            uploadImagesError: null,
-            cullingInProgress: false,
-          };
-        }
-        return state;
-      }),
 
     // setIsAlertOpen: (value: boolean) => set({ isAlertOpen: value }),
 
@@ -122,10 +102,9 @@ const useCullingStore = create<CullingStore>(
     // for handling to check whether the culling is completed or not
     // setCullingInProgress: (inProgress) => set({ cullingInProgress: inProgress }),
   }),
-
     {
       name: 'culling-store',
-      partialize: (state) => ({ cullingTaskIds: state.cullingTaskIds }), // Only persist cullingTaskIds
+      partialize: (state) => ({ cullingTaskIds: state.cullingTaskIds, workspacesData:state.workspacesData }), // Only persist selected states
     }
   )
 );

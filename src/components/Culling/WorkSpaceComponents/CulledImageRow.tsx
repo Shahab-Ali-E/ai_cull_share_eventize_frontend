@@ -6,12 +6,12 @@ import React from 'react';
 
 function CulledImageRow({ title, href }: { title: string; href: string }) {
   return (
-    <TableRow className="hover:bg-muted transition-colors">
+    <TableRow className="hover:bg-primary-foreground transition-colors border-gray-500">
       <TableCell className="py-4 px-6 cursor-pointer">
         <Link href={href} passHref >
           <Label className="flex items-center space-x-4 text-primary w-fit cursor-pointer">
             <Folder className="text-blue-500 w-6 h-6" />
-            <span className="font-medium">{title}</span>
+            <span className="font-medium text-sm">{title}</span>
           </Label>
         </Link>
       </TableCell>

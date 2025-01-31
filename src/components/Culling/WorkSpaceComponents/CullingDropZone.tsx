@@ -22,8 +22,8 @@ import {
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { uploadCullingImagesToServer } from "@/lib/actions/UploadImagesForCulling";
-import { useToast } from "@/hooks/use-toast";
 import UploadImagesToServerLoading from "./LoadingUploadImageServer";
+import { toast } from "sonner";
 
 interface CullingDropZoneProps {
   className?: string;
@@ -42,7 +42,6 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
   const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
   const { setUploadedImagesS3Urls } = useCullingStore();
-  const { toast } = useToast();
 
   const router = useRouter();
 
@@ -132,10 +131,8 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
         });
 
         if (error) {
-          toast({
-            title: "Sorry, can't upload images",
+          toast.error("Sorry, can't upload images",{
             description: error,
-            variant: "destructive",
           });
         } else {
           console.log("data from upload culling", data);
@@ -145,11 +142,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
       } catch {
         // const errorMessage =
         //   e?.errors?.message || e?.message || "Sorry, something went wrong while uploading images.";
-        toast({
-          title: "Can't upload images",
-          description: "Sorry, something went wrong while uploading images.",
-          variant: "destructive",
-        });
+        toast.error("Sorry, something went wrong while uploading images");
       } finally {
         setFiles([]);
         setImagesUploading(false);
@@ -166,11 +159,11 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
       {files.length === 0 ? (
         <div
           {...getRootProps()}
-          className="flex flex-grow h-full w-full sm:w-3/4 justify-center"
+          className="flex flex-grow h-full w-full sm:w-4/5 justify-center"
         >
           <input {...getInputProps()} />
           <div
-            className={`flex flex-col items-center justify-center w-full p-8 md:p-12 lg:p-16 border-4 border-dashed ${
+            className={`flex flex-col items-center justify-center w-full p-8 md:p-12 lg:p-16 border-2 border-dashed ${
               isDragActive
                 ? "border-primary bg-card"
                 : "border-muted-foreground"
@@ -180,7 +173,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
               src={uploaddIcon}
               height={64}
               width={64}
-              className="h-16 w-16 md:h-20 md:w-20 lg:h-24 lg:w-24"
+              className="h-14 w-14 md:h-16 md:w-16 lg:h-20 lg:w-20"
               alt="upload-logo"
               unoptimized
             />
@@ -190,14 +183,14 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                   Drop your images here
                 </Label>
               ) : (
-                <Label className="text-sm sm:text-lg font-semibold">
+                <Label className="text-xs sm:text-sm font-semibold">
                   ✨ Get started by uploading images. <br />
                   Simply drag and drop files here 🖼️, or click to select files
                   📁.
                 </Label>
               )}{" "}
               <br />
-              <span className="text-muted-foreground text-sm">
+              <span className="text-muted-foreground text-xs">
                 File must be JPEG, JPG and PNG
               </span>
             </div>
@@ -209,8 +202,8 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
           <Dialog open={showImagePreviewModal} onOpenChange={handlePreview}>
             <DialogContent className="flex flex-col gap-y-0 w-11/12 sm:w-2/5 h-3/4 rounded-sm border-2 overflow-hidden p-0 text-primary max-w-full">
               <DialogHeader className="flex flex-row bg-accent text-primary items-center justify-start rounded-none px-6 py-8">
-                <DialogTitle className="text-xl sm:text-2xl font-semibold">
-                  Uploaded images preview
+                <DialogTitle className="text-sm sm:text-lg font-semibold">
+                  Images preview
                 </DialogTitle>
               </DialogHeader>
 
@@ -218,7 +211,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                 {/* <Label className="text-lg font-semibold text-primary border-b pb-3">
                   
                 </Label> */}
-                <ul className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4 gap-3">
+                <ul className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 gap-3">
                   {files.map((file) => (
                     <li
                       key={file.id}
@@ -232,21 +225,21 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                         className="object-cover w-full h-full"
                       />
                       <button
-                        className="w-8 h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
+                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
                         onClick={() => removeFile(file.id)}
                       >
-                        <IoCloseCircle className="w-8 h-8 text-red-600" />
+                        <IoCloseCircle className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
                       </button>
                       
                     </li>
                   ))}
                 </ul>
               </DialogDescription>
-              <DialogFooter className="border-t border-muted-foreground px-6 py-5 sm:px-10 sm:py-7 bg-secondary gap-y-4 sm:gap-y-0">
+              <DialogFooter className="border-t border-muted-foreground px-20 py-3 sm:px-24 sm:py-5 bg-secondary gap-y-3 sm:gap-y-0">
                 <Button
                   type="button"
                   variant={"secondary"}
-                  className="w-full border border-muted-foreground h-12 rounded-sm font-medium text-base"
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
                   onClick={handleAddMoreClick}
                 >
                   Add more
@@ -255,7 +248,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                 <Button
                   type="button"
                   variant={"default"}
-                  className="w-full border border-muted-foreground h-12 rounded-sm font-medium text-base"
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
                   onClick={() => {
                     handleUploadImagesToServer({ workSpaceId });
                   }}

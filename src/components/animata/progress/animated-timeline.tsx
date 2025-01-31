@@ -54,17 +54,17 @@ const TimelineItem: React.FC<TimelineItemProps> = ({
 
   return (
     <motion.div
-      className="flex last:mb-0 space-x-28 sm:space-x-96"
+      className="flex last:mb-0 space-x-28 sm:space-x-64"
       initial={{ opacity: 0, y: 50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
       <div className={cn("flex flex-col flex-grow text-primary", !isLast && "mb-7")}>
-        <Label className="text-lg font-semibold" style={{ color: styles.titleColor }}>
+        <Label className="text-sm font-semibold" style={{ color: styles.titleColor }}>
           {event.title}
         </Label>
         <div className={cn("text-muted-foreground", isFailed && "text-red-600")}>
-          <Label style={{ color: styles.descriptionColor }}>
+          <Label style={{ color: styles.descriptionColor }} className="text-xs sm:text-sm">
             {event.status || "pending"} {event.progress?.toFixed(1)}
           </Label>
         </div>

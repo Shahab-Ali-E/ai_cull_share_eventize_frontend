@@ -8,15 +8,8 @@ import logo from "@/images/logo.png";
 import Image from "next/image";
 import { ThemeToggle } from "./theme-toggle";
 import { usePathname } from "next/navigation"; // Import from next/navigation
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  useAuth,
-  UserButton,
-  useUser,
-} from "@clerk/nextjs";
-import { Skeleton } from "./ui/skeleton";
+import UserProfile from "@/components/user-profile";
+import { useAuth } from "@clerk/nextjs";
 
 interface NavbarProps {
   fixed?: boolean;
@@ -25,8 +18,7 @@ interface NavbarProps {
 export default function Navbar({ fixed = false }: NavbarProps) {
   const pathname = usePathname();
   const { getToken } = useAuth();
-  const { isLoaded } = useUser();
-  
+
   // Function to fetch and log the token
   useEffect(() => {
     const logToken = async () => {
@@ -45,8 +37,8 @@ export default function Navbar({ fixed = false }: NavbarProps) {
   return (
     <div
       className={`${
-        fixed ? "sticky  w-full" : "mt-7"
-      } z-50 flex items-center justify-between px-7 py-2 text-primary shadow-md shadow-gray-300 dark:shadow-primary-foreground bg-[#e9e8e8] dark:bg-card rounded-full`}
+        fixed ? "sticky  w-11/12" : "mt-7 w-11/12"
+      } z-50 flex items-center justify-between self-center px-7 py-2 text-primary shadow-md shadow-gray-300 dark:shadow-primary-foreground bg-[#e9e8e8] dark:bg-primary-foreground rounded-full`}
     >
       <Link href="/" className="flex items-center gap-2" prefetch={false}>
         <Image
@@ -58,7 +50,7 @@ export default function Navbar({ fixed = false }: NavbarProps) {
       <div className="hidden md:flex gap-4">
         <Link
           href="/"
-          className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
             isActive("/") ? "bg-muted rounded-full" : ""
           }`}
           prefetch={false}
@@ -67,7 +59,7 @@ export default function Navbar({ fixed = false }: NavbarProps) {
         </Link>
         <Link
           href="/event-arrangment"
-          className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
             isActive("/event-arrangment") ? "bg-muted rounded-full" : ""
           }`}
           prefetch={false}
@@ -76,7 +68,7 @@ export default function Navbar({ fixed = false }: NavbarProps) {
         </Link>
         <Link
           href="/culling-home"
-          className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
             isActive("/culling-home") ? "bg-muted rounded-full" : ""
           }`}
           prefetch={false}
@@ -85,7 +77,7 @@ export default function Navbar({ fixed = false }: NavbarProps) {
         </Link>
         <Link
           href="/smart-share"
-          className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
             isActive("/smart-share") ? "bg-muted rounded-full" : ""
           }`}
           prefetch={false}
@@ -94,7 +86,7 @@ export default function Navbar({ fixed = false }: NavbarProps) {
         </Link>
         <Link
           href="/contact"
-          className={`text-base font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
+          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
             isActive("/contact") ? "bg-muted rounded-full" : ""
           }`}
           prefetch={false}
@@ -106,52 +98,10 @@ export default function Navbar({ fixed = false }: NavbarProps) {
         <div className="hidden sm:block">
           <ThemeToggle />
         </div>
-        {/* Check if the user was authenticated, then show their profile, otherwise show the SignUp button */}
-        {/* if user not sign in then show sigin button */}
-        {isLoaded ? (
-          <div>
-            <SignedOut>
-              <SignInButton>
-                <Button
-                  variant="default"
-                  className="rounded-full px-6 hover:scale-105 transition-all ease-in-out duration-200 "
-                >
-                  SignIn
-                </Button>
-              </SignInButton>
-            </SignedOut>
+        {/* User profile  */}
 
-            {/* if sign in then show user profile */}
-            <SignedIn>
-              <UserButton
-                appearance={{
-                  elements: {
-                    rootBox:
-                      "bg-headingtext hover:scale-105 text-primary rounded-full p-1 transition-all",
-                    userButtonAvatarBox: "h-9 w-9",
-                    userButtonPopoverFooter: "hidden",
-
-                    userButtonPopoverCard: "border border-muted",
-                    userButtonPopoverMain: "bg-card text-primary p-3",
-                    userPreviewSecondaryIdentifier: "text-muted-foreground",
-
-                    // popover styling
-                    userButtonPopoverActions:
-                      "flex-col-reverse gap-2 space-y-2",
-                    userButtonPopoverActionButton:
-                      "bg-primary-foreground text-primary hover:text-primary hover:bg-muted rounded-xl",
-                  },
-                }}
-                userProfileMode="navigation"
-                userProfileUrl="/user-profile"
-              >
-                <UserButton.MenuItems></UserButton.MenuItems>
-              </UserButton>
-            </SignedIn>
-          </div>
-        ) : (
-            <Skeleton className="h-10 w-10 rounded-full" />
-        )}
+        <UserProfile />
+ 
       </div>
       <Sheet>
         <SheetTrigger asChild>

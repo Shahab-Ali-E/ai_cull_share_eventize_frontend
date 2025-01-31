@@ -11,12 +11,12 @@ import EventComboxBox from '@/components/event-arrangment/bookevent/EventComboBo
 import { AzerbaijanCities, Countries, DubaiCities, PakistanCities, ThailandCities, TurkeyCities } from './Data';
 import BackButton from '@/components/event-arrangment/bookevent/BackButton';
 import SubmitButton from '@/components/event-arrangment/bookevent/SubmitButton';
-import useEventFormStore from '@/zustand/EventFormStore';
+import useEventArrangementStore from '@/zustand/EventArrangementStore';
 import type {DestinationDetailType} from "@/schemas/BookEvent"
 
 function Destination() {
     // Zustand store
-    const { destinationDetails, setDestinationDetails } = useEventFormStore();
+    const { destinationDetails, setDestinationDetails } = useEventArrangementStore();
 
     const router = useRouter();
 

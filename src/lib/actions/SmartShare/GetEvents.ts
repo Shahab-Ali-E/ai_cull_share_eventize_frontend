@@ -2,7 +2,7 @@
 
 "use server";
 
-import { SmartShareEventDataByIdInterface, SmartShareEventDataInterface } from "@/@types/smart-share";
+import { SmartShareEventDataByIdInterface, SmartShareEventsDataInterface } from "@/@types/smart-share";
 import {
   GET_ALL_EVENTS,
   GET_EVENT_BY_ID,
@@ -23,7 +23,7 @@ export const getAllEvents = async ({
   sort_by?: string;
   limit?: number;
   sort_order?: string;
-}): Promise<{ data?: SmartShareEventDataInterface[]; error?: string }> => {
+}): Promise<{ data?: SmartShareEventsDataInterface[]; totalCount?:number; error?: string }> => {
   // getting jwt token from clerk so that we can access backend resorces
   const { getToken } = await auth();
   const token = await getToken({ template: "AI_Cull_Share_Eventize" });
@@ -65,7 +65,10 @@ export const getAllEvents = async ({
       };
     } else {
       // Return the fetched data
-      return { data: jsonResponse };
+      return {
+        data: jsonResponse.events,
+        totalCount: jsonResponse.total_count,
+      };
     }
   } catch (e) {
     console.error("An error occurred while fetching the events:", e);

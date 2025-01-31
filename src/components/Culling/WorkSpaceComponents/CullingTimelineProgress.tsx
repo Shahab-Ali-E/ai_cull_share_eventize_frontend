@@ -119,7 +119,7 @@ export default function CullingTimelineProgress({
                 containerClassName,
             )}
         >
-            <Label className="text-3xl text-primary font-bold mb-5">{title}</Label>
+            <Label className="text-base sm:text-lg text-primary font-bold mb-3">{title}</Label>
             <AnimatedTimeline
                 events={taskStatuses}
                 className="flex flex-col"

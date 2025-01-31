@@ -23,7 +23,7 @@ export const getAllWorkSpaces = async ({
   sort_by?: string;
   limit?: number;
   sort_order?: string;
-}): Promise<{ data?: MultipleWorkspaceDataInterface[]; error?: string }> => {
+}): Promise<{ data?: MultipleWorkspaceDataInterface[]; totalCount?:number; error?: string }> => {
   // getting jwt token from clerk so that we can access backend resorces
   const { getToken } = await auth();
   const token = await getToken({ template: "AI_Cull_Share_Eventize" });
@@ -64,8 +64,12 @@ export const getAllWorkSpaces = async ({
         error: "Internal Server Error",
       };
     } else {
+
       // Return the fetched data
-      return { data: jsonResponse };
+      return {
+        data: jsonResponse.folders,
+        totalCount: jsonResponse.total_count,
+      };
     }
   } catch (e) {
     console.error("An error occurred while fetching the workspaces:", e);

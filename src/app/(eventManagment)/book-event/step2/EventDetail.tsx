@@ -31,14 +31,14 @@ import { Button } from "@/components/ui/button";
 import BackButton from "@/components/event-arrangment/bookevent/BackButton";
 import { useRouter } from "next/navigation";
 import type { EventDetailsSchemaType } from "@/schemas/BookEvent";
-import useEventFormStore from "@/zustand/EventFormStore";
+import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import { cn } from "@/lib/utils";
 
 function EventDetails() {
   const router = useRouter();
 
   // Zustand store
-  const { eventInformation, setEventInformation } = useEventFormStore();
+  const { eventInformation, setEventInformation } = useEventArrangementStore();
 
   // Define your form
   const eventDetailForm = useForm<EventDetailsSchemaType>({

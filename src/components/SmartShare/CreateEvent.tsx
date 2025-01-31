@@ -26,7 +26,7 @@ export default function CreateEvent() {
 
 //   passing this button as prop to CustomInputDialog
   const triggerButton = (
-    <SparkleButton className="top-7">
+    <SparkleButton className="text-xs sm:text-sm">
       Create Event
     </SparkleButton>
   );
@@ -34,7 +34,7 @@ export default function CreateEvent() {
     <CustomInputialog
       usage="Event"
       triggerButton={triggerButton}
-      dialogTitle="create Event"
+      dialogTitle="Create event"
       onCreate={createEventBackend}
     />
   );

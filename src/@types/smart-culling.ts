@@ -10,12 +10,18 @@ export interface MultipleWorkspaceDataInterface {
   culling_in_progress: boolean;
 }
 
+// after successfull culling the backend return this type of data
+export interface ImagesMetadataResponse {
+  id: string; // UUID as string in the frontend
+  name: string;
+  file_type: string;
+  images_download_path: string;
+  images_download_validity: string;
+}
+
 export interface SingleWorkspaceDataInterface
   extends MultipleWorkspaceDataInterface {
-  temporary_images_urls: {
-    url: string;
-    validity: string;
-  }[];
+  temporary_images_urls: ImagesMetadataResponse[];
 }
 
 // the backend was returning user storage that how much user used the storage and how much was remaning
@@ -27,15 +33,6 @@ export interface GetUserStorageResponseType{
     total_smart_share_storage_used:string,
 }
 
-
-// after successfull culling the backend return this type of data
-export interface CulledImagesMetadataResponse {
-  id: string; // UUID as string in the frontend
-  name: string;
-  file_type: string;
-  images_download_path: string;
-  images_download_validity: string; // ISO 8601 date string
-}
 
 // ----When the culling was going the task status was returning data in like this form
 // Interface for the task id
@@ -55,7 +52,7 @@ export interface progressDataInterface {
 // image preview and higlight compoenent props
 
 export interface SmartCullImagesPreviewProps {
-  images: CulledImagesMetadataResponse[];
+  images: ImagesMetadataResponse[];
   isInGridView: boolean;
 }
 
@@ -65,7 +62,7 @@ export interface SmartCullImagesPreviewProps {
 export interface CullingStore {
   // files: FileWithPreview[];
   // rejectedFiles: FileRejection[];
-  currentActiveWorkSpaceData: SingleWorkspaceDataInterface;
+  workspacesData: MultipleWorkspaceDataInterface[];
 
   // Uploading images
   uploadedImagesS3Urls: string[];
@@ -76,12 +73,15 @@ export interface CullingStore {
   // Start culling states
   cullingTaskIds: Record<string, string[]>;
 
+  // for toggling the workspaces view in grid or list view
+  toggleView:boolean;
+
   // Handle to check whether the culling is compoleted or not
   // cullingInProgress: boolean;
 
   // Setters
-  setCurrentActiveWorkSpaceData: (
-    workSpaceData: SingleWorkspaceDataInterface
+  setWorkSpacesData: (
+    workSpacesData: MultipleWorkspaceDataInterface[]
   ) => void;
   // setFiles: (
   //   files:
@@ -93,8 +93,8 @@ export interface CullingStore {
   //     | FileRejection[]
   //     | ((prevRejected: FileRejection[]) => FileRejection[])
   // ) => void;
+  setToggleView: (toggleView:boolean)=>void;
   setUploadedImagesS3Urls: (url: string[]) => void;
-  resetStateForNewWorkspace: (workspaceId: string) => void;
   // setIsAlertOpen: (value: boolean) => void;
 
   // Handling uploads

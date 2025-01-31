@@ -19,14 +19,14 @@ import BackButton from "@/components/event-arrangment/bookevent/BackButton";
 import SubmitButton from "@/components/event-arrangment/bookevent/SubmitButton";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
-import useEventFormStore from "@/zustand/EventFormStore";
+import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import { cn } from "@/lib/utils";
 
 import { BirthdayPortfolios, WeddingPortfolios, CorporatePortfolios } from "./Data";
 
 function AdditionalInformation() {
   // Zustand store
-  const { additionalInformation, setAdditionalInformation, eventInformation } = useEventFormStore();
+  const { additionalInformation, setAdditionalInformation, eventInformation } = useEventArrangementStore();
   const router = useRouter();
   console.log("event information ",eventInformation)
 

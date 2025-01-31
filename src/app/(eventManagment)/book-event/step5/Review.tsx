@@ -5,7 +5,7 @@ import { IoIosMail, IoIosCall, IoIosPerson, IoIosCalendar} from "react-icons/io"
 import { FaClipboardList, FaPeopleGroup } from "react-icons/fa6";
 import ReviewCard from "@/components/event-arrangment/bookevent/ReviewCard";
 import StepDescription from "@/components/event-arrangment/bookevent/StepDescription";
-import useEventFormStore from "@/zustand/EventFormStore";
+import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import { HandCoins } from "lucide-react";
 import { FaGlobeAfrica, FaLocationArrow } from "react-icons/fa";
 import { BsStars } from "react-icons/bs";
@@ -30,7 +30,7 @@ function Review() {
     destinationDetails,
     additionalInformation,
     resetForm
-  } = useEventFormStore();
+  } = useEventArrangementStore();
 
   //toast for showing error message or success pop up
   const {toast} = useToast();

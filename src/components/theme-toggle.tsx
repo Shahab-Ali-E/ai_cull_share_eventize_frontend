@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 export function ThemeToggle({className}:{className?:string}) {
-  const { setTheme } = useTheme()
+  const { setTheme, theme } = useTheme()
 
   return (
     <DropdownMenu>
@@ -25,13 +25,13 @@ export function ThemeToggle({className}:{className?:string}) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className={`bg-card ${className}`}>
-        <DropdownMenuItem onClick={() => setTheme("light")}>
+        <DropdownMenuItem onClick={() => setTheme("light")} className={`${theme==="light" ? "bg-secondary":""}`}>
           Light
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")}>
+        <DropdownMenuItem onClick={() => setTheme("dark")} className={`${theme==="dark" ? "bg-secondary":""}`}>
           Dark
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")}>
+        <DropdownMenuItem onClick={() => setTheme("system")} className={`${theme==="system" ? "bg-secondary":""}`}>
           System
         </DropdownMenuItem>
       </DropdownMenuContent>

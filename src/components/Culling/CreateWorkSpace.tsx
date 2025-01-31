@@ -25,8 +25,8 @@ export default function CreateCullingWorkSpace() {
         }
     };
     const triggerButton = (
-        <GradientButton className="w-full h-11 xl:h-11 lg:h-12 md:h-12 text-xs md:text-xs xl:text-sm 2xl:text-base shadow-chart-2 sm:shadow-none">
-          Create Workpsace
+        <GradientButton className="w-3/4 sm:w-full h-10 xl:h-10 lg:h-10 md:h-10 text-sm rounded-sm">
+          Create Workspace
         </GradientButton>
       );
     return (

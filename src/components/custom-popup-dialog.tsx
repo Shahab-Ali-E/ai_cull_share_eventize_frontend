@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface CustomPopupDialogProps {
   triggerButton: React.ReactNode;
@@ -21,6 +21,7 @@ interface CustomPopupDialogProps {
   title: string;
   isLoading?: boolean;
   loadingText?: string;
+  successMessage?:string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onConfirm: () => Promise<
     { error: unknown; success: undefined } | { success: boolean; error?: undefined }
@@ -32,11 +33,11 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
   title,
   message,
   loadingText = "Loading...",
+  successMessage = "Success",
   onConfirm,
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { toast } = useToast();
   const router = useRouter();
 
   const handleConfirm = async () => {
@@ -45,21 +46,19 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
       const response = await onConfirm();
 
       if (response.error) {
-        toast({
-          title: "Error",
+        toast.error("Somthing wen't wrong",{
           description: Array.isArray(response.error)
             ? response.error[0].msg
             : response.error,
-          variant: "destructive",
+      
         });
       } else {
         router.refresh();
+        toast.success(successMessage)
       }
     } catch (error) {
-      toast({
-        title: "Error",
+      toast.error("Something wen't wrong",{
         description: String(error),
-        variant: "destructive",
       });
     } finally {
       setLoading(false);

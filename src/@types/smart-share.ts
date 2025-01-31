@@ -1,18 +1,27 @@
 import { FileRejection } from "react-dropzone";
 
 // event data interface 
-export interface SmartShareEventDataInterface{
+export interface SmartShareEventsDataInterface{
     id: string;
     name: string;
-    cover_image:string | File;
+    cover_image:string;
     description:string;
     total_size: number;
     created_at: string;
 }
 
+// images metadata 
+export interface SmartShareImagesMetadata{
+    id:string;
+    name:string;
+    file_type:string;
+    image_download_path:string;
+    image_download_validity:string;
+}
+
 // interface for event data per id
-export interface SmartShareEventDataByIdInterface extends SmartShareEventDataInterface{
-    images_data:string[];
+export interface SmartShareEventDataByIdInterface extends SmartShareEventsDataInterface{
+    images_data:SmartShareImagesMetadata[];
 }
 
 // props for side bar of specific event page /smartshare-dashboard/SideBar.tsx
@@ -25,7 +34,7 @@ export interface SideBarProps{
 
 // interface for share event page /smartshare-dashboard/ShareEventPage.tsx
 export interface ShareEventPageInterface{
-    Eventdata:SmartShareEventDataByIdInterface | undefined;
+    eventData:SmartShareEventDataByIdInterface | undefined;
     error?:string | undefined;
 }
 
@@ -38,35 +47,24 @@ export interface FileWithPreview extends File {
 
 // Interface for zustand state of smart share store
 export interface SmartShareStore {
-    files: FileWithPreview[];
-    rejectedFiles: FileRejection[];
     currentEventData: SmartShareEventDataByIdInterface;
-
-  
+    toggleView:boolean; 
+    eventsData:SmartShareEventsDataInterface[]
+    
+    
     // Uploading images
     uploadedImagesUrls: string[];
-    isImagesUploading: boolean;
-    uploadImagesError: string | null;
-    uploadAlertOpen: boolean;
   
     // Setters
     setCurrentEventData: (
       eventData: SmartShareEventDataByIdInterface
     ) => void;
-    setFiles: (
-      files:
-        | FileWithPreview[]
-        | ((prevFiles: FileWithPreview[]) => FileWithPreview[])
-    ) => void;
-    setRejected: (
-      rejectedFiles:
-        | FileRejection[]
-        | ((prevRejected: FileRejection[]) => FileRejection[])
-    ) => void;
+    setToggleView:(
+        toggleView:boolean
+    )=>void;
+    setEventsData: (
+        eventsData:SmartShareEventsDataInterface[]
+    )=>void;
+   
     setUploadedImagesUrls: (url: string[]) => void;
-    resetStateForEvent: (eventId: string) => void;
-    setUploadAlertOpen: (value: boolean) => void;
-  
-    // Handling uploads
-    handleUploadImages: ({ eventId }: { eventId: string }) => void;
 }

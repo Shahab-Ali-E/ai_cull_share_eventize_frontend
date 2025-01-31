@@ -38,36 +38,36 @@ const WorkspaceCard = ({
 }: WorkspaceCardProps) => {
   return (
     <div
-      className={`relative flex flex-col rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out hover:shadow-muted hover:shadow-xl ${
+      className={`relative flex flex-col rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out hover:shadow-muted hover:shadow-xl w-44 sm:w-[225px] ${
         disabled ? "cursor-not-allowed opacity-70" : ""
       }`}
     >
       {disabled && (
-        <Skeleton className="absolute inset-0 z-10 pointer-events-none text-center text-primary top-[5%] text-2xl font-semibold"></Skeleton>
+        <Skeleton className="absolute inset-0 z-10 pointer-events-none text-center text-primary text-2xl font-semibold"></Skeleton>
       )}
       {/* Workspace initials */}
       <Link href={href} passHref>
         <div
-          className={`w-full text-center bg-gradient-to-bl from-[#9b85e9] to-[#81f0e6] p-2 hover:cursor-pointer ${
+          className={`w-full text-center bg-gradient-to-tr from-purple-500 to-teal-300 hover:cursor-pointer ${
             disabled ? "" : ""
           }`}
         >
           {disabled ? (
-            <Skeleton className="py-12 text-white font-bold text-3xl">
+            <Skeleton className="py-9 text-white font-bold text-lg sm:text-xl">
               Culling in progress...
             </Skeleton>
           ) : (
-            <Label className="text-white text-9xl font-bold opacity-90 ">
+            <Label className="text-white text-7xl sm:text-8xl font-bold opacity-90">
               {initials}
             </Label>
           )}
         </div>
       </Link>
       {/* Workspace details */}
-      <div className="flex flex-row p-4">
-        <div className="flex flex-col w-1/2 space-y-2">
+      <div className="flex flex-row p-4 bg-primary-foreground">
+        <div className="flex flex-col w-1/2 justify-between">
           <Label
-            className={`text-primary text-2xl font-bold ${
+            className={`text-primary text-base sm:text-xl font-bold ${
               disabled ? "cursor-not-allowed" : ""
             }`}
           >
@@ -101,8 +101,8 @@ const WorkspaceCard = ({
                 disabled={disabled}
               >
                 <FcEmptyTrash
-                  className={`h-7 w-7 transition-all ease-in-out duration-150 ${
-                    disabled ? "cursor-not-allowed" : "hover:scale-125"
+                  className={`h-6 w-6 hover:bg-opacity-90 ${
+                    disabled ? "cursor-not-allowed" : "hover:scale-110"
                   }`}
                 />
               </button>
@@ -111,6 +111,7 @@ const WorkspaceCard = ({
             title={"Delete workspace?"}
             onConfirm={() => DeleteWorkSpace({ workSpaceName: workspaceName })}
             loadingText="Deleting..."
+            successMessage="Deleted successfully"
           />
         </div>
       </div>

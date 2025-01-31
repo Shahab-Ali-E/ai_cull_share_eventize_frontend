@@ -19,14 +19,14 @@ import { PhoneInput } from "@/components/ui/phone-input";
 import StepDescription from "@/components/event-arrangment/bookevent/StepDescription";
 import { useRouter } from "next/navigation";
 import type { PersonalInformationType } from "@/schemas/BookEvent";
-import useEventFormStore from "@/zustand/EventFormStore";
+import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import { cn } from "@/lib/utils";
 
 function PersonalInformation() {
   const router = useRouter();
 
   // Using event form Zustand store
-  const { personalInformation, setPersonalInformation } = useEventFormStore();
+  const { personalInformation, setPersonalInformation } = useEventArrangementStore();
 
   // Define your form
   const personalInformationForm = useForm<PersonalInformationType>({
