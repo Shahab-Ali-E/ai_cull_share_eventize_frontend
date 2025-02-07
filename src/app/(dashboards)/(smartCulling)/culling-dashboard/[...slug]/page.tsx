@@ -8,8 +8,8 @@ import DownloadAction from "@/components/Culling/WorkSpaceComponents/DownloadAct
 import ImagesHighlights from "./ImagesHighlights";
 
 // apis
-import { GetWorkSpaceById } from "@/lib/actions/GetUserWorkSpaces";
-import { GetCulledImagesMetadata } from "@/lib/actions/GetCulledImages";
+import { GetWorkSpaceById } from "@/lib/actions/Culling/GetUserWorkSpaces";
+import { GetCulledImagesMetadata } from "@/lib/actions/Culling/GetCulledImages";
 import { ImagesMetadataResponse } from "@/@types/smart-culling";
 
 const WorkspaceMain = ({ params }: { params: { slug: string[] } }) => {

@@ -9,7 +9,7 @@ import ShareEventPage from "./ShareEventPage";
 import { GetEventById } from "@/lib/actions/SmartShare/GetEvents";
 
 
-const WorkspaceMain = ({ params }: { params: {ShareEvent:string} }) => {
+const Page = ({ params }: { params: {ShareEvent:string} }) => {
   const eventId = params.ShareEvent;
   // Fetch the workspace data
   const eventDataPromise = GetEventById({ eventId });
@@ -29,4 +29,4 @@ const WorkspaceMain = ({ params }: { params: {ShareEvent:string} }) => {
   );
 };
 
-export default WorkspaceMain;
+export default Page;

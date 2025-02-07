@@ -4,7 +4,7 @@
 import CustomInputialog from "../custom-input-dialog"
 
 // api and validaton
-import { CreateWorkSpace } from "@/lib/actions/CreateWorkSpace"
+import { CreateWorkSpace } from "@/lib/actions/Culling/CreateWorkSpace"
 import GradientButton from "../ui/gradient-button";
 
 

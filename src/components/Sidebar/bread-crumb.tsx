@@ -1,7 +1,6 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { Slash } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -9,7 +8,6 @@ import {
   BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbSeparator,
-  BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
 import React from "react";
 import { useUser } from "@clerk/nextjs";
@@ -26,7 +24,7 @@ function getPathSegments(pathname: string) {
 // to map the active dashboard with proper nmae
 function mapActiveDashboardName(
   firstName: string | null | undefined,
-  lastName:string | null | undefined,
+  lastName: string | null | undefined,
   activePath: string
 ) {
   // userName = userName
@@ -40,8 +38,8 @@ function mapActiveDashboardName(
       return `${firstName} ${lastName}'s Booked Event`;
     case "smart-share-dashboard":
       return `${firstName} ${lastName}'s Event`;
-    case "overview":
-      return `${firstName} ${lastName}'s Overview`;
+    case "dashboard":
+      return `${firstName} ${lastName}'s Dashboard`;
   }
 }
 
@@ -51,7 +49,11 @@ export default function BreadCrumb() {
   const { user } = useUser();
   const { workspacesData } = useCullingStore();
   const { eventsData } = useSmartShareStore();
-  const initialName = mapActiveDashboardName(user?.firstName,user?.lastName, pathSegments[0]);
+  const initialName = mapActiveDashboardName(
+    user?.firstName,
+    user?.lastName,
+    pathSegments[0]
+  );
 
   // Generate breadcrumbs dynamically
   const breadcrumbs = pathSegments
@@ -68,26 +70,23 @@ export default function BreadCrumb() {
         const matchingWorkspace = workspacesData.find(
           (workspace) => workspace.id === segment
         );
-        if(matchingWorkspace){
+        if (matchingWorkspace) {
           label = matchingWorkspace.name;
         }
-      }
-      else if(pathSegments[0] === "smart-share-dashboard"){
+      } else if (pathSegments[0] === "smart-share-dashboard") {
         // Replace UUID with corresponding event name if it exists
-        const matchingEvent = eventsData.find(
-          (event) => event.id === segment
-        );
-        if(matchingEvent){
+        const matchingEvent = eventsData.find((event) => event.id === segment);
+        if (matchingEvent) {
           label = matchingEvent.name;
         }
       }
 
       return { href, label, isLast };
     });
-    
+
   return (
     <Breadcrumb>
-      <BreadcrumbList className="text-primary text-base sm:text-xl font-semibold">
+      <BreadcrumbList className="text-primary text-base sm:text-2xl font-semibold">
         <BreadcrumbItem>
           <BreadcrumbLink asChild>
             <Link href={`/${pathSegments[0]}`}>{initialName}</Link>

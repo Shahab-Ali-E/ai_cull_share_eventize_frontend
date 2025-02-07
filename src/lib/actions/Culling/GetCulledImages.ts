@@ -1,6 +1,6 @@
 "use server";
 
-import { CulledImagesMetadataResponse } from "@/@types/smart-culling";
+import { ImagesMetadataResponse } from "@/@types/smart-culling";
 import { GET_CULLED_IMAGES } from "@/constants/ApiUrls";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -14,7 +14,7 @@ export const GetCulledImagesMetadata = async ({
   workSpaceId: string;
   detection_status?: string;
 }): Promise<{
-  data: CulledImagesMetadataResponse[] | [];
+  data: ImagesMetadataResponse[] | [];
   error: string | null;
 }> => {
   try {

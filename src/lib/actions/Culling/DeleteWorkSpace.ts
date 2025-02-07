@@ -30,7 +30,7 @@ export const DeleteWorkSpace = async ({ workSpaceName }: {workSpaceName:string})
       redirect("/sign-in");
     } else if (response.status === 500 || !response.ok) {
       return {
-        error: jsonResponse.detail || 'Failed to delete workspace',
+        error: jsonResponse || 'Failed to delete workspace',
       };
     } else {
       return { success: true };

@@ -6,7 +6,10 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 // clerk middle ware
 
 const isProtectedRoute = createRouteMatcher([
+  '/dashboard(.*)',
+  '/event-arrangement-dashboard(.*)',
   '/culling-dashboard(.*)',
+  '/smart-share-dashboard(.*)',
   '/book-event(.*)',
   '/get-images(.*)'
 ])

@@ -1,3 +1,33 @@
+// The event details comes from backend
+export interface EventDetails {
+  id: string;
+
+  // Personal Information
+  fullName: string;
+  email: string;
+  phone: string;
+
+  // Event Information
+  eventType: string;
+  eventDescription: string | null; 
+  eventDate: string;
+  numberOfGuests: number;
+  budget: number;
+
+  // Destination Details
+  selectCountry: string;
+  city: string;
+  alternativeCity: string | null; 
+
+  // Additional Information
+  portfolio: string | null; 
+  specialRequirements: string | null; 
+
+  // Timestamps
+  submittedAt: string;
+}
+
+
 // --------------- multi step book form types --------------
 // Export Interfaces
 export interface PersonalInformationType {

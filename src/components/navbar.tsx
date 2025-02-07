@@ -85,9 +85,9 @@ export default function Navbar({ fixed = false }: NavbarProps) {
           Smart Share
         </Link>
         <Link
-          href="/contact"
+          href="/contact-us"
           className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-            isActive("/contact") ? "bg-muted rounded-full" : ""
+            isActive("/contact-us") ? "bg-muted rounded-full" : ""
           }`}
           prefetch={false}
         >
@@ -149,9 +149,9 @@ export default function Navbar({ fixed = false }: NavbarProps) {
               Smart Share
             </Link>
             <Link
-              href="/contact"
+              href="/contact-us"
               className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/contact") ? "underline" : ""
+                isActive("/contact-us") ? "underline" : ""
               }`}
               prefetch={false}
             >

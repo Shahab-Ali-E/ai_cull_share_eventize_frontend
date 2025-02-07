@@ -1,7 +1,7 @@
 "use client";
 
 import GradientButton from "@/components/ui/gradient-button";
-import { StartCulling } from "@/lib/actions/StartCulling";
+import { StartCulling } from "@/lib/actions/Culling/StartCulling";
 import useCullingStore from "@/zustand/CullingStore";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useRouter } from "next/navigation";

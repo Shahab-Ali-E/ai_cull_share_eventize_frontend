@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { AdditionalInformationSchema, AdditionalInformationType } from "@/schemas/BookEvent";
@@ -25,6 +25,9 @@ import { cn } from "@/lib/utils";
 import { BirthdayPortfolios, WeddingPortfolios, CorporatePortfolios } from "./Data";
 
 function AdditionalInformation() {
+  // loading state for submit button
+  const [loading,setLoading] = useState(false);
+
   // Zustand store
   const { additionalInformation, setAdditionalInformation, eventInformation } = useEventArrangementStore();
   const router = useRouter();
@@ -39,6 +42,7 @@ function AdditionalInformation() {
 
   // Handle form submission
   const onSubmit = (submittedData: AdditionalInformationType) => {
+    setLoading(true);
     setAdditionalInformation({ ...additionalInformation, ...submittedData });
     router.push("/book-event/step5");
   };
@@ -136,7 +140,7 @@ function AdditionalInformation() {
         {/* Submit and Back Buttons */}
         <div className="flex justify-between">
           <BackButton />
-          <SubmitButton text="Next" />
+          <SubmitButton text="Next" loading={loading}/>
         </div>
       </form>
     </Form>

@@ -21,7 +21,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { uploadCullingImagesToServer } from "@/lib/actions/UploadImagesForCulling";
+import { uploadCullingImagesToServer } from "@/lib/actions/Culling/UploadImagesForCulling";
 import UploadImagesToServerLoading from "./LoadingUploadImageServer";
 import { toast } from "sonner";
 

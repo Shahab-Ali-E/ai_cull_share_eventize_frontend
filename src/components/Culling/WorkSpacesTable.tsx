@@ -11,7 +11,7 @@ import {
   TableRow,
 } from "@/components/ui/table"; // Assuming you're using `shadcn` components
 import CustomPopupDialog from "../custom-popup-dialog";
-import { DeleteWorkSpace } from "@/lib/actions/DeleteWorkSpace";
+import { DeleteWorkSpace } from "@/lib/actions/Culling/DeleteWorkSpace";
 import { Button } from "@/components/ui/button";
 import { MultipleWorkspaceDataInterface } from "@/@types/smart-culling";
 

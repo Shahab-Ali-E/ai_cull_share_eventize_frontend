@@ -1,6 +1,5 @@
 import {
   ChevronDown,
-  ChartNoAxesCombined,
 } from "lucide-react";
 import {
   Sidebar,
@@ -9,12 +8,9 @@ import {
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
-  SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
   SidebarMenuSub,
 } from "@/components/ui/sidebar";
-import Link from "next/link";
 import {
   Collapsible,
   CollapsibleContent,
@@ -22,7 +18,7 @@ import {
 } from "@/components/ui/collapsible";
 import dynamic from "next/dynamic";
 import React from "react";
-import {SideBarHelpSectionSkeleton, SidebarThemeToggleSkeleton, SideBarServicesSectionSkeleton} from "./app-sidebar-skeleton";
+import {SideBarHelpSectionSkeleton, SidebarThemeToggleSkeleton, SideBarServicesSectionSkeleton, SideBarDashboardSectionSkeleton} from "./app-sidebar-skeleton";
 
 // Dynamically load client components
 const SidebarThemeToggle = dynamic(() => import("./app-sidebar-theme-toggle"), {
@@ -40,6 +36,10 @@ const HelpSection = dynamic(()=> import("./help-section"), {
   loading:()=><SideBarHelpSectionSkeleton />,
 });
 
+const DashboardSection = dynamic(()=> import("./dashboard-section"), {
+  ssr:false,
+  loading:()=><SideBarDashboardSectionSkeleton />,
+});
 
 export async function AppSidebar() {
  
@@ -48,18 +48,9 @@ export async function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+          <SidebarGroupLabel>Overview</SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/overview">
-                    <ChartNoAxesCombined />
-                    <span>Overview</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
+            <DashboardSection />
           </SidebarGroupContent>
         </SidebarGroup>
 

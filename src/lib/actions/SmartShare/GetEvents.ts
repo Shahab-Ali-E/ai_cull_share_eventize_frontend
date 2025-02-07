@@ -4,8 +4,8 @@
 
 import { SmartShareEventDataByIdInterface, SmartShareEventsDataInterface } from "@/@types/smart-share";
 import {
-  GET_ALL_EVENTS,
-  GET_EVENT_BY_ID,
+  GET_SMART_SHARE_EVENT_BY_ID,
+  GET_ALL_SMART_SHARE_EVENTS
 } from "@/constants/ApiUrls";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -43,7 +43,7 @@ export const getAllEvents = async ({
     if (limit) params.set("limit", limit.toString());
 
     // Append the query string to the API URL
-    const apiUrl = `${GET_ALL_EVENTS}?${params.toString()}`;
+    const apiUrl = `${GET_ALL_SMART_SHARE_EVENTS}?${params.toString()}`;
 
     const response = await fetch(apiUrl, {
       method: "GET",
@@ -91,7 +91,7 @@ export const GetEventById = async ({
   }
 
   try {
-    const apiUrl = `${GET_EVENT_BY_ID}/${eventId}`;
+    const apiUrl = `${GET_SMART_SHARE_EVENT_BY_ID}/${eventId}`;
 
     const response = await fetch(apiUrl, {
       method: "GET",

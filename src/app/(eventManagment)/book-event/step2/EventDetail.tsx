@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { format } from "date-fns";
@@ -35,6 +35,9 @@ import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import { cn } from "@/lib/utils";
 
 function EventDetails() {
+  // loading state for submit button
+    const [loading,setLoading] = useState(false);
+
   const router = useRouter();
 
   // Zustand store
@@ -49,6 +52,7 @@ function EventDetails() {
 
   // Define a submit handler
   function onSubmit(submittedData: EventDetailsSchemaType) {
+    setLoading(true);
     setEventInformation({
       ...eventInformation,
       ...submittedData,
@@ -262,7 +266,7 @@ function EventDetails() {
         {/* Submit and Back Buttons */}
         <div className="flex justify-between">
           <BackButton />
-          <SubmitButton text="Next" />
+          <SubmitButton text="Next" loading={loading}/>
         </div>
       </form>
     </Form>

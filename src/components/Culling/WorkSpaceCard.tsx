@@ -5,7 +5,7 @@ import { Label } from "../ui/label";
 import Link from "next/link";
 import { FcEmptyTrash } from "react-icons/fc";
 import CustomPopupDialog from "../custom-popup-dialog";
-import { DeleteWorkSpace } from "@/lib/actions/DeleteWorkSpace";
+import { DeleteWorkSpace } from "@/lib/actions/Culling/DeleteWorkSpace";
 import { Skeleton } from "../ui/skeleton";
 
 interface WorkspaceCardProps {

@@ -108,7 +108,7 @@ export const GetWorkSpaceById = async ({
     if (response.status === 401) {
       redirect("/sign-in");
     } else if (!response.ok) {
-      return { error: jsonResponse.detail || "Failed to fetch workspace data" };
+      return { error: jsonResponse || "Failed to fetch workspace data" };
     } else {
       return { data: jsonResponse };
     }

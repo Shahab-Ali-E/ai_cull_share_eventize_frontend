@@ -25,11 +25,11 @@ function ServicesSection() {
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton
             asChild
-            className={`hover:rounded-sm ${
-              `/${pathname.split('/')[1]}` === item.url ? "bg-accent" : ""
+            className={`hover:rounded-sm  ${
+              `/${pathname.split('/')[1]}` === item.url ? "rounded-sm bg-sidebar-activetab hover:bg-sidebar-activetab hover:text-white text-white" : ""
             }`}
           >
-            <Link href={item.url}>
+            <Link href={item.url} >
               <item.icon />
               <span>{item.title}</span>
             </Link>

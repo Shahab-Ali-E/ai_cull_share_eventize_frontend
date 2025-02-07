@@ -5,6 +5,19 @@ import {
 } from "../ui/sidebar";
 import { Skeleton } from "../ui/skeleton";
 
+
+export function SideBarDashboardSectionSkeleton() {
+  return (
+    <SidebarMenu>
+      {Array.from({ length: 1 }).map((_, index) => (
+        <SidebarMenuItem key={index}>
+          <SidebarMenuSkeleton showIcon />
+        </SidebarMenuItem>
+      ))}
+    </SidebarMenu>
+  );
+}
+
 export function SideBarHelpSectionSkeleton() {
   return (
     <SidebarMenu>

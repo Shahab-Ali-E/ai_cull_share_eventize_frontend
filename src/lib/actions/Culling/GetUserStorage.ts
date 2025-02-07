@@ -33,7 +33,7 @@ export const GetUserStorage = async ():Promise<{data?:GetUserStorageResponseType
     } else if (response.status === 500 || !response.ok) {
       return {
         error:
-            jsonResponse.detail ||
+            jsonResponse ||
             "An error occurred while fetching culled images metadata.",
         };
     } else {

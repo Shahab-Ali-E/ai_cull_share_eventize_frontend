@@ -12,7 +12,7 @@ const Search = ({ search, placeHolder }: { search?: string, placeHolder:string }
   const initialRender = useRef(true);
 
   const [text, setText] = useState(search || "");
-  const [query] = useDebounce(text, 500);
+  const [query] = useDebounce(text, 100);
 
   useEffect(() => {
     if (initialRender.current) {

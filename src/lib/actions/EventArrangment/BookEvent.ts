@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { SubmitFormType } from "@/@types/event-managment";
 import { BOOK_EVENT } from "@/constants/ApiUrls";
@@ -10,7 +10,6 @@ interface BookEventParams {
 }
 
 export const BookEvent = async ({ formData }: BookEventParams) => {
-  // Getting JWT token from Clerk
   const { getToken } = await auth();
   const token = await getToken({ template: "AI_Cull_Share_Eventize" });
 
@@ -19,11 +18,9 @@ export const BookEvent = async ({ formData }: BookEventParams) => {
     redirect("/sign-in");
   }
 
-  const jsonForm = JSON.stringify(formData)
-  console.log("json form ",jsonForm)
+  const jsonForm = JSON.stringify(formData);
 
   try {
-    // Sending the form data to the backend
     const response = await fetch(BOOK_EVENT, {
       method: "POST",
       credentials: "include",
@@ -31,7 +28,7 @@ export const BookEvent = async ({ formData }: BookEventParams) => {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: jsonForm, // Pass combined form data
+      body: jsonForm,
     });
 
     const jsonResponse = await response.json();
@@ -41,13 +38,9 @@ export const BookEvent = async ({ formData }: BookEventParams) => {
     } else if (response.status === 401) {
       redirect("/sign-in");
     } else if (response.status === 406 || response.status === 400) {
-      return {
-        error: jsonResponse.detail,
-      };
-    } else if (!response.ok) {
-      return {
-        error: "Network error, failed to create workspace",
-      };
+      return { error: jsonResponse.detail };
+    } else {
+      return { error: "Network error, failed to submit form" };
     }
   } catch (e) {
     console.error("An error occurred while booking event:", e);

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 //components
 import SmartShareDashboardPage from "./SmartShareDashboardPage";
 import SortByDropDown from "@/components/sortby-drop-down";
-import Search from "@/components/Search";
+import Search from "@/components/search";
 import Await from "./Await";
 import CreateEvent from "@/components/SmartShare/CreateEvent";
 

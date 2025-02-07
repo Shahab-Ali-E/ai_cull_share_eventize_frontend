@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import {
   Table,
   TableBody,
@@ -10,21 +9,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useRouter } from "next/navigation";
+import { EventDetails } from "@/@types/event-managment";
 
-
-interface EventTableProps {
-  events: {
-    id: number;
-    name: string;
-    email: string;
-    budget: number;
-    eventType: string;
-    country: string;
-    bookedDate: string;
-  }[];
-}
-
-const EventTable = ({ events }: EventTableProps) => {
+const EventTable = ({ events }: {events:EventDetails[]}) => {
   const router = useRouter();
 
   return (
@@ -54,7 +41,7 @@ const EventTable = ({ events }: EventTableProps) => {
             onClick={() => router.push(`event-arrangment-dashboard/${event.id}`)}
           >
             {/* Name */}
-            <TableCell className="px-4 py-4">{event.name}</TableCell>
+            <TableCell className="px-4 py-4">{event.eventType}</TableCell>
 
             {/* Email */}
             <TableCell className="px-4 py-4">{event.email}</TableCell>
@@ -66,10 +53,10 @@ const EventTable = ({ events }: EventTableProps) => {
             <TableCell className="px-4 py-4">{event.eventType}</TableCell>
 
             {/* Country */}
-            <TableCell className="px-4 py-4">{event.country}</TableCell>
+            <TableCell className="px-4 py-4">{event.city}, {event.selectCountry}</TableCell>
 
             {/* Booked Date */}
-            <TableCell className="px-4 py-4">{event.bookedDate}</TableCell>
+            <TableCell className="px-4 py-4">{event.submittedAt.split('T')[0]}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -28,7 +28,7 @@ export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>
         })
 
         const jsonResponse = await response.json()
-
+        
         if (response.status === 201) {
             return { success: "Workspace created successfully !" };
         }
@@ -37,7 +37,7 @@ export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>
         } 
         else if(response.status === 406 || response.status === 400 ){
             return {
-                error: jsonResponse.detail
+                error: jsonResponse
             }
         }
         else if (!response.ok) {

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { PersonalInformationSchema } from "@/schemas/BookEvent";
@@ -23,6 +23,9 @@ import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import { cn } from "@/lib/utils";
 
 function PersonalInformation() {
+  // loading state for submit button
+    const [loading,setLoading] = useState(false);
+
   const router = useRouter();
 
   // Using event form Zustand store
@@ -37,6 +40,7 @@ function PersonalInformation() {
 
   // Define a submit handler
   function onSubmit(submittedData: PersonalInformationType) {
+    setLoading(true);
     setPersonalInformation({ ...personalInformation, ...submittedData });
     router.push("/book-event/step2");
   }
@@ -147,7 +151,7 @@ function PersonalInformation() {
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <SubmitButton text="Next" />
+          <SubmitButton text="Next" loading={loading}/>
         </div>
       </form>
     </Form>

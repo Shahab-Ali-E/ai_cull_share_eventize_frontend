@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label } from './ui/label';
 import { Progress } from './ui/progress';
-import { GetUserStorage } from '@/lib/actions/GetUserStorage';
+import { GetUserStorage } from '@/lib/actions/Culling/GetUserStorage';
 
 interface StorageUsedProps {
   module: 'smartCull' | 'smartShare'; // Prop to specify the module

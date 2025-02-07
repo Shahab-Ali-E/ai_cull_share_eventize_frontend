@@ -3,7 +3,7 @@ import { Suspense } from "react";
 //components
 import CullingDashboardPage from "./CullingDashboardPage";
 import SortByDropDown from "@/components/sortby-drop-down";
-import Search from "@/components/Search";
+import Search from "@/components/search";
 import Await from "./Await";
 import CreateCullingWorkSpace from "@/components/Culling/CreateWorkSpace";
 
@@ -11,7 +11,7 @@ import CreateCullingWorkSpace from "@/components/Culling/CreateWorkSpace";
 import { WorkSpacesSkeleton } from "@/components/Culling/WorkSpaceSkeleton";
 
 //api
-import { getAllWorkSpaces } from "@/lib/actions/GetUserWorkSpaces";
+import { getAllWorkSpaces } from "@/lib/actions/Culling/GetUserWorkSpaces";
 import GridListView from "@/components/Culling/GridListView";
 import { PaginationWithLink } from "@/components/pagination-with-links";
 
