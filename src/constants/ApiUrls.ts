@@ -8,8 +8,12 @@ export const LOGOUT_URL:string = `${BASE_URL}/Auth/logout`
 export const USER_INFO_URL:string=`${BASE_URL}/welcome`//for getting user info
 
 // Dashboard
-export const GET_USER_STORAGE_USED:string=`${BASE_URL}/User/get_user_storage_used`//for getting user info
-export const CONTACT_US:string=`${BASE_URL}/User/contact-us`//for getting user info
+const DASHBOARD_BASE_URL:string = `${BASE_URL}/User` //base Url for culling
+
+export const GET_USER_STORAGE_USED:string=`${DASHBOARD_BASE_URL}/get_user_storage_used`//for getting user info
+export const CONTACT_US:string=`${DASHBOARD_BASE_URL}/contact-us`//for getting user info
+export const ANALYTICS:string=`${DASHBOARD_BASE_URL}/get-analytics`//for getting yser analytics
+
 
 
 //culling APIS

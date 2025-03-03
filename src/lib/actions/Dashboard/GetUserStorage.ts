@@ -1,6 +1,6 @@
 "use server";
 
-import { GetUserStorageResponseType } from "@/@types/smart-culling";
+import { GetUserStorageResponseType } from "@/@types/dashboard";
 import { GET_USER_STORAGE_USED } from "@/constants/ApiUrls";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

@@ -26,7 +26,7 @@ function ServicesSection() {
           <SidebarMenuButton
             asChild
             className={`hover:rounded-sm  ${
-              `/${pathname.split('/')[1]}` === item.url ? "rounded-sm bg-sidebar-activetab hover:bg-sidebar-activetab hover:text-white text-white" : ""
+              `/${pathname.split('/')[1]}` === item.url ? "rounded-sm bg-sidebar-activetab hover:bg-sidebar-activetab hover:text-primary text-primary" : ""
             }`}
           >
             <Link href={item.url} >

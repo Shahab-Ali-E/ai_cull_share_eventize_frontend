@@ -5,6 +5,13 @@ import TopSection from "@/components/top-section";
 import { howItWorksData, menuCardData } from "@/utils/EventArrangmentData";
 import React from "react";
 import RevelHeading from "@/components/RevelHeading";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {  
+  title: "Event Arrangement",  
+  description: "Discover event arrangement with seamless booking, and insightful event management. Learn how we simplifies organizing, optimizing, and enhancing your events effortlessly.",  
+};
+
 
 function Page() {
   return (

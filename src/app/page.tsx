@@ -3,9 +3,15 @@ import ImageCard from '@/components/Home/imageGlowingCard';
 import Services from '@/components/Home/services';  
 import Navbar from '@/components/navbar';
 import image_1 from "@/images/smart-culling-slider.jpeg"
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Home",
+  description: "AI Cull, Share, and Eventize is an intelligent media management platform that automates culling, organizes shared content, and enhances event-based media workflows with AI-powered insights.",
+};
+
 
 const Home = () => {
- 
 
   return (
     <div className='flex flex-col bg-secondary min-h-screen px-10 text-primary space-y-20 overflow-hidden'>

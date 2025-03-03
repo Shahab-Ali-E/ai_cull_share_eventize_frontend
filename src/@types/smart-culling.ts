@@ -24,16 +24,6 @@ export interface SingleWorkspaceDataInterface
   temporary_images_urls: ImagesMetadataResponse[];
 }
 
-// the backend was returning user storage that how much user used the storage and how much was remaning
-export interface GetUserStorageResponseType{
-    message:string,
-    total_smart_culling_storage:number,
-    total_smart_culling_storage_used:string,
-    total_smart_share_storage:number,
-    total_smart_share_storage_used:string,
-}
-
-
 // ----When the culling was going the task status was returning data in like this form
 // Interface for the task id
 export interface getTaskStatusProps {

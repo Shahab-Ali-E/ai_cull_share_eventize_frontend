@@ -11,36 +11,50 @@ import {
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
 
-const chartData = [{ storageUsed: 1.4, totalStorage: 2 }];
-const chartConfig = {
-  storageUsed: {
-    label: "StorageUsed",
-    color: "#9948EA",
-  },
-  totalStorage: {
-    label: "TotalStorage",
-    color: "#D7B2FD",
-  },
-} satisfies ChartConfig;
+function StorageCard({
+  title,
+  totalStorage,
+  storageUsed,
+}: {
+  title: string;
+  totalStorage: number;
+  storageUsed: number;
+}) {
+  // Convert total storage to GB
+  const totalStorageGB = totalStorage / (1024 * 1024 * 1024); // Bytes to GB
+  const usedStorageInMB = storageUsed / (1024 * 1024); // Bytes to MB
 
-function StorageCard() {
-  const storageUsed = chartData[0].storageUsed;
+  const usedStorage =
+    usedStorageInMB >= 1024
+      ? `${(usedStorageInMB / 1024).toFixed(2)} GB` // Convert to GB if >= 1024 MB
+      : `${usedStorageInMB.toFixed(2)} MB`; // Otherwise, keep it in MB
 
- 
+
+
+  const chartData = [{ usage: storageUsed , remaning: totalStorage - storageUsed}]; // Convert to percentage for display
+  const chartConfig = {
+    storageUsed: {
+      label: "StorageUsed",
+      color: "#9948EA",
+    },
+    remaningStorage: {
+      label: "RemaningStorage",
+      color: "#D7B2FD",
+    },
+  } satisfies ChartConfig;
+
   return (
     <div>
       <Card className="flex flex-col bg-primary-foreground">
-        <CardHeader className="text-lg">
-          <CardTitle>Smart Culling Storage</CardTitle>
+        <CardHeader>
+          <CardTitle>{title}</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-1 items-center -mb-28">
-          <ChartContainer
-            config={chartConfig}
-            className="mx-auto aspect-square size-full"
-          >
+        <CardContent className="flex flex-grow items-center -mb-[40px]">
+          <ChartContainer className="mx-auto aspect-square size-full" config={chartConfig}>
             <RadialBarChart
               data={chartData}
-              endAngle={180}
+              startAngle={180} // Ensuring half-circle from bottom to top
+              endAngle={0}
               innerRadius={90}
               outerRadius={190}
             >
@@ -55,8 +69,8 @@ function StorageCard() {
                             y={(viewBox.cy || 0) - 16}
                             className="fill-primary text-2xl font-bold"
                           >
-                            {storageUsed.toLocaleString()}{" "}
-                            <tspan className=" text-sm">GB</tspan>
+                            {usedStorage.split(" ")[0].toLocaleString()}{" "}
+                            <tspan className=" text-sm">{usedStorage.split(" ")[1]}</tspan>
                           </tspan>
                           <tspan
                             x={viewBox.cx}
@@ -72,32 +86,32 @@ function StorageCard() {
                 />
               </PolarRadiusAxis>
               <RadialBar
-                dataKey="totalStorage"
+                dataKey="usage"
                 stackId="a"
-                fill="var(--color-totalStorage)"
+                fill="var(--color-storageUsed)"
                 className="stroke-transparent stroke-2"
               />
               <RadialBar
-                dataKey="storageUsed"
+                dataKey="remaning"
                 stackId="a"
-                fill="var(--color-storageUsed)"
+                fill="var(--color-remaningStorage)"
                 className="stroke-transparent stroke-2"
               />
             </RadialBarChart>
           </ChartContainer>
         </CardContent>
         <CardFooter className="flex justify-between gap-2 text-sm">
-          {/* information of total and used space */}
+          {/* Information of total and used space */}
           <h4 className="flex flex-col text-center">
             <span className="text-muted-foreground">Total Space</span>
-            <span className="text-lg font-semibold">
-              125 <span className="text-sm font-medium">GB</span>
+            <span className="text-base font-semibold">
+              {totalStorageGB.toFixed(2)} <span className="text-sm font-medium">GB</span>
             </span>
           </h4>
           <h4 className="flex flex-col text-center">
             <span className="text-muted-foreground">Used Space</span>
-            <span className="text-lg font-semibold">
-              86 <span className="text-sm font-medium">GB</span>
+            <span className="text-base font-semibold">
+              {usedStorage.split(" ")[0]} <span className="text-sm font-medium">{usedStorage.split(" ")[1]}</span>
             </span>
           </h4>
         </CardFooter>

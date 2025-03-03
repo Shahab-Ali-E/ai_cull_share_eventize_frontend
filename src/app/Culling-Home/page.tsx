@@ -11,6 +11,35 @@ import ScrollingTestimonials from '@/components/animata/container/scrolling-test
 import Navbar from '@/components/navbar';
 import TopSection from '@/components/top-section';
 import RevelHeading from '@/components/RevelHeading';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {  
+  title: "Culling Home | AI Image Culling",  
+  description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
+  keywords: [
+    "AI image culling", 
+    "photo organization", 
+    "remove blurry images", 
+    "duplicate photo detection", 
+    "automated photo selection"
+  ],  
+  openGraph: {  
+    title: "Culling Home | AI Image Culling",  
+    description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
+    url: "http://localhost/culling-home",  
+    type: "website",  
+    images: [
+      { url: "http://localhost/images/contenetalFood.jpg", width: 1200, height: 630, alt: "AI Culling Preview" }
+    ]  
+  },  
+  twitter: {  
+    card: "summary_large_image",  
+    title: "Culling Home | AI Image Culling",  
+    description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
+    images: ["https://yourwebsite.com/images/culling-preview.jpg"]
+  }
+};  
+
 
 const CullingHome =()=> {
   return (

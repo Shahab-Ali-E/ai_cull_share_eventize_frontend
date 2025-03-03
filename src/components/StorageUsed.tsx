@@ -1,7 +1,7 @@
 import React from 'react';
 import { Label } from './ui/label';
 import { Progress } from './ui/progress';
-import { GetUserStorage } from '@/lib/actions/Culling/GetUserStorage';
+import { GetUserStorage } from '@/lib/actions/Dashboard/GetUserStorage';
 
 interface StorageUsedProps {
   module: 'smartCull' | 'smartShare'; // Prop to specify the module
@@ -22,14 +22,7 @@ const StorageUsed = async ({ module }: StorageUsedProps) => {
         ? parseInt(storage_used.data?.total_smart_culling_storage_used || '0', 10)
         : parseInt(storage_used.data?.total_smart_share_storage_used || '0', 10);
 
-    // Convert total storage to GB
-    const totalStorageGB = totalStorage / (1024 * 1024 * 1024); // Bytes to GB
-    const usedStorageInMB = usedStorageInBytes / (1024 * 1024); // Bytes to MB
-
-    const usedStorage =
-      usedStorageInMB >= 1024
-        ? `${(usedStorageInMB / 1024).toFixed(2)} GB` // Convert to GB if >= 1024 MB
-        : `${usedStorageInMB.toFixed(2)} MB`; // Otherwise, keep it in MB
+    
 
     const percentageUsed = totalStorageGB > 0 ? (usedStorageInBytes / totalStorage) * 100 : 0;
 

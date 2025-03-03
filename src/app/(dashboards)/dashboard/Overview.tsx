@@ -1,7 +1,6 @@
 "use client";
 
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -16,43 +15,52 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { month: "January", desktop: 200 },
-  { month: "February", desktop: 305 },
-  { month: "March", desktop: 237 },
-  { month: "April", desktop: 73 },
-  { month: "May", desktop: 209 },
-  { month: "June", desktop: 214 },
-];
+import { useTheme } from "next-themes";
+import { UserEventAccess } from "@/@types/dashboard";
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "#D7B2FD",
-  },
-} satisfies ChartConfig;
+export default function Overview({
+  eventAccessData,
+}: {
+  eventAccessData: UserEventAccess[];
+}) {
+  const { theme } = useTheme();
+  const chartConfig = {
+    desktop: {
+      label: "Desktop",
+      color: theme === "light" ? "#D7B2FD" : "#9948EA",
+    },
+  } satisfies ChartConfig;
 
-export function Overview() {
+  const chartData = eventAccessData.map(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    ({ event_id, created_at, views, ...rest }) => ({
+      ...rest,
+      views: views.length,
+    })
+  );
+
+  // Find the max value in the "views" field
+  const maxViews = (Math.max(...chartData.map((d) => d.views), 0) * 1.4 ) ; 
+
   return (
-    <Card className="h-full w-full bg-primary-foreground">
+    <Card className="flex flex-col flex-grow bg-primary-foreground">
       <CardHeader>
-        <CardTitle className="text-lg">Event Access Insights</CardTitle>
+        <CardTitle>Event Access Insights</CardTitle>
         <CardDescription>
-          Number of people who accessed shared events (Jan - Jun
-          2024).
+          Number of people who accessed shared events (Jan - Jun 2024).
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig} className="h-[450px] w-full">
-          <BarChart accessibilityLayer data={chartData} >
+        <ChartContainer config={chartConfig} className="h-auto w-full">
+          <BarChart accessibilityLayer data={chartData}>
             <CartesianGrid vertical={false} />
-            <YAxis dataKey="desktop" tickLine={false} height={10}/>
+            <YAxis dataKey="desktop" tickLine={false} height={10} domain={[0,maxViews]}/>
             <XAxis
-              dataKey="month"
+              dataKey="event_name"
               tickLine={false}
               tickMargin={10}
               axisLine={false}
-              tickFormatter={(value) => value.slice(0, 3)}
+              // tickFormatter={(value) => value.slice(0, 4)}
             />
             <ChartTooltip
               cursor={false}
@@ -61,7 +69,7 @@ export function Overview() {
               }
             />
             <Bar
-              dataKey="desktop"
+              dataKey="views"
               fill="var(--color-desktop)"
               barSize={60}
               radius={10}

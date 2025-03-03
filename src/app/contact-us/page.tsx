@@ -2,6 +2,12 @@ import React from "react";
 import ContactForm from "./ContactForm";
 import { Label } from "@/components/ui/label";
 import RightSideContact from "@/components/contact-us/RightSideContact";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with us for any inquiries, support, or collaboration opportunities. We're here to help!",
+};
 
 function Page() {
   return (
