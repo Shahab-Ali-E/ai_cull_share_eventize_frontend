@@ -8,34 +8,16 @@ import {
   TableRow,
 } from "@/components/ui/table"; // Adjust the import path as needed
 import { SmartCullImagesPreviewProps } from "@/@types/smart-culling";
+import ImageCard from "@/components/image-card";
 
 function SmartCullImagesPreview({
   images,
   isInGridView,
 }: SmartCullImagesPreviewProps) {
   return isInGridView ? (
-    <div className="grid grid-cols-2 sm:grid-cols-6 gap-4">
-      {images.map((image, index) => (
-        <div
-          key={index}
-          className="relative group shadow-md shadow-card rounded-sm overflow-hidden"
-        >
-          <Image
-            src={image.images_download_path}
-            alt={image.name.split(".")[0]}
-            height={200}
-            width={200}
-            className="w-full h-48 object-cover rounded-sm"
-            // quality={100}
-            // unoptimized={true}
-          />
-          {/* Grid View: Image Name on Hover */}
-          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <p className="text-white text-sm font-semibold">
-              {image.name.split(".")[0]}
-            </p>
-          </div>
-        </div>
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      {images.map((image) => (
+        <ImageCard key={image.id} image={image} />
       ))}
     </div>
   ) : (
@@ -52,7 +34,7 @@ function SmartCullImagesPreview({
           <TableRow key={index}>
             <TableCell className="flex items-center space-x-3">
               <Image
-                src={image.images_download_path}
+                src={image.image_download_path}
                 alt={image.name.split(".")[0]}
                 height={90}
                 width={80}
@@ -63,7 +45,7 @@ function SmartCullImagesPreview({
             </TableCell>
             <TableCell>{image.file_type}</TableCell>
             <TableCell>
-              {new Date(image.images_download_validity).toLocaleString("en-US", {
+              {new Date(image.image_download_validity).toLocaleString("en-US", {
                 year: "numeric",
                 day: "2-digit",
                 month: "numeric",

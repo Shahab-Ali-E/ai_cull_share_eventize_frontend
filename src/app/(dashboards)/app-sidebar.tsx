@@ -18,25 +18,25 @@ import {
 } from "@/components/ui/collapsible";
 import dynamic from "next/dynamic";
 import React from "react";
-import {SideBarHelpSectionSkeleton, SidebarThemeToggleSkeleton, SideBarServicesSectionSkeleton, SideBarDashboardSectionSkeleton} from "./app-sidebar-skeleton";
+import {SideBarHelpSectionSkeleton, SidebarThemeToggleSkeleton, SideBarServicesSectionSkeleton, SideBarDashboardSectionSkeleton} from "../../components/Sidebar/app-sidebar-skeleton";
 
 // Dynamically load client components
-const SidebarThemeToggle = dynamic(() => import("./app-sidebar-theme-toggle"), {
+const SidebarThemeToggle = dynamic(() => import("@/components/Sidebar/app-sidebar-theme-toggle"), {
   ssr: false,
   loading: () => <SidebarThemeToggleSkeleton />,
 });
 
-const ServicesSection = dynamic(()=> import("./services-section"), {
+const ServicesSection = dynamic(()=> import("@/components/Sidebar/services-section"), {
   ssr:false,
   loading:()=><SideBarServicesSectionSkeleton />,
 });
 
-const HelpSection = dynamic(()=> import("./help-section"), {
+const HelpSection = dynamic(()=> import("@/components/Sidebar/help-section"), {
   ssr:false,
   loading:()=><SideBarHelpSectionSkeleton />,
 });
 
-const DashboardSection = dynamic(()=> import("./dashboard-section"), {
+const DashboardSection = dynamic(()=> import("@/components/Sidebar/dashboard-section"), {
   ssr:false,
   loading:()=><SideBarDashboardSectionSkeleton />,
 });

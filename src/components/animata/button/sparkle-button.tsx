@@ -107,7 +107,15 @@ const options: ISourceOptions = {
   ],
 };
 
-export default function SparkleButton({children, onClick, className}:{children:React.ReactNode; onClick?: () => void; className?:string}) {
+export default function SparkleButton({
+  children,
+  onClick,
+  className,
+  ...rest
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { 
+  children: React.ReactNode;
+  className?: string;
+}) {
   const [particleState, setParticlesReady] = useState<"loaded" | "ready">();
   const [isHovering, setIsHovering] = useState(false);
 
@@ -126,11 +134,13 @@ export default function SparkleButton({children, onClick, className}:{children:R
 
   return (
     <button
-    className={`group relative rounded-full bg-gradient-to-r from-blue-300/30 via-blue-500/30 via-40% to-purple-500/30 p-1 text-white hover:opacity-95 ${className}`}
-    onMouseEnter={() => setIsHovering(true)}
-    onMouseLeave={() => setIsHovering(false)}
-    onClick={onClick}
-  >
+      className={`group relative rounded-full bg-gradient-to-r from-blue-300/30 via-blue-500/30 via-40% to-purple-500/30 p-1 text-white hover:opacity-95 ${className}`}
+      onMouseEnter={() => setIsHovering(true)}
+      onMouseLeave={() => setIsHovering(false)}
+      onClick={onClick}
+      {...rest}  // ✅ Now properly spreading other props
+    >
+      
       <div className="relative flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#82EBE6] via-blue-500 via-40% to-[#9181f7] px-4 py-2 text-white">
         <Sparkle className="size-5 -translate-y-0.5 animate-sparkle fill-white" />
         <Sparkle

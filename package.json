@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^6.5.1",
+    "@gsap/react": "^2.1.2",
     "@hookform/resolvers": "^3.9.1",
     "@microsoft/fetch-event-source": "^2.0.1",
     "@radix-ui/react-alert-dialog": "^1.1.2",
@@ -44,6 +45,7 @@
     "embla-carousel-react": "^8.5.1",
     "face-api.js": "^0.22.2",
     "framer-motion": "^11.7.0",
+    "gsap": "^3.12.7",
     "lottie-react": "^2.4.0",
     "lucide-react": "^0.446.0",
     "next": "^14.2.23",
@@ -71,9 +73,11 @@
     "zustand": "^5.0.0-rc.2"
   },
   "devDependencies": {
+    "@svgr/webpack": "^8.1.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "babel-plugin-inline-react-svg": "^2.0.2",
     "eslint": "^8",
     "eslint-config-next": "14.2.13",
     "postcss": "^8",
@@ -81,4 +85,3 @@
     "typescript": "^5"
   }
 }
-

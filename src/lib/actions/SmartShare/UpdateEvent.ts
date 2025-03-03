@@ -1,8 +1,7 @@
 "use server";
 
 import { UPDATE_EVENT } from "@/constants/ApiUrls";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { getClerkToken } from "../clerk-token";
 
 // For updating an event in the backend
 export const UpdateEvent = async ({
@@ -12,13 +11,8 @@ export const UpdateEvent = async ({
   eventId: string;
   updateFields: FormData;
 }): Promise<{ data?: unknown; error?: string }> => {
-  // Get the JWT token from Clerk
-  const { getToken } = await auth();
-  const token = await getToken({ template: "AI_Cull_Share_Eventize" });
-  if (!token) {
-    console.error("Failed to fetch Clerk token");
-    redirect("/sign-in");
-  }
+  // getting jwt token from clerk so that we can access backend resorces
+  const token = await getClerkToken();
 
   try {
     console.log("update fields", updateFields);

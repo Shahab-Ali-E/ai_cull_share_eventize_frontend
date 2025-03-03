@@ -49,8 +49,8 @@ function ImagesHighlights({ noOfImages, images }: ImagesHighlightsProps) {
           <Label className="text-base sm:text-xl font-semibold tracking-wider">
             Highlights
           </Label>
-          <Badge className="rounded-full py-1 text-xs font-bold hover:bg-card-foreground">
-            {noOfImages}
+          <Badge className="flex justify-center rounded-full size-7 text-xs font-bold hover:bg-card-foreground">
+            <span>{noOfImages}</span>
           </Badge>
         </div>
 

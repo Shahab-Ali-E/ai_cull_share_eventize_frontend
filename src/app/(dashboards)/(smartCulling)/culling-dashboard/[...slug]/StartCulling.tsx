@@ -11,7 +11,7 @@ function StartCulling({workSpaceId}:{workSpaceId:string}) {
   ];
   console.log("work space id",workSpaceId)
   return (
-    <div className='flex flex-col justify-center items-center'>
+    <div className='flex flex-col justify-center items-center mt-5'>
         <CullingTimelineProgress
             workSpaceId={workSpaceId} 
             title='Culling Progress'

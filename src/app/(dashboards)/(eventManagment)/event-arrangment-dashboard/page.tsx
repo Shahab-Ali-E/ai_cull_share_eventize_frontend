@@ -80,6 +80,7 @@ function Page({searchParams}:{searchParams:SearchParams}) {
             {({ events, totalCount }) => (
               <>
                 <EventDashboardPage events={events} />
+                {events?.length!=0 &&(
                 <div className="flex mt-10 mb-5">
                   <PaginationWithLink
                     page={Number(searchParams.page || 1)}
@@ -90,6 +91,7 @@ function Page({searchParams}:{searchParams:SearchParams}) {
                     }}
                   />
                 </div>
+                )}
               </>
             )}
           </Await>

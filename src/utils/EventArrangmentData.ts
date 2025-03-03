@@ -162,9 +162,9 @@ import CED3 from "@/images/EventArrangment/corporateimages/2.jpg";
 import BED1 from "@/images/EventArrangment/birthdayimages/birthday_3.jpg";
 
 // How it works images
-import image9 from "@/images/EventArrangment/homepage_signup_icon.svg";
-import image10 from "@/images/EventArrangment/how-it-works_wellness1-2_.svg";
-import image11 from "@/images/EventArrangment/how-it-works_wellness1-3_.svg";
+// import image9 from "@/images/EventArrangment/how-it-works_wellness1-2_.svg";
+// import image10 from "@/images/EventArrangment/how-it-works_wellness1-2_.svg";
+// import image11 from "@/images/EventArrangment/how-it-works_wellness1-3_.svg";
 
 // Rain Forest wedding Gallery
 import RF1 from "@/images/EventArrangment/weddingimages/rainForest/RF1.jpg";
@@ -213,7 +213,7 @@ import {
   BirthdayEventDataType,
   BirthdayEventPriceType,
   CorporateEventDataType,
-  HowItWorksDataType,
+  // HowItWorksDataType,
   ImagePreviewType,
   MenuCardDataType,
   detailMenuCardType,
@@ -1383,29 +1383,29 @@ export const birthdayPricingData:BirthdayEventPriceType[] = [
 ]
 
 // How it works data
-export const howItWorksData: HowItWorksDataType[] = [
-  {
-    id: "1",
-    src: image9,
-    heading: "Sign Up",
-    description:
-      "Create an account in just a few steps to unlock a personalized event management experience tailored to your needs.",
-  },
-  {
-    id: "2",
-    src: image10,
-    heading: "Event Details",
-    description:
-      "Fill out our comprehensive form with essential details like the event type, date, and preferences to help us customize the arrangements.",
-  },
-  {
-    id: "3",
-    src: image11,
-    heading: "Relax & Enjoy",
-    description:
-      "Once you provide the details, our expert team will handle every aspect of your event planning, so you can focus on enjoying the special day.",
-  },
-];
+// export const howItWorksData: HowItWorksDataType[] = [
+//   {
+//     id: "1",
+//     src: image9,
+//     heading: "Sign Up",
+//     description:
+//       "Create an account in just a few steps to unlock a personalized event management experience tailored to your needs.",
+//   },
+//   {
+//     id: "2",
+//     src: image10,
+//     heading: "Event Details",
+//     description:
+//       "Fill out our comprehensive form with essential details like the event type, date, and preferences to help us customize the arrangements.",
+//   },
+//   {
+//     id: "3",
+//     src: image11,
+//     heading: "Relax & Enjoy",
+//     description:
+//       "Once you provide the details, our expert team will handle every aspect of your event planning, so you can focus on enjoying the special day.",
+//   },
+// ];
 
 // --------wedding gallery datas-------------
 

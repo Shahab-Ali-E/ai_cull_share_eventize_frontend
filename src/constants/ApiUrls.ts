@@ -10,7 +10,6 @@ export const USER_INFO_URL:string=`${BASE_URL}/welcome`//for getting user info
 // Dashboard
 const DASHBOARD_BASE_URL:string = `${BASE_URL}/User` //base Url for culling
 
-export const GET_USER_STORAGE_USED:string=`${DASHBOARD_BASE_URL}/get_user_storage_used`//for getting user info
 export const CONTACT_US:string=`${DASHBOARD_BASE_URL}/contact-us`//for getting user info
 export const ANALYTICS:string=`${DASHBOARD_BASE_URL}/get-analytics`//for getting yser analytics
 
@@ -35,11 +34,13 @@ export const GET_TASK_STATUS:string = `${BASE_URL}/task_status` //for uplaoding 
 const SMART_SHARE_BASE_URL:string = `${BASE_URL}/smart_share` //base Url for smart share
 export const GET_ALL_SMART_SHARE_EVENTS:string = `${SMART_SHARE_BASE_URL}/get_all_events` //get all events from backend
 export const GET_SMART_SHARE_EVENT_BY_ID:string = `${SMART_SHARE_BASE_URL}/get_event_by_id` //get event by id
+export const GET_SMART_SHARE_PUBLISHED_EVENT:string = `${SMART_SHARE_BASE_URL}/public_event_data` //get published event for secondary user
 
 export const CREATE_EVENT:string = `${SMART_SHARE_BASE_URL}/create_event` // for create event
 export const UPDATE_EVENT:string = `${SMART_SHARE_BASE_URL}/update_event` // for updating event
 export const DELETE_EVENT:string = `${SMART_SHARE_BASE_URL}/delete_event` // for deleting event
 export const UPLOAD_SMART_SHARE_IMAGES:string = `${SMART_SHARE_BASE_URL}/upload_images` //for uploading images
+export const PUBLISH_EVENT:string = `${SMART_SHARE_BASE_URL}/share_images` //for uploading images
 export const ASSOCIATE_USER_WITH_EVENT:string = `${SMART_SHARE_BASE_URL}/associate-user` //for association user with event when accessing event
 export const GET_IMAGES_BY_FACE:string = `${SMART_SHARE_BASE_URL}/get_images` //you will pass your face image and then backend will provide matching images 
 

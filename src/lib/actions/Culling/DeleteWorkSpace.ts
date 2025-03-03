@@ -2,6 +2,7 @@
 
 import { DELETE_CULLING_WORKSPACE } from '@/constants/ApiUrls';
 import { auth } from '@clerk/nextjs/server';
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export const DeleteWorkSpace = async ({ workSpaceName }: {workSpaceName:string}) => {
@@ -33,6 +34,7 @@ export const DeleteWorkSpace = async ({ workSpaceName }: {workSpaceName:string})
         error: jsonResponse || 'Failed to delete workspace',
       };
     } else {
+      revalidateTag('getAllCullingWorkspaces');
       return { success: true };
     }
   } catch (e) {

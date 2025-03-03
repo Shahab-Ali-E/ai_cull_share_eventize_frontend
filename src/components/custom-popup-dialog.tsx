@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface CustomPopupDialogProps {
   triggerButton: React.ReactNode;
@@ -38,7 +38,6 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const router = useRouter();
 
   const handleConfirm = async () => {
     setLoading(true);
@@ -53,7 +52,6 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
       
         });
       } else {
-        router.refresh();
         toast.success(successMessage)
       }
     } catch (error) {
@@ -72,7 +70,7 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
 
       {/* Dialog Content */}
-      <DialogContent className="bg-primary-foreground text-primary max-w-xs sm:max-w-sm rounded-2xl p-0 overflow-hidden">
+      <DialogContent className={cn("bg-primary-foreground max-w-xs sm:max-w-sm rounded-2xl p-0 overflow-hidden", loading ? "" :"text-primary")}>
         {loading ? (
           <div className="flex flex-col justify-center items-center h-full p-14">
             <Spinner size="medium">
@@ -89,7 +87,7 @@ const CustomPopupDialog: React.FC<CustomPopupDialogProps> = ({
             <DialogDescription className="text-sm text-muted-foreground p-1 px-5">
               {message}
             </DialogDescription>
-            <DialogFooter className="flex justify-end space-x-4 px-3 py-2">
+            <DialogFooter className="flex justify-end  px-3 py-2 gap-2 md:gap-1">
               <Button
                 variant="secondary"
                 className="px-4 py-2"

@@ -24,6 +24,7 @@ function WorkSpaces({ workSpacesData }: { workSpacesData: MultipleWorkspaceDataI
               size={workspace.total_size}
               disabled={workspace.culling_in_progress}
               href={`/culling-dashboard/${workspace.id}`}
+              cullingDone={workspace.culling_done}
             />
           ))}
         </div>

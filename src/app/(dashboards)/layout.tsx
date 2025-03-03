@@ -1,7 +1,7 @@
 import { cookies } from "next/headers"
 
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/Sidebar/app-sidebar"
+import { AppSidebar } from "@/app/(dashboards)/app-sidebar"
 import UserProfile from "@/components/user-profile"
 import { Tally1 } from "lucide-react"
 import dynamic from "next/dynamic"

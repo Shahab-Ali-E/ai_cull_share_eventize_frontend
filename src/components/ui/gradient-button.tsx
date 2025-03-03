@@ -1,5 +1,6 @@
 // components/GradientButton.tsx
 
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface GradientButtonProps {
@@ -9,16 +10,20 @@ interface GradientButtonProps {
   asChild?: boolean; // Add the `asChild` prop
 }
 
-const GradientButton: React.FC<GradientButtonProps> = ({
+const GradientButton = ({
   children,
   onClick,
   className = "",
   asChild = false, // Default to false
-}) => {
+  ...rest
+}:React.ButtonHTMLAttributes<HTMLButtonElement> & GradientButtonProps) => {
   // If `asChild` is true, render the children directly
   if (asChild) {
     return React.cloneElement(React.Children.only(children) as React.ReactElement, {
-      className: `bg-gradient-to-r from-purple-600 to-teal-400 text-white font-semibold px-4 rounded-full shadow-md hover:opacity-90 focus:outline-none flex items-center justify-center ${className}`,
+      className: cn(
+        "bg-gradient-to-r from-purple-600 to-teal-400 text-white font-semibold px-4 rounded-full shadow-md hover:opacity-90 focus:outline-none flex items-center justify-center",
+        className 
+      ),
       onClick,
     });
   }
@@ -27,7 +32,11 @@ const GradientButton: React.FC<GradientButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`bg-gradient-to-r from-purple-600 to-teal-400 text-white font-semibold px-4 rounded-full shadow-md hover:opacity-90 focus:outline-none flex items-center justify-center ${className}`}
+      className={cn(
+        "bg-gradient-to-r from-purple-600 to-teal-400 text-white font-semibold px-4 rounded-full shadow-md hover:opacity-90 focus:outline-none flex items-center justify-center",
+        className 
+      )}
+      {...rest}
     >
       {children}
     </button>

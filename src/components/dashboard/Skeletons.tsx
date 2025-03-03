@@ -15,7 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-export function AnalyticsSkeleton() {
+export function ChartPageSkeleton() {
   return (
     <div className="flex flex-col gap-4 col-span-9">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

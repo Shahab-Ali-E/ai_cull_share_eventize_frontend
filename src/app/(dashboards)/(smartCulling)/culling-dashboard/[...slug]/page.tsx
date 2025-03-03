@@ -11,18 +11,21 @@ import ImagesHighlights from "./ImagesHighlights";
 import { GetWorkSpaceById } from "@/lib/actions/Culling/GetUserWorkSpaces";
 import { GetCulledImagesMetadata } from "@/lib/actions/Culling/GetCulledImages";
 import { ImagesMetadataResponse } from "@/@types/smart-culling";
+import { getClerkToken } from "@/lib/actions/clerk-token";
 
-const WorkspaceMain = ({ params }: { params: { slug: string[] } }) => {
+const WorkspaceMain = async ({ params }: { params: { slug: string[] } }) => {
   const workSpaceId = String(params.slug[0]);
-
+  // getting clerk token to access backend end apis
+  const token = await getClerkToken();
   // Fetch the workspace data
-  const presignedUrlPromise = GetWorkSpaceById({ workSpaceId });
+  const presignedUrlPromise = GetWorkSpaceById({ workSpaceId, token: token });
 
   if (params.slug.length === 2) {
     // Fetch the workspace data with culling metadata
     const culledImagesPromise = GetCulledImagesMetadata({
       workSpaceId: params.slug[0],
       detection_status: params.slug[1],
+      token:token
     });
 
     return (

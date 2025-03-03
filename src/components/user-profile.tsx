@@ -1,27 +1,21 @@
 // user-profile.tsx
-'use client';
+"use client";
 
-import { Skeleton } from '@/components/ui/skeleton';
-import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
-import { Button } from './ui/button';
-import Link from 'next/link';
+import { Skeleton } from "@/components/ui/skeleton";
+import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 function UserProfile() {
-  const { isLoaded,isSignedIn } = useUser();
+  const { isLoaded, isSignedIn } = useUser();
 
-  if(!isSignedIn){
-    return (
-      <Button className='rounded-full' asChild>
-        <Link href="/sign-in">
-        Login
-        </Link>
-      </Button>
-    )
+  if (!isLoaded) {
+    return <Skeleton className="h-10 w-10 rounded-full" />;
   }
 
   return (
     <div>
-      {isLoaded ? (
+      {isSignedIn ? (
         <SignedIn>
           <UserButton
             appearance={{
@@ -36,8 +30,7 @@ function UserProfile() {
                 userPreviewSecondaryIdentifier: "text-muted-foreground",
 
                 // popover styling
-                userButtonPopoverActions:
-                  "flex-col-reverse gap-2 space-y-2",
+                userButtonPopoverActions: "flex-col-reverse gap-2 space-y-2",
                 userButtonPopoverActionButton:
                   "bg-muted text-primary hover:text-primary hover:bg-muted rounded-xl",
               },
@@ -49,7 +42,9 @@ function UserProfile() {
           </UserButton>
         </SignedIn>
       ) : (
-        <Skeleton className="h-10 w-10 rounded-full" />
+        <Button variant={"default"} className="font-inter rounded-full" asChild>
+          <Link href="/sign-in">Sign In</Link>
+        </Button>
       )}
     </div>
   );

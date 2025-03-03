@@ -1,8 +1,10 @@
 'use server';
 
 import { UPLOAD_CULLING_IMAGES } from '@/constants/ApiUrls';
-import { auth } from '@clerk/nextjs/server';
+import { revalidateTag } from 'next/cache';
 import { redirect } from 'next/navigation';
+import { getClerkToken } from '../clerk-token';
+import { ImagesMetadataResponse } from '@/@types/smart-culling';
 
 // Interface for the upload
 interface uploadCullingImages {
@@ -10,15 +12,10 @@ interface uploadCullingImages {
   imagesData: FormData
 }
 
-export const uploadCullingImagesToServer = async ({ workSpaceId,imagesData }: uploadCullingImages) => {
+export const uploadCullingImagesToServer = async ({ workSpaceId,imagesData }: uploadCullingImages):Promise<{data?:{message:string; data:ImagesMetadataResponse[]}; error?:string}> => {
     try {
         // getting jwt token from clerk so that we can access backend resorces
-    const {getToken} = await auth();
-    const token = await getToken({template:"AI_Cull_Share_Eventize"})
-    if (!token) {
-        console.error("Failed to fetch Clerk token");
-        redirect("/sign-in");
-    }
+        const token = await getClerkToken();
 
         const apiUrl = `${UPLOAD_CULLING_IMAGES}/${workSpaceId}`;
 
@@ -33,20 +30,19 @@ export const uploadCullingImagesToServer = async ({ workSpaceId,imagesData }: up
         });
 
         const jsonResponse = await response.json();
-        console.log("upload images for culling jsonResponse")
-        console.log(jsonResponse)
 
         if (response.status === 401) {
             redirect("/login");
         }
         else if(response.status === 415){
-            return { error: "Max storage reached !" }; 
+            return { error: jsonResponse.detail }; 
         } 
         else if (response.status === 500 || !response.ok) {
             return {
                 error: jsonResponse.detail,
             };
         } else {
+            revalidateTag('getCullingWorkspaceById');
             return { data: jsonResponse };
         }
     } catch (e) {

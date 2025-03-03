@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoAlertCircleSharp } from "react-icons/io5";
 import {
@@ -42,8 +41,6 @@ export default function CustomInputialog({
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [open, setOpen] = useState<boolean>(false);
 
-  const router = useRouter();
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     const validationError = validateWorkspaceName(value);
@@ -80,30 +77,35 @@ export default function CustomInputialog({
       if (res.error) {
         console.log(`error${usage}`);
         console.log(res.error);
-        setIsLoading(false);
         toast.error("Server Error",{
           description: res.error
         });
       } else {
-        // Delay closing the dialog to show the spinner before hiding it
-        router.refresh();
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 1000);
-
-        //close the dialog box
+       //close the dialog box
         setOpen(false);
 
         // show toast when event or workspace created
         toast.success(res.success,{
           description: `${formattedDate}`
         });
+
+        // clear name
+        setEnteredName("");
       }
     } catch (error: unknown) {
       // show toast when event or workspace created
       toast.error("Server Error",{
         description: String(error)
       });
+    }
+    finally{
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleCreate();
     }
   };
 
@@ -139,6 +141,7 @@ export default function CustomInputialog({
                     error ? "border-red-500" : "border-primary"
                   }`}
                   onChange={handleInputChange}
+                  onKeyDown={handleKeyDown}
                 />
                 {error && (
                   <div className="flex items-center mt-1 text-red-500 space-x-2">

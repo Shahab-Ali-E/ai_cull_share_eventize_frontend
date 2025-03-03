@@ -18,11 +18,6 @@ export interface AnalyticsResponse {
     culling_workspaces: number;
     booked_events: number;
     user_event_access: UserEventAccess[];
-}
-
-// the backend was returning user storage that how much user used the storage and how much was remaning
-export interface GetUserStorageResponseType{
-    message:string,
     total_smart_culling_storage:number,
     total_smart_culling_storage_used:string,
     total_smart_share_storage:number,

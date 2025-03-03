@@ -8,9 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 //icons and images
-import { IoCloseCircle } from "react-icons/io5";
-import uploadIcon from "@/images/icons/uploadImageIcon.png";
-import { useRouter } from "next/navigation";
+import { IoCloseCircle, IoCloudUploadOutline } from "react-icons/io5";
 
 import {
   Dialog,
@@ -42,8 +40,6 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
   const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false); // Control the alert visibility
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
-
-  const router = useRouter();
 
   // This function will trigger when the user drops a file on it
   const onDrop = (
@@ -105,7 +101,6 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
     }
   };
 
-
   // for handling uploading images
   const handleUploadImagesToServer = async ({
     eventId,
@@ -133,7 +128,6 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
         } else {
           console.log("data from upload culling", data);
           setUploadedImagesUrls(data.data);
-          router.refresh();
         }
       } catch {
         toast.error("Sorry, something went wrong while uploading images");
@@ -152,36 +146,30 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
       {files.length === 0 ? (
         <div
           {...getRootProps()}
-          className="flex h-full w-full justify-center items-center"
+          className="flex flex-1 w-full h-full justify-center"
         >
           <input {...getInputProps()} />
           <div
-            className={`flex flex-col items-center justify-center w-full h-full p-8 md:p-12 lg:p-16 border-2 border-dashed ${
+            className={`flex flex-col flex-grow w-full min-h-full items-center justify-center p-8 md:p-12 lg:p-16 border-2 border-dashed ${
               isDragActive
                 ? "border-primary bg-card"
                 : "border-muted-foreground"
             } rounded-lg cursor-pointer transition duration-300 ease-in-out`}
           >
-            <Image
-              src={uploadIcon}
-              height={64}
-              width={64}
-              className="h-14 w-14 md:h-16 md:w-16 lg:h-24 lg:w-24"
-              alt="upload-logo"
-              unoptimized
-            />
-            <div className="mt-4 space-y-2 text-center text-primary">
+            <IoCloudUploadOutline className="h-14 w-14 md:h-20 md:w-20 text-accent-foreground"/>
+
+            <div className="mt-2 space-y-2 text-center text-primary">
               {isDragActive ? (
-                <Label className="text-sm sm:text-sm font-semibold">
+                <Label className="text-base font-semibold">
                   Drop your images here
                 </Label>
               ) : (
-                <Label className="text-xs sm:text-sm font-semibold">
+                <Label className="text-sm md:text-base font-semibold">
                   Tap to upload images
                 </Label>
-              )}{" "}
+              )}
               <br />
-              <span className="text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-sm">
                 File must be JPEG, JPG or PNG and up to 40MB
               </span>
             </div>
@@ -192,9 +180,9 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
         <section className="flex flex-col w-full min-h-screen">
           {/* File preview section */}
           <Dialog open={showImagePreviewModal} onOpenChange={handlePreview}>
-            <DialogContent className="flex flex-col gap-y-0 w-11/12 sm:w-2/5 h-3/4 rounded-sm border-2 overflow-hidden p-0 text-primary max-w-full">
+            <DialogContent className="flex flex-col gap-y-0 w-[88%] md:w-2/5 h-3/4 rounded-sm -ml-2 border-2 overflow-hidden p-0 text-primary max-w-full">
               <DialogHeader className="flex flex-row bg-accent text-primary items-center justify-start rounded-none px-6 py-4">
-                <DialogTitle className="text-sm sm:text-lg font-semibold">
+                <DialogTitle className="text-base md:text-lg font-semibold">
                   Images preview
                 </DialogTitle>
               </DialogHeader>
@@ -217,20 +205,20 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
                         className="object-cover w-full h-full"
                       />
                       <button
-                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
+                        className="w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
                         onClick={() => removeFile(file.id)}
                       >
-                        <IoCloseCircle className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
+                        <IoCloseCircle className="w-6 h-6 md:w-8 md:h-8 text-red-600" />
                       </button>
                     </li>
                   ))}
                 </ul>
               </DialogDescription>
-              <DialogFooter className="border-t border-muted-foreground px-20 py-3 sm:px-24 sm:py-5 bg-secondary gap-y-3 sm:gap-y-0">
+              <DialogFooter className="border-t border-muted-foreground px-20 py-3 md:px-24 md:py-5 bg-secondary gap-y-3 md:gap-y-0">
                 <Button
                   type="button"
                   variant={"secondary"}
-                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-sm"
                   onClick={handleAddMoreClick}
                 >
                   Add more
@@ -239,7 +227,7 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
                 <Button
                   type="button"
                   variant={"default"}
-                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-sm"
                   onClick={() => {
                     handleUploadImagesToServer({ eventId });
                   }}

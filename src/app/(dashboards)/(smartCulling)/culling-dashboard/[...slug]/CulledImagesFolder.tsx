@@ -1,8 +1,8 @@
-import CulledImageRow from '@/components/Culling/WorkSpaceComponents/CulledImageRow';
+import CulledImageFolderRow from '@/components/Culling/WorkSpaceComponents/CulledImageFolderRow';
 import { Table, TableBody, TableCell, TableHeader, TableRow } from '@/components/ui/table'; // Assuming you’re using `shadcn` components
 import React from 'react';
 
-function CulledImages({ workSpaceId }: { workSpaceId: string }) {
+function CulledImagesFolders({ workSpaceId }: { workSpaceId: string }) {
   const folders = [
     { title: 'Blur Images', href: `/culling-dashboard/${workSpaceId}/Blur` },
     { title: 'Closed Eye Images', href: `/culling-dashboard/${workSpaceId}/ClosedEye` },
@@ -20,7 +20,7 @@ function CulledImages({ workSpaceId }: { workSpaceId: string }) {
         </TableHeader>
         <TableBody>
           {folders.map((folder, idx) => (
-            <CulledImageRow key={idx} title={folder.title} href={folder.href} />
+            <CulledImageFolderRow key={idx} title={folder.title} href={folder.href} />
           ))}
         </TableBody>
       </Table>
@@ -28,4 +28,4 @@ function CulledImages({ workSpaceId }: { workSpaceId: string }) {
   );
 }
 
-export default CulledImages;
+export default CulledImagesFolders;

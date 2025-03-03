@@ -6,103 +6,74 @@ import { Button } from "@/components/ui/button";
 import { JSX, SVGProps, useEffect } from "react";
 import logo from "@/images/logo.png";
 import Image from "next/image";
-import { ThemeToggle } from "./theme-toggle";
-import { usePathname } from "next/navigation"; // Import from next/navigation
+import { usePathname } from "next/navigation";
 import UserProfile from "@/components/user-profile";
 import { useAuth } from "@clerk/nextjs";
+import { cn } from "@/lib/utils";
+import SlideInFromTop from "./LandingPages/SlideInFromTop";
 
-interface NavbarProps {
-  fixed?: boolean;
-}
 
-export default function Navbar({ fixed = false }: NavbarProps) {
+export default function Navbar() {
   const pathname = usePathname();
   const { getToken } = useAuth();
 
-  // Function to fetch and log the token
   useEffect(() => {
     const logToken = async () => {
-      const token = await getToken(); // Fetch the Bearer token
+      const token = await getToken();
       if (token) {
-        console.log("Bearer Token:", token); // Log the token in the console
+        console.log("Bearer Token:", token);
       }
     };
 
     logToken();
   }, [getToken]);
 
-  // Check if the link is active
-  const isActive = (route: string) => pathname === route;
+  // Define the navigation links
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Event Arrangement", href: "/event-arrangment" },
+    { name: "Smart Culling", href: "/culling-home" },
+    { name: "Smart Share", href: "/smart-share" },
+    { name: "About", href: "/contact-us" },
+  ];
 
   return (
-    <div
-      className={`${
-        fixed ? "sticky  w-11/12" : "mt-7 w-11/12"
-      } z-50 flex items-center justify-between self-center px-7 py-2 text-primary shadow-md shadow-gray-300 dark:shadow-primary-foreground bg-[#e9e8e8] dark:bg-primary-foreground rounded-full`}
-    >
-      <Link href="/" className="flex items-center gap-2" prefetch={false}>
+    <nav className="flex items-center justify-between px-6 py-4 bg-transparent">
+      {/* Logo */}
+      <div className="flex items-center space-x-2">
         <Image
           src={logo}
           alt="Logo"
-          className="xl:h-11 xl:w-16 lg:h-10 lg:w-16 md:h-10 md:w-16 h-9 w-14"
+          width={30}
+          height={30}
+          className="h-14 w-14"
         />
-      </Link>
-      <div className="hidden md:flex gap-4">
-        <Link
-          href="/"
-          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-            isActive("/") ? "bg-muted rounded-full" : ""
-          }`}
-          prefetch={false}
-        >
-          Home
-        </Link>
-        <Link
-          href="/event-arrangment"
-          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-            isActive("/event-arrangment") ? "bg-muted rounded-full" : ""
-          }`}
-          prefetch={false}
-        >
-          Event Arrangement
-        </Link>
-        <Link
-          href="/culling-home"
-          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-            isActive("/culling-home") ? "bg-muted rounded-full" : ""
-          }`}
-          prefetch={false}
-        >
-          Culling
-        </Link>
-        <Link
-          href="/smart-share"
-          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-            isActive("/smart-share") ? "bg-muted rounded-full" : ""
-          }`}
-          prefetch={false}
-        >
-          Smart Share
-        </Link>
-        <Link
-          href="/contact-us"
-          className={`text-sm font-medium px-5 py-2 hover:bg-muted hover:rounded-full transition-all duration-150 ease-in-out ${
-            isActive("/contact-us") ? "bg-muted rounded-full" : ""
-          }`}
-          prefetch={false}
-        >
-          Contact
-        </Link>
       </div>
-      <div className="flex items-center gap-4">
-        <div className="hidden sm:block">
-          <ThemeToggle />
-        </div>
-        {/* User profile  */}
 
+      {/* Navigation Links (Desktop) */}
+      <SlideInFromTop duration={0.2} delay={0.3}>
+        <div className="hidden lg:flex items-center space-x-1 p-1 rounded-full bg-purple-400/10 outline outline-1 outline-purple-300/20">
+          {navLinks.map(({ name, href }) => (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "font-inter text-primary text-sm font-medium hover:bg-purple-400/10 px-4 py-2 rounded-full",
+                pathname === href ? "bg-purple-400/10" : ""
+              )}
+            >
+              {name}
+            </Link>
+          ))}
+        </div>
+      </SlideInFromTop>
+
+      {/* User Profile / Login */}
+      <div className="flex gap-2">
         <UserProfile />
- 
       </div>
+
+      {/* Mobile Navigation Menu */}
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" size="icon" className="lg:hidden">
@@ -112,55 +83,22 @@ export default function Navbar({ fixed = false }: NavbarProps) {
         </SheetTrigger>
         <SheetContent side="left" className="bg-card text-primary">
           <div className="grid w-[200px] p-4 gap-5">
-            <Link
-              href="/"
-              className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/") ? "underline" : ""
-              }`}
-              prefetch={false}
-            >
-              Home
-            </Link>
-            <Link
-              href="/event-arrangment"
-              className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/event-arrangment") ? "underline" : ""
-              }`}
-              prefetch={false}
-            >
-              Event Arrangment
-            </Link>
-            <Link
-              href="/culling-home"
-              className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/culling-home") ? "underline" : ""
-              }`}
-              prefetch={false}
-            >
-              Culling
-            </Link>
-            <Link
-              href="/smart-share"
-              className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/smart-share") ? "underline" : ""
-              }`}
-              prefetch={false}
-            >
-              Smart Share
-            </Link>
-            <Link
-              href="/contact-us"
-              className={`text-lg font-medium hover:underline underline-offset-4 ${
-                isActive("/contact-us") ? "underline" : ""
-              }`}
-              prefetch={false}
-            >
-              Contact
-            </Link>
+            {navLinks.map(({ name, href }) => (
+              <Link
+                key={href}
+                href={href}
+                className={`text-lg font-medium hover:underline underline-offset-4 ${
+                  pathname === href ? "underline" : ""
+                }`}
+                prefetch={false}
+              >
+                {name}
+              </Link>
+            ))}
           </div>
         </SheetContent>
       </Sheet>
-    </div>
+    </nav>
   );
 }
 

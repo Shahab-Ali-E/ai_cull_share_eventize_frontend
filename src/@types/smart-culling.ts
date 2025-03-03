@@ -15,8 +15,8 @@ export interface ImagesMetadataResponse {
   id: string; // UUID as string in the frontend
   name: string;
   file_type: string;
-  images_download_path: string;
-  images_download_validity: string;
+  image_download_path: string;
+  image_download_validity: string;
 }
 
 export interface SingleWorkspaceDataInterface
@@ -55,7 +55,7 @@ export interface CullingStore {
   workspacesData: MultipleWorkspaceDataInterface[];
 
   // Uploading images
-  uploadedImagesS3Urls: string[];
+  uploadedImagesS3Urls: ImagesMetadataResponse[];
   // isImagesUploading: boolean;
   // uploadImagesError: string | null;
   // isAlertOpen: boolean;
@@ -84,7 +84,7 @@ export interface CullingStore {
   //     | ((prevRejected: FileRejection[]) => FileRejection[])
   // ) => void;
   setToggleView: (toggleView:boolean)=>void;
-  setUploadedImagesS3Urls: (url: string[]) => void;
+  setUploadedImagesS3Urls: (url: ImagesMetadataResponse[]) => void;
   // setIsAlertOpen: (value: boolean) => void;
 
   // Handling uploads

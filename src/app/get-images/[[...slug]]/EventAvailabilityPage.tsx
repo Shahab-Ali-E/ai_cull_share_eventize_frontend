@@ -5,17 +5,17 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Info } from "lucide-react";
 import React from "react";
 import Image from "next/image";
-import image from "@/images/fine_after_cull.jpg";
-import { SmartShareEventDataByIdInterface } from "@/@types/smart-share";
-import FindMyImagesButton from "./DetailsForm";
+import AltCoverImage from "@/images/event-management-slider.jpg";
+import { SmartShareEventsDataInterface } from "@/@types/smart-share";
+import FindMyImagesButton from "@/components/get-images/FindMyImagesButton";
 
-function EventAvailabilityPage({ eventData }: { eventData: SmartShareEventDataByIdInterface | undefined }) {
+function EventAvailabilityPage({ eventData }: { eventData: Omit<SmartShareEventsDataInterface, "description"| "total_size"|"created_at"> | undefined }) {
   return (
     <Card className="max-w-sm md:max-w-3xl mx-auto overflow-hidden rounded-2xl shadow-lg bg-primary-foreground">
       {/* Upper section with image and event name */}
       <div className="relative w-full h-60 md:h-96">
         <Image
-          src={eventData?.cover_image || image}
+          src={eventData?.cover_image || AltCoverImage}
           layout="fill"
           objectFit="cover"
           alt="event-image"

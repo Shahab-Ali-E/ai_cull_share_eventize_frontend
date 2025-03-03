@@ -1,83 +1,103 @@
-import EventCarousal from "@/components/event-arrangment/event-arrang/EventsCarousal";
-import HowItWorks from "@/components/event-arrangment/event-arrang/HowItWorks";
 import MenuCard from "@/components/event-arrangment/event-arrang/MenuCard";
-import TopSection from "@/components/top-section";
-import { howItWorksData, menuCardData } from "@/utils/EventArrangmentData";
+import { menuCardData } from "@/utils/EventArrangmentData";
 import React from "react";
-import RevelHeading from "@/components/RevelHeading";
-import { Metadata } from "next";
-
-export const metadata: Metadata = {  
-  title: "Event Arrangement",  
-  description: "Discover event arrangement with seamless booking, and insightful event management. Learn how we simplifies organizing, optimizing, and enhancing your events effortlessly.",  
-};
-
+import EventArrangementHeroSection from "@/components/LandingPages/EventArrangement/hero-section";
+import Eyebrow from "@/components/LandingPages/EventArrangement/Eyebrow";
+import SlideInFromBottom from "@/components/LandingPages/SlideInFromBottom";
+import HowItWorks from "@/components/LandingPages/EventArrangement/HowItWorks";
+import About from "@/components/LandingPages/EventArrangement/About";
+import WhyChooseUs from "@/components/LandingPages/EventArrangement/WhyChooseUs";
+import {
+  FaUserShield,
+  FaCalendarAlt,
+  FaCameraRetro,
+  FaCloudUploadAlt,
+} from "react-icons/fa";
+import { TbPresentationFilled } from "react-icons/tb";
 
 function Page() {
+  const benefitsData = [
+    {
+      id: 1,
+      icon: <TbPresentationFilled className="h-8 w-8 text-primary" />,
+      title: "Seamless Planning",
+      description: "Effortlessly book events with a user-friendly interface.",
+    },
+    {
+      id: 2,
+      icon: <FaUserShield className="h-8 w-8 text-primary" />,
+      title: "Secure Data",
+      description: "Your personal and event data are safe with us.",
+    },
+    {
+      id: 3,
+      icon: <FaCalendarAlt className="h-8 w-8 text-primary" />,
+      title: "Automated Scheduling",
+      description: "Never miss an important event with smart scheduling.",
+    },
+    {
+      id: 4,
+      icon: <FaCameraRetro className="h-8 w-8 text-primary" />,
+      title: "AI-Powered Photography",
+      description: "Capture perfect moments with AI-enhanced photos.",
+    },
+    {
+      id: 5,
+      icon: <FaCloudUploadAlt className="h-8 w-8 text-primary" />,
+      title: "Cloud Backup",
+      description: "Securely store and access event memories anytime.",
+    },
+  ];
+
   return (
-    <section className="flex flex-col space-y-10 sm:space-y-20 text-primary">
-      {/* top section */}
-      <TopSection
-        title="We Arrange Events Within and Outside Pakistan"
-        subtitle="From weddings to corporate events, we handle all processes efficiently and seamlessly."
-        buttonText="Book Now"
-        buttonHref="/book-event/step1"
-        className="mt-10"
-        revelPlaceHolderColor='#00B8B8'
-      />
+    <section
+      className="flex flex-col space-y-10 md:space-y-32 px-3 md:px-20 text-primary"
+      id="smooth-wrapper"
+    >
+      {/* Top section */}
+      <EventArrangementHeroSection />
 
-      {/* body */}
-      <section className="flex flex-col p-0 sm:p-14 space-y-36">
-        {/* how it works */}
-        <div className="flex flex-col space-y-10">
-          {/* heading */}
-          <RevelHeading
-            heading="HOW IT WORKS"
-            placeholderColor="#00B8B8"
-            description="Sign up, complete a simple form, and leave the rest to us. We'll handle every aspect of your event planning with precision and care, ensuring a seamless and memorable experience."
-          />
-
-          {/* how it works */}
-          <HowItWorks data={howItWorksData} />
+      {/* Body */}
+      <section className="flex flex-col items-center space-y-56">
+        {/* How it works */}
+        <div className="flex flex-col space-y-20 items-center w-full">
+          <SlideInFromBottom delay={0}>
+            <Eyebrow
+              heading="How It Works"
+              description="Plan your event effortlessly fill out the form, review, and we’ll handle
+        the rest."
+            />
+          </SlideInFromBottom>
+          <HowItWorks />
         </div>
 
-        {/* events carousal slider */}
-        <div className="flex flex-col space-y-14">
-          {/* heading */}
-          <RevelHeading
-            heading="YOUR DREAM EVENT"
-            placeholderColor="#00B8B8"
-            description="We provide countless options from Wedding to Birthday party or corporate event
-              We have various interactive ideas, you can mix and match all
-              elements to design the perfect event for you."
-          />
-        
-          {/* slider */}
-          <EventCarousal />
+        {/* About */}
+        <div className="flex flex-col space-y-14 relative h-full">
+          <About words="Event Arrangement will provide a seamless experience for customers to explore events across Asia and enhance their event planning through an easy-to-use interface." />
         </div>
 
-        {/* our gallery */}
-        <div className="flex flex-col space-y-10">
-          {/* heading */}
-          <RevelHeading
-            heading="OUR MENUS"
-            placeholderColor="#00B8B8"
-            description="Explore our diverse food menus and craft a personalized culinary experience tailored to your event. Let us help you bring your unique style to life with a selection of dishes that perfectly suit your taste and vision."
-          />
-          
-          <div className="flex flex-col px-2 sm:px-24 space-y-14 sm:space-y-10 overflow-x-hidden">
-            {menuCardData.map((data, index) => (
-              <MenuCard
-                id={`${index}`}
-                key={index}
-                index={index}
-                description={data.description}
-                heading={data.heading}
-                href={data.href}
-                src={data.src}
-              />
-            ))}
-          </div>
+        {/* Our gallery */}
+        <div className="flex flex-col space-y-14 w-full">
+          <SlideInFromBottom delay={0}>
+            <Eyebrow heading="Benifits" description="Why choose us ?" />
+          </SlideInFromBottom>
+          <SlideInFromBottom delay={0.3}>
+            <div className="grid grid-cols-12 gap-6 w-full">
+              {benefitsData.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`${index < 3 ? "col-span-4" : "col-span-6"}`}
+                >
+                  <WhyChooseUs
+                    key={item.id}
+                    icon={item.icon}
+                    title={item.title}
+                    description={item.description}
+                  />
+                </div>
+              ))}
+            </div>
+          </SlideInFromBottom>
         </div>
       </section>
     </section>

@@ -16,11 +16,11 @@ export default function SmartShareDashboardPage({
   // if there's not created any event then show get started
   if (EventData.length === 0) {
     return (
-      <div>
+      <div className="w-full overflow-hidden">
         <GetStarted />
       </div>
     );
   }
 
-  return <SmartShareEvents EventsData={EventData} />;
+  return <SmartShareEvents eventData={EventData} />;
 }

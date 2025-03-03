@@ -6,18 +6,18 @@ import { SmartShareEventsDataInterface } from "@/@types/smart-share";
 import EventCardView from "./EventCardView";
 import EventTableView from "./EventTableView";
 
-function SmartShareEvents({ EventsData }: { EventsData: SmartShareEventsDataInterface[] }) {
+function SmartShareEvents({ eventData }: { eventData: SmartShareEventsDataInterface[] }) {
   const { toggleView, setEventsData } = useSmartShareStore();
 
   useEffect(()=>{
-    setEventsData(EventsData)
-  },[EventsData, setEventsData])
+    setEventsData(eventData)
+  },[eventData, setEventsData])
 
   return (
     <div className="flex flex-col justify-between pb-4">
       {toggleView ? (
         <div className="flex flex-wrap gap-4 sm:gap-5">
-          {EventsData.map((event, index) => (
+          {eventData.map((event, index) => (
             <EventCardView
               key={index}
               EventName={event.name}
@@ -25,11 +25,12 @@ function SmartShareEvents({ EventsData }: { EventsData: SmartShareEventsDataInte
               createdDate={event.created_at.split('T')[0]}
               size={event.total_size}
               href={`/smart-share-dashboard/${event.id}`}
+              status={event.status}
             />
           ))}
         </div>
       ) : (
-        <EventTableView eventsData={EventsData} />
+        <EventTableView eventsData={eventData} />
       )}
     </div>
   );

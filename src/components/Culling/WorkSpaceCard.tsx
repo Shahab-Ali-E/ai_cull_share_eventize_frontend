@@ -7,6 +7,8 @@ import { FcEmptyTrash } from "react-icons/fc";
 import CustomPopupDialog from "../custom-popup-dialog";
 import { DeleteWorkSpace } from "@/lib/actions/Culling/DeleteWorkSpace";
 import { Skeleton } from "../ui/skeleton";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
+import { CheckCircle } from "lucide-react";
 
 interface WorkspaceCardProps {
   workspaceName: string;
@@ -15,6 +17,7 @@ interface WorkspaceCardProps {
   initials: string;
   href: string;
   disabled?: boolean;
+  cullingDone?: boolean;
 }
 
 // Function to convert size from bytes to MB or GB
@@ -35,6 +38,7 @@ const WorkspaceCard = ({
   initials,
   href,
   disabled = false,
+  cullingDone = false,
 }: WorkspaceCardProps) => {
   return (
     <div
@@ -48,20 +52,36 @@ const WorkspaceCard = ({
       {/* Workspace initials */}
       <Link href={href} passHref>
         <div
-          className={`w-full text-center bg-gradient-to-tr from-purple-500 to-teal-300 hover:cursor-pointer ${
+          className={`w-full h-20 md:h-28 relative border-white text-center pb-4 bg-gradient-to-tr from-purple-500 to-teal-300 hover:cursor-pointer ${
             disabled ? "" : ""
           }`}
         >
           {disabled ? (
-            <Skeleton className="py-9 text-white font-bold text-lg sm:text-xl">
+            <Label className="text-white w-full font-bold absolute top-1/2 -translate-x-1/2 -translate-y-1/2 text-base sm:text-xl animate-pulse">
               Culling in progress...
-            </Skeleton>
+            </Label>
           ) : (
             <Label className="text-white text-7xl sm:text-8xl font-bold opacity-90">
               {initials}
             </Label>
           )}
         </div>
+        {/* Status icon overlay */}
+        {cullingDone && (
+          <div className="absolute flex p-1.5 top-2 right-2 rounded-full bg-green-600/40">
+            <Tooltip>
+              <TooltipTrigger>
+                <CheckCircle className="h-6 w-6 text-green-700" />
+              </TooltipTrigger>
+              <TooltipContent
+                side="left"
+                className="bg-primary-foreground text-primary max-w-xs p-3 rounded shadow-md"
+              >
+                Culling Done
+              </TooltipContent>
+            </Tooltip>
+          </div>
+        )}
       </Link>
       {/* Workspace details */}
       <div className="flex flex-row p-4 bg-primary-foreground">

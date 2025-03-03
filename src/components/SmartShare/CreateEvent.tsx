@@ -1,17 +1,16 @@
 "use client";
 
-import SparkleButton from "../animata/button/sparkle-button";
 //component
-import CustomInputialog from "../custom-input-dialog";
+import CustomInputialog from "@/components/custom-input-dialog";
 
 // api and validaton
-import {createEvent} from "@/lib/actions/SmartShare/CreateEvent";
+import { createEvent } from "@/lib/actions/SmartShare/CreateEvent";
+import GradientButton from "../ui/gradient-button";
 
 export default function CreateEvent() {
-
   const createEventBackend = async (eventName: string) => {
     try {
-      const response = await createEvent({ EventName:eventName });
+      const response = await createEvent({ EventName: eventName });
       if (response?.error) {
         return { error: response.error };
       } else {
@@ -24,11 +23,11 @@ export default function CreateEvent() {
     // await new Promise((resolve)=>setTimeout((resolve),1000));
   };
 
-//   passing this button as prop to CustomInputDialog
+  //   passing this button as prop to CustomInputDialog
   const triggerButton = (
-    <SparkleButton className="text-xs sm:text-sm">
+    <GradientButton className="w-3/4 sm:w-full h-10 xl:h-10 lg:h-10 md:h-10 text-sm rounded-sm">
       Create Event
-    </SparkleButton>
+    </GradientButton>
   );
   return (
     <CustomInputialog

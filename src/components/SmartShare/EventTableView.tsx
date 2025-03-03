@@ -46,7 +46,7 @@ const EventTableView = ({
             <TableRow key={index} className="text-primary text-xs border-muted-foreground hover:bg-primary-foreground">
               {/* Workspace Name */}
               <TableCell>
-                <Link href={`/culling-dashboard/${event.id}`}>
+                <Link href={`/smart-share-dashboard/${event.id}`}>
                   <Button variant="link">{event.name}</Button>
                 </Link>
               </TableCell>

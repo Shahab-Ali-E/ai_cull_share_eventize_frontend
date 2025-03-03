@@ -6,6 +6,8 @@ export default async function Await<T>({
     children: (value: T) => JSX.Element;
   }) {
     const data = await promise;
+    console.log("data",data)
+
     return children(data);
   }
   

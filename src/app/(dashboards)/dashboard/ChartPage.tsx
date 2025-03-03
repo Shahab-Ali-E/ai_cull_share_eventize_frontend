@@ -3,15 +3,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Folder, FolderHeart } from "lucide-react";
 import { AnalyticsResponse } from "@/@types/dashboard";
 import Overview from "./Overview";
+import { ChartPageSkeleton } from "@/components/dashboard/Skeletons";
+import AnimatedNumberCounter from "@/components/dashboard/AnimatedNumberCounter";
 
-function DashboardPage({
+function ChartPage({
   analyticsData,
 }: {
   analyticsData: AnalyticsResponse | undefined;
 }) {
   if (!analyticsData) {
-    return <div className="text-primary text-3xl">Loading......</div>;
+    return <ChartPageSkeleton />;
   }
+
   return (
     <div className="flex flex-col gap-4 col-span-9">
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 ">
@@ -27,7 +30,7 @@ function DashboardPage({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {analyticsData.booked_events}
+              <AnimatedNumberCounter n={analyticsData.booked_events} />
             </div>
           </CardContent>
         </Card>
@@ -44,7 +47,7 @@ function DashboardPage({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {analyticsData.culling_workspaces}
+              <AnimatedNumberCounter n={analyticsData.culling_workspaces} />
             </div>
           </CardContent>
         </Card>
@@ -61,7 +64,7 @@ function DashboardPage({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {analyticsData.smart_share_events}
+              <AnimatedNumberCounter n={analyticsData.smart_share_events} />
             </div>
           </CardContent>
         </Card>
@@ -75,4 +78,4 @@ function DashboardPage({
   );
 }
 
-export default DashboardPage;
+export default ChartPage;

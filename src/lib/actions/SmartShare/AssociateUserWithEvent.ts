@@ -1,8 +1,7 @@
 "use server";
 
 import { ASSOCIATE_USER_WITH_EVENT } from "@/constants/ApiUrls";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import { getClerkToken } from "../clerk-token";
 
 // For updating an event in the backend
 export const AssociateUserWithEvent = async ({
@@ -11,14 +10,7 @@ export const AssociateUserWithEvent = async ({
   eventId: string;
 }): Promise<{ data?:unknown; error?: string }> => {
   // Get the JWT token from Clerk
-  const { getToken } = await auth();
-  const token = await getToken({ template: "AI_Cull_Share_Eventize" });
-
-  if (!token) {
-    console.error("Failed to fetch Clerk token");
-    redirect("/sign-in");
-    return { error: "Unauthorized" }; // Ensure a return value after redirect
-  }
+  const token = await getClerkToken();
 
   try {
     const apiUrl = `${ASSOCIATE_USER_WITH_EVENT}/${eventId}`;

@@ -21,7 +21,9 @@ const config: Config = {
   			BebasNeueRegular: [
   				'BebasNeue-Regular',
   				'BebasNeue-Regular'
-  			]
+  			],
+			workSans:["var(--font-work-sans)"],
+			inter:["var(--font-inter)"]
   		},
   		boxShadow: {
   			glow: '0 0 20px rgba(255, 204, 112, 0.7), 0 0 40px rgba(200, 80, 192, 0.5), 0 0 60px rgba(65, 88, 208, 0.3)',

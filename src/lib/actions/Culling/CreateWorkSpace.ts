@@ -1,19 +1,15 @@
 'use server'
 
 import { CREATE_CULLING_WORKSPACE } from "@/constants/ApiUrls"
-import { auth } from "@clerk/nextjs/server";
+import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation"
+import { getClerkToken } from "../clerk-token";
 
 
 export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>{
 
     // getting jwt token from clerk so that we can access backend resorces
-    const {getToken} = await auth();
-    const token = await getToken({template:"AI_Cull_Share_Eventize"})
-    if (!token) {
-        console.error("Failed to fetch Clerk token");
-        redirect("/sign-in");
-    }
+    const token = await getClerkToken();
     
     const apiUrl = `${CREATE_CULLING_WORKSPACE}/${workSpaceName}`;
 
@@ -30,6 +26,7 @@ export const CreateWorkSpace = async ({workSpaceName}:{workSpaceName:string}) =>
         const jsonResponse = await response.json()
         
         if (response.status === 201) {
+            revalidateTag('getAllCullingWorkspaces');
             return { success: "Workspace created successfully !" };
         }
         else if (response.status === 401) {

@@ -1,4 +1,3 @@
-import { FileRejection } from "react-dropzone";
 
 // event data interface 
 export interface SmartShareEventsDataInterface{
@@ -8,6 +7,7 @@ export interface SmartShareEventsDataInterface{
     description:string;
     total_size: number;
     created_at: string;
+    status:"Not Published" | "Published" | "Pending";
 }
 
 // images metadata 
@@ -50,10 +50,13 @@ export interface SmartShareStore {
     currentEventData: SmartShareEventDataByIdInterface;
     toggleView:boolean; 
     eventsData:SmartShareEventsDataInterface[]
-    
-    
+
+    // published task id
+    publishedTaskIds:Record<string, string>,
+
     // Uploading images
     uploadedImagesUrls: string[];
+
   
     // Setters
     setCurrentEventData: (
@@ -65,6 +68,7 @@ export interface SmartShareStore {
     setEventsData: (
         eventsData:SmartShareEventsDataInterface[]
     )=>void;
+    setPublishedTaskIds: ({ eventId,taskId}:{eventId:string, taskId:string})=>void;
    
     setUploadedImagesUrls: (url: string[]) => void;
 }

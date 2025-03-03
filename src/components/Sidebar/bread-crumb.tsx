@@ -61,7 +61,6 @@ export default function BreadCrumb() {
     .map((segment, index) => {
       const isLast = index === pathSegments.length - 2; // Adjust the last index check since we sliced the array
       const href = `/${pathSegments.slice(0, index + 2).join("/")}`; // Include segments from 1 to the current index + 1
-      console.log("link", href);
 
       let label = segment;
 

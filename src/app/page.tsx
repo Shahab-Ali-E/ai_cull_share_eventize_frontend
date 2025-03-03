@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 const Home = () => {
 
   return (
-    <div className='flex flex-col bg-secondary min-h-screen px-10 text-primary space-y-20 overflow-hidden'>
+    <div className='flex flex-col bg-card min-h-screen px-10 text-primary space-y-20 overflow-hidden'>
         {/* nav bar */}
         <Navbar />
       

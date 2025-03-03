@@ -9,10 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 
 //icons and images
-import { IoCloseCircle } from "react-icons/io5";
-import uploaddIcon from "@/images/icons/upload_icon_svg.svg";
+import { IoCloseCircle, IoCloudUploadOutline } from "react-icons/io5";
 import useCullingStore from "@/zustand/CullingStore";
-import { useRouter } from "next/navigation";
 import {
   Dialog,
   DialogContent,
@@ -42,8 +40,6 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
   const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
   const { setUploadedImagesS3Urls } = useCullingStore();
-
-  const router = useRouter();
 
   // This function will trigger when the user drops a file on it
   const onDrop = (
@@ -105,11 +101,6 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
     }
   };
 
-  // Truncate file names to avoid overflow
-  //   const truncateFileName = (name: string, maxLength: number): string => {
-  //     return name.length > maxLength ? name.slice(0, maxLength) + "..." : name;
-  //   };
-
   // for handling uploading images to the backend server
   const handleUploadImagesToServer = async ({
     workSpaceId,
@@ -135,13 +126,9 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
             description: error,
           });
         } else {
-          console.log("data from upload culling", data);
-          setUploadedImagesS3Urls(data.data);
-          router.refresh();
+          setUploadedImagesS3Urls(data?.data || []);
         }
       } catch {
-        // const errorMessage =
-        //   e?.errors?.message || e?.message || "Sorry, something went wrong while uploading images.";
         toast.error("Sorry, something went wrong while uploading images");
       } finally {
         setFiles([]);
@@ -159,7 +146,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
       {files.length === 0 ? (
         <div
           {...getRootProps()}
-          className="flex flex-grow h-full w-full sm:w-4/5 justify-center"
+          className="flex flex-grow h-full w-full md:w-4/5 justify-center"
         >
           <input {...getInputProps()} />
           <div
@@ -169,28 +156,22 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                 : "border-muted-foreground"
             } rounded-lg cursor-pointer transition duration-300 ease-in-out`}
           >
-            <Image
-              src={uploaddIcon}
-              height={64}
-              width={64}
-              className="h-14 w-14 md:h-16 md:w-16 lg:h-20 lg:w-20"
-              alt="upload-logo"
-              unoptimized
-            />
-            <div className="mt-4 space-y-2 text-center text-primary">
+            <IoCloudUploadOutline className="h-14 w-14 md:h-20 md:w-20 text-accent-foreground"/>
+
+            <div className="mt-1 space-y-2 text-center text-primary">
               {isDragActive ? (
-                <Label className="text-sm sm:text-lg font-semibold">
+                <Label className="text-sm md:text-base font-semibold">
                   Drop your images here
                 </Label>
               ) : (
-                <Label className="text-xs sm:text-sm font-semibold">
+                <Label className="text-xs md:text-sm font-semibold">
                   ✨ Get started by uploading images. <br />
                   Simply drag and drop files here 🖼️, or click to select files
                   📁.
                 </Label>
               )}{" "}
               <br />
-              <span className="text-muted-foreground text-xs">
+              <span className="text-muted-foreground text-sm">
                 File must be JPEG, JPG and PNG
               </span>
             </div>
@@ -200,9 +181,9 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
         <section className="flex flex-col w-full min-h-screen">
           {/* File preview section */}
           <Dialog open={showImagePreviewModal} onOpenChange={handlePreview}>
-            <DialogContent className="flex flex-col gap-y-0 w-11/12 sm:w-2/5 h-3/4 rounded-sm border-2 overflow-hidden p-0 text-primary max-w-full">
+            <DialogContent className="flex flex-col gap-y-0 w-[88%] md:w-2/5 h-3/4 rounded-sm -ml-2 md:-ml-0 overflow-hidden p-0 text-primary max-w-full">
               <DialogHeader className="flex flex-row bg-accent text-primary items-center justify-start rounded-none px-6 py-8">
-                <DialogTitle className="text-sm sm:text-lg font-semibold">
+                <DialogTitle className="text-sm md:text-lg font-semibold">
                   Images preview
                 </DialogTitle>
               </DialogHeader>
@@ -225,21 +206,21 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                         className="object-cover w-full h-full"
                       />
                       <button
-                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
+                        className="w-6 h-6 md:w-8 md:h-8 rounded-full flex justify-center items-center absolute top-0 right-0 bg-white z-20"
                         onClick={() => removeFile(file.id)}
                       >
-                        <IoCloseCircle className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" />
+                        <IoCloseCircle className="w-6 h-6 md:w-8 md:h-8 text-red-600" />
                       </button>
                       
                     </li>
                   ))}
                 </ul>
               </DialogDescription>
-              <DialogFooter className="border-t border-muted-foreground px-20 py-3 sm:px-24 sm:py-5 bg-secondary gap-y-3 sm:gap-y-0">
+              <DialogFooter className="border-t border-muted-foreground px-20 py-3 md:px-24 md:py-5 bg-secondary gap-y-3 md:gap-y-0">
                 <Button
                   type="button"
                   variant={"secondary"}
-                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs md:text-sm"
                   onClick={handleAddMoreClick}
                 >
                   Add more
@@ -248,7 +229,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                 <Button
                   type="button"
                   variant={"default"}
-                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs sm:text-sm"
+                  className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs md:text-sm"
                   onClick={() => {
                     handleUploadImagesToServer({ workSpaceId });
                   }}

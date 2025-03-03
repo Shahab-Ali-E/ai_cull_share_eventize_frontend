@@ -14,17 +14,17 @@ import RevelHeading from '@/components/RevelHeading';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {  
-  title: "Culling Home | AI Image Culling",  
+  title: "Smart Culling Home",  
   description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
   keywords: [
     "AI image culling", 
     "photo organization", 
     "remove blurry images", 
     "duplicate photo detection", 
-    "automated photo selection"
+    "automated photo selection" 
   ],  
   openGraph: {  
-    title: "Culling Home | AI Image Culling",  
+    title: "Smart Culling Home",  
     description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
     url: "http://localhost/culling-home",  
     type: "website",  
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   },  
   twitter: {  
     card: "summary_large_image",  
-    title: "Culling Home | AI Image Culling",  
+    title: "Smart Culling Home",  
     description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
     images: ["https://yourwebsite.com/images/culling-preview.jpg"]
   }

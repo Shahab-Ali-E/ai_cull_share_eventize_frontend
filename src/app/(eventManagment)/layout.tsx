@@ -7,7 +7,7 @@ function EventManagmentLayout({
     children: React.ReactNode;
 }) {
   return (
-    <section className='flex flex-col space-y-10 px-2 sm:px-10 pb-20 bg-primary-foreground'>
+    <section className='flex flex-col space-y-10 px-2 sm:px-10 pb-20 bg-card'>
         {/* Navbar */}
         <Navbar />
         <div className="w-full">{children}</div>

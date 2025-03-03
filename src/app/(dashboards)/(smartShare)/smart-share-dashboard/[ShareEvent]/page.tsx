@@ -7,25 +7,23 @@ import ShareEventPage from "./ShareEventPage";
 
 // // apis
 import { GetEventById } from "@/lib/actions/SmartShare/GetEvents";
+import { getClerkToken } from "@/lib/actions/clerk-token";
 
 
-const Page = ({ params }: { params: {ShareEvent:string} }) => {
+const Page = async ({ params }: { params: { ShareEvent: string } }) => {
   const eventId = params.ShareEvent;
-  // Fetch the workspace data
-  const eventDataPromise = GetEventById({ eventId });
+  // Get token once outside the cached function
+  const token = await getClerkToken();
+  const eventDataPromise = GetEventById({ eventId }, token);
 
   return (
-    <Suspense fallback={<Loading />}> 
+    <Suspense fallback={<Loading />}>
       <Await promise={eventDataPromise}>
         {({ data, error }) => (
-          <ShareEventPage 
-            eventData={data}
-            error={error}
-          />
+          <ShareEventPage eventData={data} error={error} />
         )}
       </Await>
     </Suspense>
-    
   );
 };
 

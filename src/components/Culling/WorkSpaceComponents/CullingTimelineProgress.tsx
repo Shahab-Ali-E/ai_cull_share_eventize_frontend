@@ -115,7 +115,7 @@ export default function CullingTimelineProgress({
     return (
         <div
             className={cn(
-                "flex flex-col justify-center items-center rounded-lg bg-white dark:bg-card px-12 py-8 text-foreground",
+                "flex flex-col justify-center items-center rounded-lg bg-primary-foreground px-12 py-8 text-foreground",
                 containerClassName,
             )}
         >
