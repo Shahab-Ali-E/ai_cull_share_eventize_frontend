@@ -8,6 +8,8 @@ export interface SmartShareEventsDataInterface{
     total_size: number;
     created_at: string;
     status:"Not Published" | "Published" | "Pending";
+    uploading_in_progress:boolean;
+    uploading_task_id:string | null;
 }
 
 // images metadata 

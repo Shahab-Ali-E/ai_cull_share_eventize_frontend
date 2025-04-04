@@ -1,111 +1,207 @@
-import React from 'react'
+import React from "react";
 
 //data's
-import {smartCullSliderImages, cullingStepsData, trustedByPhotographerData} from '@/utils/CullingData';
-import {cullingStepsDataProps} from '@/@types/Types';
+const howToCullData = [
+  {
+    index: 0,
+    heading: "Create Your Workspace",
+    points: [
+      "Click on the Create Workspace button.",
+      "Enter a unique name for your workspace.",
+      "Click on the Create button.",
+    ],
+    videoSrc: "/videos/video1.mp4",
+  },
+  {
+    index: 1,
+    heading: "Upload Images",
+    description:
+      "Choose the images you want to include in the culling process.",
+    points: [
+      "Open your image folder.",
+      "Select images based on criteria.",
+      "Move selected images to a new folder.",
+    ],
+    videoSrc: "/videos/video2.mp4",
+  },
+  {
+    index: 2,
+    heading: "Review and Cull",
+    description: "Review the selected images and remove unwanted ones.",
+    points: [
+      "Examine each image carefully.",
+      "Delete duplicates or poor quality images.",
+      "Keep only the best images.",
+    ],
+    videoSrc: "/videos/video3.mp4",
+  },
+  {
+    index: 3,
+    heading: "Finalize and Save",
+    description: "Finalize your selection and save the culled images.",
+    points: [
+      "Double-check your selection.",
+      "Save the final set of images.",
+      "Backup your images.",
+    ],
+    videoSrc: "/videos/video4.mp4",
+  },
+];
 
 //components
-import HowToCullSteps from '@/components/culling-home/howToCullSteps';
-import DreamEventSlider from '@/components/culling-home/cullingSlider';
-import ScrollingTestimonials from '@/components/animata/container/scrolling-testimonials';
-import Navbar from '@/components/navbar';
-import TopSection from '@/components/top-section';
-import RevelHeading from '@/components/RevelHeading';
-import { Metadata } from 'next';
+import Navbar from "@/components/navbar";
+import CullingHeroSection from "@/components/LandingPages/SmartCulling/CullingHeroSection";
 
-export const metadata: Metadata = {  
-  title: "Smart Culling Home",  
-  description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
-  keywords: [
-    "AI image culling", 
-    "photo organization", 
-    "remove blurry images", 
-    "duplicate photo detection", 
-    "automated photo selection" 
-  ],  
-  openGraph: {  
-    title: "Smart Culling Home",  
-    description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
-    url: "http://localhost/culling-home",  
-    type: "website",  
-    images: [
-      { url: "http://localhost/images/contenetalFood.jpg", width: 1200, height: 630, alt: "AI Culling Preview" }
-    ]  
-  },  
-  twitter: {  
-    card: "summary_large_image",  
-    title: "Smart Culling Home",  
-    description: "Discover AI-powered image culling that removes closed-eye, duplicate, and blurry images, leaving you with a high-quality photo collection.",  
-    images: ["https://yourwebsite.com/images/culling-preview.jpg"]
-  }
-};  
+import Image from "next/image";
 
+// after hero section shadow images
+import leftShadowImage from "@/images/LandingPages/SmartCulling/hero_left_blur.png";
+import middleShadowImage from "@/images/LandingPages/SmartCulling/hero_middle_blur.png";
+import BlueishBlurBackground from "@/images/LandingPages/SmartCulling/AfterHeroSectionImage.jpeg";
+import ShrinkingVideoCard from "@/components/LandingPages/SmartCulling/ShrinkingVideoCard";
+import CullingEyebrow from "@/components/LandingPages/SmartCulling/CullingEyebrow";
+import HowToCull from "@/components/LandingPages/SmartCulling/HowToCull";
+import { Carousel } from "@/components/ui/carousel";
 
-const CullingHome =()=> {
+import carouselImage1 from "@/images/closed_eyes.jpg";
+import carouselImage2 from "@/images/closed_eyes.jpg";
+import carouselImage3 from "@/images/closed_eyes.jpg";
+import carouselImage4 from "@/images/closed_eyes.jpg";
+import SlideInFromBottom from "@/components/LandingPages/SlideInFromBottom";
+import CullingGetStartedButton from "@/components/LandingPages/SmartCulling/CullingGetStartedButton";
+
+const slideData = [
+  {
+    title: "Mystic Mountains",
+    src: carouselImage1,
+  },
+  {
+    title: "Urban Dreams",
+    src: carouselImage2,
+  },
+  {
+    title: "Neon Nights",
+    src: carouselImage3,
+  },
+  {
+    title: "Desert Whispers",
+    src: carouselImage4,
+  },
+];
+
+const CullingHome = () => {
   return (
-    <section className='flex flex-col bg-primary-foreground min-h-screen px-10 text-primary space-y-10 sm:space-y-20 overflow-hidden'>
+    <section className="flex flex-col space-y-10 md:space-y-20 overflow-hidden pb-56">
       {/* nav bar */}
       <Navbar />
 
-      {/* top section */}
-      <TopSection
-        title="The fastest way to intelligent culling"
-        subtitle="Fast forward the process. Skip the boring."
-        buttonText="Get Started"
-        buttonHref="/culling-dashboard"
-        revelPlaceHolderColor='#00B8B8'
-      />
-
       {/* body section */}
-      <section className='flex flex-col space-y-16 sm:space-y-32 p-0 sm:p-24 '>
-        <div className='flex flex-col items-center text-center space-y-5 sm:pace-y-10'>
-        <RevelHeading
-            heading="Elevate Your Post-Processing Workflow"
-            description=" Smart Cull will help you speed up and simplify every step of the process—importing, culling, and exporting. Get your time back and use it to focus on important things."
-            placeholderColor='#00b8b8'
-        />
-        </div>
+      <section className="flex flex-col space-y-16 md:space-y-32">
+        {/* hero section */}
+        <div className="flex flex-col w-full h-full relative z-0">
+          <CullingHeroSection />
+          {/* images after hero section */}
 
-        {/* steps how to perform culling */}
-        <div className='flex flex-col mt-0 sm:mt-32 '>
-          {cullingStepsData.map((stepData:cullingStepsDataProps, index) => (
-            <HowToCullSteps
-              index={index}
-              key={index}
-              title={stepData.title}
-              steps={stepData.steps}
-              gif={stepData.gif}
+          {/* bottom shadow images */}
+          <div className="flex w-full relative z-20 -mt-12">
+            <div className="w-[15%]">
+              <Image
+                src={leftShadowImage}
+                alt="Left shadow"
+                width={500}
+                height={500}
+                className="w-full h-full"
+                unoptimized
+              />
+            </div>
+            <div className="w-[75%]">
+              <Image
+                src={middleShadowImage}
+                alt="Middle shadow"
+                width={1000}
+                height={500}
+                className="w-full h-full"
+                unoptimized
+              />
+            </div>
+            <div className="w-[15%]">
+              <Image
+                src={leftShadowImage}
+                alt="Right shadow"
+                width={500}
+                height={500}
+                className="w-full h-full"
+                style={{ transform: "scaleX(-1)" }}
+                unoptimized
+              />
+            </div>
+          </div>
+
+          {/* a blueish blur background - moved upward */}
+          <div className="flex w-full relative -z-20 -mt-64 h-[800px] md:h-[1300px]">
+            <Image
+              src={BlueishBlurBackground}
+              alt="Blueish blur background"
+              width={500}
+              height={500}
+              className="w-full h-full opacity-20"
+              unoptimized
             />
-          ))}
+          </div>
+
+          <ShrinkingVideoCard />
         </div>
 
-        {/* slider carousal */}
-        <div className='flex flex-col justify-center space-y-16'>
-          <RevelHeading
-            heading="Simple, quick, and feature-packed"
-            placeholderColor='#00b8b8'
-          />
-          {/* carousal */}
-          <DreamEventSlider
-            images={smartCullSliderImages}
-          />
+        {/* how to Cull */}
+        <div className="flex flex-col justify-center w-full space-y-14 md:space-y-32">
+          <SlideInFromBottom delay={0}>
+            <CullingEyebrow
+              heading="How to perform culling"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            />
+          </SlideInFromBottom>
+          <div className="flex flex-col gap-24 md:space-y-40">
+            {howToCullData.map((data) => (
+              <HowToCull
+                key={data.index}
+                index={data.index}
+                heading={data.heading}
+                description={data.description}
+                points={data.points}
+                videoSrc={data.videoSrc}
+              />
+            ))}
+          </div>
         </div>
 
-        {/* trusted by most of photographer marquee */}
-        <div className='flex flex-col space-y-10 sm:space-y-28 overflow-hidden'>
+        {/* what culling does */}
+        <div className="flex flex-col justify-center w-full space-y-20 md:space-y-32 pt-24 md:pt-40">
+          <SlideInFromBottom delay={0}>
+            <CullingEyebrow
+              heading="How to perform culling"
+              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+            />
+          </SlideInFromBottom>
+          <SlideInFromBottom delay={0.3}>
+            <Carousel slides={slideData} />
+          </SlideInFromBottom>
+        </div>
 
-          <RevelHeading
-            heading="Trusted by most of photographer"
-            placeholderColor='#00b8b8'
-          />
-          
-          <ScrollingTestimonials 
-            data={trustedByPhotographerData}
-          />
+        {/* get started section */}
+        <div className="flex flex-col justify-center items-center text-center w-full space-y-10 md:space-y-20 pt-24 md:pt-40">
+          <SlideInFromBottom delay={0}>
+            <h1 className="text-3xl md:text-4xl max-w-md md:max-w-2xl font-semibold text-primary">
+              Optimize your photo collection effortlessly. Start culling for
+              free today.
+            </h1>
+          </SlideInFromBottom>
+          <SlideInFromBottom delay={0.3}>
+            <CullingGetStartedButton href="/culling-dashboard" />
+          </SlideInFromBottom>
         </div>
       </section>
     </section>
-  )
-}
+  );
+};
 
-export default CullingHome
+export default CullingHome;

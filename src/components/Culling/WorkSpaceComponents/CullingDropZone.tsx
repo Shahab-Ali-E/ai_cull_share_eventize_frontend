@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useDropzone, FileRejection, DropzoneOptions } from "react-dropzone";
-import {v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 //components
 import { Button } from "@/components/ui/button";
@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 
 //icons and images
 import { IoCloseCircle, IoCloudUploadOutline } from "react-icons/io5";
-import useCullingStore from "@/zustand/CullingStore";
 import {
   Dialog,
   DialogContent,
@@ -20,8 +19,10 @@ import {
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
 import { uploadCullingImagesToServer } from "@/lib/actions/Culling/UploadImagesForCulling";
-import UploadImagesToServerLoading from "./LoadingUploadImageServer";
+
 import { toast } from "sonner";
+import Iphoneloader from "@/components/uiVerse/iphone-loader";
+import { Badge } from "@/components/ui/badge";
 
 interface CullingDropZoneProps {
   className?: string;
@@ -39,7 +40,6 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
   const [, setRejected] = useState<FileRejection[]>([]); // for setting files which are rejected
   const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
-  const { setUploadedImagesS3Urls } = useCullingStore();
 
   // This function will trigger when the user drops a file on it
   const onDrop = (
@@ -52,7 +52,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
         ...acceptedFiles.map((file) =>
           Object.assign(file, {
             preview: URL.createObjectURL(file),
-            id:  uuidv4(),
+            id: uuidv4(),
           })
         ),
       ]);
@@ -116,17 +116,15 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
       });
 
       try {
-        const { data, error } = await uploadCullingImagesToServer({
+        const { error } = await uploadCullingImagesToServer({
           workSpaceId: workSpaceId,
           imagesData: formData,
         });
 
         if (error) {
-          toast.error("Sorry, can't upload images",{
+          toast.error("Sorry, can't upload images", {
             description: error,
           });
-        } else {
-          setUploadedImagesS3Urls(data?.data || []);
         }
       } catch {
         toast.error("Sorry, something went wrong while uploading images");
@@ -138,7 +136,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
   };
 
   if (imagesUploading) {
-    return <UploadImagesToServerLoading isOpen={imagesUploading} />;
+    return <Iphoneloader description="Loading images, please wait..." />;
   }
 
   return (
@@ -156,7 +154,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                 : "border-muted-foreground"
             } rounded-lg cursor-pointer transition duration-300 ease-in-out`}
           >
-            <IoCloudUploadOutline className="h-14 w-14 md:h-20 md:w-20 text-accent-foreground"/>
+            <IoCloudUploadOutline className="h-14 w-14 md:h-20 md:w-20 text-accent-foreground" />
 
             <div className="mt-1 space-y-2 text-center text-primary">
               {isDragActive ? (
@@ -183,8 +181,14 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
           <Dialog open={showImagePreviewModal} onOpenChange={handlePreview}>
             <DialogContent className="flex flex-col gap-y-0 w-[88%] md:w-2/5 h-3/4 rounded-sm -ml-2 md:-ml-0 overflow-hidden p-0 text-primary max-w-full">
               <DialogHeader className="flex flex-row bg-accent text-primary items-center justify-start rounded-none px-6 py-8">
-                <DialogTitle className="text-sm md:text-lg font-semibold">
-                  Images preview
+                <DialogTitle className="flex gap-2 items-center">
+                  <Label className="text-sm md:text-lg font-semibold">
+                    Images preview
+                  </Label>
+
+                  <Badge className="flex justify-center rounded-full size-6 text-xs font-bold hover:bg-card-foreground">
+                    <span>{files.length}</span>
+                  </Badge>
                 </DialogTitle>
               </DialogHeader>
 
@@ -211,7 +215,6 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                       >
                         <IoCloseCircle className="w-6 h-6 md:w-8 md:h-8 text-red-600" />
                       </button>
-                      
                     </li>
                   ))}
                 </ul>

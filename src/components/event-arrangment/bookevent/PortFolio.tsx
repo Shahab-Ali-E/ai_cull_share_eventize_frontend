@@ -19,18 +19,20 @@ function PortFolio({
   heading,
   imagesData,
   selectedPortfolio,
-  setSelectedPortfolio
+  setSelectedPortfolio,
+  disabled
 }: {
   buttonTitle: string;
   heading: string;
   imagesData: { name: string; path: StaticImageData }[];
   selectedPortfolio: string | null;
   setSelectedPortfolio: React.Dispatch<React.SetStateAction<string | null>>;
+  disabled?:boolean
 }) {
   
   return (
     <ResponsiveModal>
-      <ResponsiveModalTrigger asChild>
+      <ResponsiveModalTrigger asChild disabled={disabled}>
         <Button
           variant="outline"
           className="w-full justify-between bg-muted p-5 rounded-sm border border-muted-foreground text-primary"

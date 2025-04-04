@@ -8,6 +8,8 @@ export interface MultipleWorkspaceDataInterface {
   created_at: string;
   culling_done: boolean;
   culling_in_progress: boolean;
+  uploading_in_progress:boolean;
+  uploading_task_id:string | null;
 }
 
 // after successfull culling the backend return this type of data
@@ -62,7 +64,7 @@ export interface CullingStore {
 
   // Start culling states
   cullingTaskIds: Record<string, string[]>;
-
+  
   // for toggling the workspaces view in grid or list view
   toggleView:boolean;
 

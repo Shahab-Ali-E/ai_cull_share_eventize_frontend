@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Inter, Work_Sans } from "next/font/google";
-
+// import CustomCursor from "@/components/custom-cursor";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -45,22 +45,23 @@ export default function RootLayout({
   const clerkPubKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
   return (
-    <ClerkProvider publishableKey={clerkPubKey}>
-      <html lang="en">
-        <body
-          className={`flex flex-col ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${workSans.variable} antialiased`}
-        >
+    <html lang="en">
+      <body
+        className={`flex flex-col ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${workSans.variable} antialiased`}
+      >
+        <ClerkProvider publishableKey={clerkPubKey}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
           >
+            {/* <CustomCursor /> */}
             {children}
             <Toaster richColors />
           </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   );
 }

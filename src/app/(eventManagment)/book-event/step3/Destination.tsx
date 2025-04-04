@@ -28,6 +28,7 @@ import BackButton from "@/components/event-arrangment/bookevent/BackButton";
 import SubmitButton from "@/components/event-arrangment/bookevent/SubmitButton";
 import useEventArrangementStore from "@/zustand/EventArrangementStore";
 import type { DestinationDetailType } from "@/schemas/BookEvent";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Destination() {
   // loading state for submit button
@@ -111,6 +112,7 @@ function Destination() {
                     defaultText="Select country"
                     value={field.value}
                     setValue={field.onChange}
+                    disabled={loading}
                   />
                 </FormControl>
                 <FormDescription>
@@ -121,68 +123,77 @@ function Destination() {
           />
 
           {/* Render city selection based on the selected country */}
-          {selectedCountry && (
-            <>
-              <FormField
-                control={DestinationForm.control}
-                name="city"
-                render={({ field, fieldState: { error } }) => (
-                  <FormItem>
-                    <FormLabel className="flex text-primary justify-between">
-                      City
-                      <FormMessage className="text-destructive">
-                        {error?.message}
-                      </FormMessage>
-                    </FormLabel>
-                    <FormControl>
-                      <EventComboxBox
-                        data={cityToRenderOnTheBaseOfCountry}
-                        defaultText="Select city"
-                        value={field.value}
-                        setValue={field.onChange}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      Select the city in {selectedCountry.toUpperCase()} where
-                      you would like to host your event.
-                    </FormDescription>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={DestinationForm.control}
-                name="alternativeCity"
-                render={({ field, fieldState: { error } }) => (
-                  <FormItem>
-                    <FormLabel className="flex text-primary justify-between">
-                      Alternative City
-                      <FormMessage className="text-destructive">
-                        {error?.message}
-                      </FormMessage>
-                    </FormLabel>
-                    <FormControl>
-                      <EventComboxBox
-                        data={cityToRenderOnTheBaseOfCountry}
-                        defaultText="Select city"
-                        value={field.value}
-                        setValue={field.onChange}
-                      />
-                    </FormControl>
-                    <FormDescription>
-                      If you have an alternative city in{" "}
-                      {selectedCountry.toUpperCase()}, select it here.
-                    </FormDescription>
-                  </FormItem>
-                )}
-              />
-            </>
-          )}
+          <AnimatePresence>
+            {selectedCountry && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                transition={{ ease: "easeIn", duration: 0.3 }}
+                className="overflow-hidden space-y-6"
+              >
+                <FormField
+                  control={DestinationForm.control}
+                  name="city"
+                  render={({ field, fieldState: { error } }) => (
+                    <FormItem>
+                      <FormLabel className="flex text-primary justify-between">
+                        City
+                        <FormMessage className="text-destructive">
+                          {error?.message}
+                        </FormMessage>
+                      </FormLabel>
+                      <FormControl>
+                        <EventComboxBox
+                          data={cityToRenderOnTheBaseOfCountry}
+                          defaultText="Select city"
+                          value={field.value}
+                          setValue={field.onChange}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        Select the city in {selectedCountry.toUpperCase()} where
+                        you would like to host your event.
+                      </FormDescription>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={DestinationForm.control}
+                  name="alternativeCity"
+                  render={({ field, fieldState: { error } }) => (
+                    <FormItem>
+                      <FormLabel className="flex text-primary justify-between">
+                        Alternative City
+                        <FormMessage className="text-destructive">
+                          {error?.message}
+                        </FormMessage>
+                      </FormLabel>
+                      <FormControl>
+                        <EventComboxBox
+                          data={cityToRenderOnTheBaseOfCountry}
+                          defaultText="Select city"
+                          value={field.value}
+                          setValue={field.onChange}
+                          disabled={loading}
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        If you have an alternative city in{" "}
+                        {selectedCountry.toUpperCase()}, select it here.
+                      </FormDescription>
+                    </FormItem>
+                  )}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Submit and Back Buttons */}
         <div className="flex justify-between">
-          <BackButton />
-          <SubmitButton text="Next" loading={loading}/>
+          <BackButton disabled={loading} />
+          <SubmitButton text="Next" loading={loading} />
         </div>
       </form>
     </Form>

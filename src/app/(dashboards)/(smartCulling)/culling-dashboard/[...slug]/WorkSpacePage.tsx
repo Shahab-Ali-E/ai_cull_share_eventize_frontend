@@ -4,9 +4,10 @@ import StartCullingAction from "@/components/Culling/WorkSpaceComponents/StartCu
 import { SingleWorkspaceDataInterface } from "@/@types/smart-culling";
 import React from "react";
 import ImagesHighlights from "./ImagesHighlights";
-import UploadImages from "./UploadImages";
 import CulledImagesFolders from "./CulledImagesFolder";
 import StartCulling from "./StartCulling"; // Import StartCulling here
+import UploadingImagesProgress from "@/components/UploadingImagesProgress";
+import CullingDropZone from "@/components/Culling/WorkSpaceComponents/CullingDropZone";
 
 interface WorkSpacePageProps {
   workSpaceData: SingleWorkspaceDataInterface | undefined;
@@ -14,9 +15,6 @@ interface WorkSpacePageProps {
 }
 
 function WorkSpacePage({ workSpaceData }: WorkSpacePageProps) {
-
-  console.log("workspace data", workSpaceData)
-
   const tempImagesUrls = workSpaceData?.temporary_images_urls.length !== 0; //check for if temporary images url's are avalibale or not
   const enableCullingButton =
     !workSpaceData?.culling_done &&
@@ -24,7 +22,7 @@ function WorkSpacePage({ workSpaceData }: WorkSpacePageProps) {
     workSpaceData?.temporary_images_urls?.length !== 0; // show culling button only when the temporaray images are avaliable other wise not
 
   return (
-    <section className="flex flex-col min-h-screen p-2">
+    <section className="flex flex-col p-2">
       <StartCullingAction
         workSpaceId={workSpaceData?.id}
         enableCullingButton={enableCullingButton}
@@ -46,11 +44,24 @@ function WorkSpacePage({ workSpaceData }: WorkSpacePageProps) {
             />
           </div>
         ) : (
-          <UploadImages workSpaceId={workSpaceData.id} />
+          <div className="mt-8 p-5">
+            {/* if the uploading images task id is not null then show the uploading images progress otherwise show the culling drop zone */}
+            {workSpaceData.uploading_in_progress ? (
+              <UploadingImagesProgress
+                uploadingImagesTaskId={workSpaceData.uploading_task_id}
+              />
+            ) : (
+              <CullingDropZone
+                className="flex flex-col items-center"
+                workSpaceId={workSpaceData.id}
+              />
+            )}
+          </div>
         )}
       </div>
     </section>
   );
+  
 }
 
 export default WorkSpacePage;

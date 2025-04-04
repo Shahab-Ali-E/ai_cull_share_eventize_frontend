@@ -20,6 +20,7 @@ function SlideInFromBottom({
       initial={{ y: 50, opacity: 0 }}
       animate={isInView ? { y: 0, opacity: 1 } : {}}
       transition={{ duration: duration, delay: delay, ease: "easeOut" }}
+      viewport={{ once: true, amount: 0.3 }}
     >
       {children}
     </motion.div>

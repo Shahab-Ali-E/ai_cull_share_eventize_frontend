@@ -36,7 +36,7 @@ import { cn } from "@/lib/utils";
 
 function EventDetails() {
   // loading state for submit button
-    const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -96,10 +96,12 @@ function EventDetails() {
                     defaultText="Select event type"
                     value={field.value}
                     setValue={field.onChange}
+                    disabled={loading}
                   />
                 </FormControl>
                 <FormDescription>
-                  Please select the type of event you are organizing, such as a wedding, corporate gathering, or other specific events.
+                  Please select the type of event you are organizing, such as a
+                  wedding, corporate gathering, or other specific events.
                 </FormDescription>
               </FormItem>
             )}
@@ -125,11 +127,13 @@ function EventDetails() {
                         "resize-none border text-primary rounded-sm",
                         error ? "border-destructive" : "border-muted-foreground"
                       )}
+                      disabled={loading}
                       {...field}
                     />
                   </FormControl>
                   <FormDescription>
-                    Provide additional details about your event if the listed types do not fully describe it.
+                    Provide additional details about your event if the listed
+                    types do not fully describe it.
                   </FormDescription>
                 </FormItem>
               )}
@@ -149,19 +153,23 @@ function EventDetails() {
                   </FormMessage>
                 </FormLabel>
                 <Popover>
-                  <PopoverTrigger asChild>
+                  <PopoverTrigger asChild disabled={loading}>
                     <FormControl>
                       <Button
                         variant="outline"
                         className={cn(
                           "w-full border text-primary bg-muted rounded-sm flex justify-between items-center p-5",
-                          error ? "border-destructive" : "border-muted-foreground"
+                          error
+                            ? "border-destructive"
+                            : "border-muted-foreground"
                         )}
                       >
                         {field.value ? (
                           format(field.value, "PPP")
                         ) : (
-                          <span className="text-muted-foreground">Pick a date</span>
+                          <span className="text-muted-foreground">
+                            Pick a date
+                          </span>
                         )}
                         <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                       </Button>
@@ -171,12 +179,12 @@ function EventDetails() {
                     <Calendar
                       mode="single"
                       initialFocus
-                      disabled={(date)=>{
-                        const todayDate = new Date;
+                      disabled={(date) => {
+                        const todayDate = new Date();
 
                         // selecting upcoming 10
                         const tenDayAhead = new Date();
-                        tenDayAhead.setDate(todayDate.getDate()+10);
+                        tenDayAhead.setDate(todayDate.getDate() + 10);
 
                         // disable it for dates less then today date and upcoming 10 days
                         return date < todayDate || date < tenDayAhead;
@@ -187,7 +195,8 @@ function EventDetails() {
                   </PopoverContent>
                 </Popover>
                 <FormDescription>
-                  Select the date on which the event will take place. Ensure the date aligns with your availability and planning schedule.
+                  Select the date on which the event will take place. Ensure the
+                  date aligns with your availability and planning schedule.
                 </FormDescription>
               </FormItem>
             )}
@@ -215,14 +224,16 @@ function EventDetails() {
                       "flex-grow border text-primary rounded-sm",
                       error ? "border-destructive" : "border-muted-foreground"
                     )}
+                    disabled={loading}
                     {...field}
-                    onChange={(e)=>
+                    onChange={(e) =>
                       field.onChange(parseInt(e.target.value || "20"))
                     }
                   />
                 </FormControl>
                 <FormDescription>
-                  Enter the estimated number of attendees for your event. This helps in better planning and resource allocation.
+                  Enter the estimated number of attendees for your event. This
+                  helps in better planning and resource allocation.
                 </FormDescription>
               </FormItem>
             )}
@@ -249,6 +260,7 @@ function EventDetails() {
                       "flex-grow border text-primary rounded-sm",
                       error ? "border-destructive" : "border-muted-foreground"
                     )}
+                    disabled={loading}
                     {...field}
                     onChange={(e) =>
                       field.onChange(parseInt(e.target.value || "10000"))
@@ -256,7 +268,8 @@ function EventDetails() {
                   />
                 </FormControl>
                 <FormDescription>
-                  Specify your estimated budget for the event. This helps in tailoring services to your financial plan.
+                  Specify your estimated budget for the event. This helps in
+                  tailoring services to your financial plan.
                 </FormDescription>
               </FormItem>
             )}
@@ -265,8 +278,8 @@ function EventDetails() {
 
         {/* Submit and Back Buttons */}
         <div className="flex justify-between">
-          <BackButton />
-          <SubmitButton text="Next" loading={loading}/>
+          <BackButton disabled={loading} />
+          <SubmitButton text="Next" loading={loading} />
         </div>
       </form>
     </Form>

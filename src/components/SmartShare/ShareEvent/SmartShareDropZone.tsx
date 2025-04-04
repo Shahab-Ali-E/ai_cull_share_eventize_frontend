@@ -18,10 +18,9 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import useSmartShareStore from "@/zustand/SmartShare";
 import { toast } from "sonner";
 import { uploadSmartShareImages } from "@/lib/actions/SmartShare/UploadImages";
-import UploadImagesToServerLoading from "@/components/Culling/WorkSpaceComponents/LoadingUploadImageServer";
+import Iphoneloader from "@/components/uiVerse/iphone-loader";
 
 interface SmartShareDropZoneProps {
   className?: string;
@@ -34,7 +33,6 @@ export interface FileWithPreview extends File {
 }
 
 function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
-  const { setUploadedImagesUrls } = useSmartShareStore(); //zustand store for to get uplaodImage function
   const [files, setFiles] = useState<FileWithPreview[]>([]); // for setting files which are accepcted
   const [, setRejected] = useState<FileRejection[]>([]); // for setting files which are rejected
   const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
@@ -116,7 +114,7 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
       });
 
       try {
-        const { data, error } = await uploadSmartShareImages({
+        const { error } = await uploadSmartShareImages({
           eventId: eventId,
           imagesData: formData,
         });
@@ -125,10 +123,7 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
           toast.error("Sorry, can't upload images", {
             description: error,
           });
-        } else {
-          console.log("data from upload culling", data);
-          setUploadedImagesUrls(data.data);
-        }
+        } 
       } catch {
         toast.error("Sorry, something went wrong while uploading images");
       } finally {
@@ -138,7 +133,7 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
     }
   };
   if (imagesUploading) {
-    return <UploadImagesToServerLoading isOpen={imagesUploading} />;
+    return <Iphoneloader description="Loading images, please wait..." />;
   }
 
   return (

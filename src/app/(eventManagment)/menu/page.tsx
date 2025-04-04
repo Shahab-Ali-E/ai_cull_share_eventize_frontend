@@ -18,6 +18,26 @@ import {
   TraditionalDesiFoodMenu2, 
   TraditionalDesiFoodMenu3 
 } from '@/utils/EventArrangmentData';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Event Arrangement | Menus & Prices",
+  description:
+    "Explore our diverse menu selections, featuring Fresh From Kitchen, Traditional Desi Food, Continental Style Food, and Formal Tea Gathering menus. Discover detailed dish descriptions and pricing to perfectly plan your event.",
+  keywords: [
+    "event arrangement",
+    "menus",
+    "food menus",
+    "dish details",
+    "menu prices",
+    "fresh from kitchen",
+    "traditional desi food",
+    "continental style food",
+    "formal tea gathering",
+    "catering",
+    "event catering",
+  ],
+};
 
 function Page() {
   // Prepare data for the menu page

@@ -51,7 +51,6 @@ export const getAllWorkSpaces = unstable_cache(
       });
   
       const jsonResponse = await response.json();
-  
       if (response.status === 401) {
         redirect("/sign-in");
       } else if (!response.ok) {

@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 // API calls
 import { CullingStore, MultipleWorkspaceDataInterface } from "@/@types/smart-culling";
 
-const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskIds: Record<string, string[]>; workspacesData: MultipleWorkspaceDataInterface[]; }]]>(
+const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskIds: Record<string, string[]>; workspacesData: MultipleWorkspaceDataInterface[]}]]>(
   persist(
   (set) => ({
     // Initial state
@@ -16,13 +16,14 @@ const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskI
     // isImagesUploading: false,
     // uploadImagesError: null,
     // isAlertOpen: false,
+    
     cullingTaskIds: {},
     cullingInProgress: false,
 
 
     // Setters
-    setWorkSpacesData: (workSpaces) =>
-      set({ workspacesData: workSpaces }),
+    setWorkSpacesData: (workSpaces) => set({ workspacesData: workSpaces }),
+
     setToggleView: () => set((state) => ({ toggleView: !state.toggleView })),
     // setFiles: (files) =>
     //   set((state) => ({
@@ -35,8 +36,7 @@ const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskI
     //       : rejectedFiles(state.rejectedFiles),
     //   })),
     setUploadedImagesS3Urls: (urls) => set({ uploadedImagesS3Urls: urls }),
-
-
+   
     // setIsAlertOpen: (value: boolean) => set({ isAlertOpen: value }),
 
     // Upload images function

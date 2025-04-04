@@ -32,11 +32,13 @@ export const uploadSmartShareImages = async ({
 
     const jsonResponse = await response.json();
 
+    console.log("json ", jsonResponse);
+
     if (response.status === 415) {
       return { error: jsonResponse.detail };
     } else if (response.status === 500 || !response.ok) {
       return {
-        error: jsonResponse.detail,
+        error: jsonResponse,
       };
     } else {
       revalidateTag("getSmartShareEventsTag");

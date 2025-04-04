@@ -24,12 +24,13 @@ import { cn } from "@/lib/utils";
 
 function PersonalInformation() {
   // loading state for submit button
-    const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
   // Using event form Zustand store
-  const { personalInformation, setPersonalInformation } = useEventArrangementStore();
+  const { personalInformation, setPersonalInformation } =
+    useEventArrangementStore();
 
   // Define your form
   const personalInformationForm = useForm<PersonalInformationType>({
@@ -79,11 +80,13 @@ function PersonalInformation() {
                       "flex flex-grow border text-primary rounded-sm",
                       error ? "border-destructive" : "border-muted-foreground"
                     )}
+                    disabled={loading}
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Provide your complete name as it appears on official documents.
+                  Provide your complete name as it appears on official
+                  documents.
                 </FormDescription>
               </FormItem>
             )}
@@ -108,11 +111,13 @@ function PersonalInformation() {
                       "w-full border text-primary rounded-sm",
                       error ? "border-destructive" : "border-muted-foreground"
                     )}
+                    disabled={loading}
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Enter a valid email address for event-related updates and communication.
+                  Enter a valid email address for event-related updates and
+                  communication.
                 </FormDescription>
               </FormItem>
             )}
@@ -123,7 +128,7 @@ function PersonalInformation() {
             control={personalInformationForm.control}
             name="phone"
             render={({ field, fieldState: { error } }) => (
-              <FormItem>
+              <FormItem >
                 <FormLabel className="flex text-primary justify-between">
                   Phone
                   <FormMessage className="text-destructive">
@@ -135,14 +140,16 @@ function PersonalInformation() {
                     defaultCountry="PK"
                     placeholder="e.g. 31232193120"
                     className={cn(
-                      "w-full text-primary border rounded-sm",
+                      "max-w-full text-primary border rounded-sm",
                       error ? "border-destructive" : "border-muted-foreground"
                     )}
+                    disabled={loading}
                     {...field}
                   />
                 </FormControl>
                 <FormDescription>
-                  Provide an active phone number where we can reach you if needed.
+                  Provide an active phone number where we can reach you if
+                  needed.
                 </FormDescription>
               </FormItem>
             )}
@@ -151,7 +158,7 @@ function PersonalInformation() {
 
         {/* Submit Button */}
         <div className="flex justify-end">
-          <SubmitButton text="Next" loading={loading}/>
+          <SubmitButton text="Next" loading={loading} />
         </div>
       </form>
     </Form>

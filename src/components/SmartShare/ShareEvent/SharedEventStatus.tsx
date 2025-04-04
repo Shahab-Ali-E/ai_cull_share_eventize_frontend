@@ -27,7 +27,7 @@ import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface PublishedEventTaskStatus {
-  state?: "PENDING" | "PROGRESS" | "SUCCESS" | "RETRY" | "FAILURE";
+  state?: "PENDING" | "PROGRESS" | "SUCCESS" | "RETRY" | "FAILURE" | "STARTED";
   progress?: {
     progress: string;
     elapsedTime: number;
@@ -164,7 +164,7 @@ function SharedEventStatus({
           <CheckCircle className="h-5 w-5 text-green-500" />
         </Label>
       )}
-      {taskStatus?.state === "PENDING" && (
+      {(taskStatus?.state === "PENDING" || taskStatus?.state==="STARTED") && (
         <Label
           className={cn(
             "w-2/12 flex flex-col gap-2 items-start justify-center p-3 text-primary bg-card rounded"

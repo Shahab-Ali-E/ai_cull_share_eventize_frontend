@@ -2,16 +2,10 @@ import Navbar from "@/components/navbar";
 
 function GetImagesLayout({ children }: { children: React.ReactNode }) {
   return (
-    <section className="flex flex-col bg-secondary space-y-5 min-h-screen">
-      <section className="flex flex-col w-full">
-
+    <section className="flex flex-col w-full h-full bg-card min-h-screen">
       <Navbar />
-      </section>
 
-      <section>
-
-      {children}
-      </section>
+      <section className="flex flex-col w-full">{children}</section>
     </section>
   );
 }

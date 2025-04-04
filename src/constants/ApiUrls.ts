@@ -1,4 +1,6 @@
-export const BASE_URL:string="https://api.aicullshareeventizebackend.online"
+// export const BASE_URL:string="https://api.aicullshareeventizebackend.online"
+export const BASE_URL:string="http://127.0.0.1:8000"
+// export const BASE_URL:string="https://ubuntu.aicullshareeventizebackend.online"
 
 // signup
 export const SIGNUP_URL:string = `${BASE_URL}/Auth/sign_up` //for login

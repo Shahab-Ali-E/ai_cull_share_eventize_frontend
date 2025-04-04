@@ -27,6 +27,8 @@ export const DeleteWorkSpace = async ({ workSpaceName }: {workSpaceName:string})
 
     const jsonResponse = await response.json();
 
+    console.log("json response of delete worksapce", jsonResponse);
+
     if (response.status === 401) {
       redirect("/sign-in");
     } else if (response.status === 500 || !response.ok) {

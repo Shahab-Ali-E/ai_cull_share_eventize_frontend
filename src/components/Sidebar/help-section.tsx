@@ -1,6 +1,6 @@
 "use client";
 
-import { SidebarMenuButton, SidebarMenuItem, SidebarMenuSubItem } from "@/components/ui/sidebar";
+import { SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { useUser } from "@clerk/nextjs";
 import { Copy, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -33,22 +33,25 @@ const HelpSection = () => {
   ];
 
   return (
-    <SidebarMenuSubItem>
+    <SidebarMenuItem>
       <SidebarMenuButton onClick={handleCopy}>
         <Copy />
         <span>{email}</span>
       </SidebarMenuButton>
-      {helpCollapsibleContent.map((item) => (
-        <SidebarMenuItem key={item.title}>
-          <SidebarMenuButton asChild>
-            <Link href={item.url || "#"} target="_blank">
-              <item.icon />
-              <span>{item.title}</span>
-            </Link>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      ))}
-    </SidebarMenuSubItem>
+      {/* Wrap nested menu items in a <ul> */}
+      <ul>
+        {helpCollapsibleContent.map((item) => (
+          <SidebarMenuItem key={item.title}>
+            <SidebarMenuButton asChild>
+              <Link href={item.url || "#"} target="_blank">
+                <item.icon />
+                <span>{item.title}</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        ))}
+      </ul>
+    </SidebarMenuItem>
   );
 };
 

@@ -7,12 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import SmartShareImagesPreview from "@/components/SmartShare/ShareEvent/SmartShareImagesPreview";
 import SmartShareDropZone from "@/components/SmartShare/ShareEvent/SmartShareDropZone";
 import Header from "./header";
+import UploadingImagesProgress from "@/components/UploadingImagesProgress";
 
 function ShareEventPage({ eventData }: ShareEventPageInterface) {
   return (
     <section className="flex flex-col px-4 sm:px-6 space-y-4">
-      
-      <Header eventData={eventData}/>
+      <Header eventData={eventData} />
       {/* show images or dropzone*/}
       <div className="flex flex-col space-y-7 w-full">
         <div className="flex justify-between">
@@ -42,10 +42,16 @@ function ShareEventPage({ eventData }: ShareEventPageInterface) {
           </div>
         ) : (
           <div className="flex justify-center">
-            <SmartShareDropZone
-              className="flex flex-col items-center w-11/12 md:w-3/4"
-              eventId={eventData.id}
-            />
+            {eventData.uploading_in_progress ? (
+              <UploadingImagesProgress
+                uploadingImagesTaskId={eventData.uploading_task_id}
+              />
+            ) : (
+              <SmartShareDropZone
+                className="flex flex-col items-center w-11/12 md:w-3/4"
+                eventId={eventData.id}
+              />
+            )}
           </div>
         )}
       </div>

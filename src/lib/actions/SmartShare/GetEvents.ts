@@ -113,6 +113,9 @@ export const getPublishedEvent = async (
 
       if (response.status === 401) {
         redirect("/sign-in");
+      } else if (response.status === 404) {
+        console.log("event not found", jsonResponse);
+        return { error: "Event not found" };
       } else if (!response.ok) {
         return { error: jsonResponse.detail || "Failed to fetch event data" };
       }

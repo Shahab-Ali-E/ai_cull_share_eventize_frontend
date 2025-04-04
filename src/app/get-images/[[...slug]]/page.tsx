@@ -14,7 +14,7 @@ async function Page({ params }: { params: { slug: string[] } }) {
     // Check for event details when slug has one or two segments
     if (params.slug.length === 1) {
       return (
-        <section>
+        <section className="mt-28">
           <Suspense>
             <Await promise={getEventDetailsPromise}>
               {({ data }) => <EventAvailabilityPage eventData={data} />}
@@ -38,7 +38,7 @@ async function Page({ params }: { params: { slug: string[] } }) {
 
     if (params.slug.length === 2 && params.slug[1] === "images") {
       return (
-        <section>
+        <section className="mt-16">
           <FaceRecognitionResultPage />
         </section>
       );

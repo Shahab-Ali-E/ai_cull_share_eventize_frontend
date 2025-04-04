@@ -9,7 +9,7 @@ export default function Header({
 }) {
   return (
     <>
-      <h1 className="mb-4 text-4xl font-semibold text-primary md:text-7xl">
+      <h1 className="mb-4 font-inter text-4xl font-semibold text-primary md:text-7xl">
         {title}
       </h1>
       {subtitle && (

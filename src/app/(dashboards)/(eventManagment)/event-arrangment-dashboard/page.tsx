@@ -8,6 +8,7 @@ import Await from "./Await";
 import { getAllEvents } from "@/lib/actions/EventArrangment/GetEvents";
 import { PaginationWithLink } from "@/components/pagination-with-links";
 import EventDashboardPage from "./EventsDashboardPage";
+import { Metadata } from "next";
 
 type SearchParams = {
   sort_order: string | undefined;
@@ -15,6 +16,46 @@ type SearchParams = {
   search: string | undefined;
   page: number | undefined;
   limit: number | undefined;
+};
+
+export const metadata: Metadata = {
+  title: "Event Arrangement Dashboard",
+  description:
+    "Effortlessly manage and track your booked events. Search, sort, and paginate through your event list for a seamless planning experience.",
+  keywords: [
+    "event dashboard",
+    "manage booked events",
+    "event planning",
+    "event arrangement",
+    "booked event details",
+    "sort events",
+    "event tracking",
+    "event scheduling",
+    "corporate events",
+    "wedding events",
+  ],
+  openGraph: {
+    title: "Event Arrangement Dashboard",
+    description:
+      "View and manage your booked events with ease. Sort, search, and organize event details for seamless event planning.",
+    url: "https://yourwebsite.com/event-dashboard",
+    type: "website",
+    images: [
+      {
+        url: "https://yourwebsite.com/images/event-dashboard-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Event Dashboard Preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Event Arrangement Dashboard",
+    description:
+      "Manage and track all your booked events. Easily search, sort, and organize your event details for hassle-free event planning.",
+    images: ["https://yourwebsite.com/images/event-dashboard-preview.jpg"],
+  },
 };
 
 

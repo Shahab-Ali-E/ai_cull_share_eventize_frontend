@@ -1,11 +1,10 @@
-import Navbar from '@/components/navbar'
 import React from 'react'
 
 function AuthLayout({children}:{children:React.ReactNode}) {
   return (
-    <div className='flex flex-col bg-primary-foreground px-10'>
+    <div className='flex flex-col w-full min-h-screen bg-secondary '>
         {/* nav bar */}
-        <Navbar />
+        {/* <Navbar /> */}
         <div>{children}</div>
     </div>
   )

@@ -5,10 +5,10 @@ import image3 from "@/images/EventArrangment/corporateimages/1.jpg";
 import image4 from "@/images/EventArrangment/concert.jpeg";
 
 // Menu card images
-import image5 from "@/images/EventArrangment/menuimages/desiFood.jpg";
-import image6 from "@/images/EventArrangment/menuimages/freshFromKitchen.jpeg";
+import image5 from "@/images/EventArrangment/menuimages/desi menu/menu2/chiken karahi.png";
+import image6 from "@/images/EventArrangment/menuimages/fresh_from_kitchen/menu1/yakhni pulao.png";
 import image7 from "@/images/EventArrangment/menuimages/contenetalFood.png";
-import image8 from "@/images/EventArrangment/menuimages/hitea.jpg";
+import image8 from "@/images/EventArrangment/menuimages/Hi Tea Menu/menu2/Chicken Patties.jpg";
 
 // ---------------------------------------- fresh from kitchen menu --------------------------------------------
 
@@ -154,9 +154,9 @@ import FTGM3_5 from "@/images/EventArrangment/menuimages/Hi Tea Menu/menu3/Plain
 import FTGM3_6 from "@/images/EventArrangment/menuimages/Hi Tea Menu/menu3/tea and coffee.jpg";
 
 // --------------------- --------------------------------corporate event data--------------------------------------------------
-import CED1 from "@/images/EventArrangment/corporateimages/1.jpg";
+import CED1 from "@/images/EventArrangment/corporateimages/4.jpg";
 import CED2 from "@/images/EventArrangment/corporateimages/2.jpg";
-import CED3 from "@/images/EventArrangment/corporateimages/2.jpg";
+import CED3 from "@/images/EventArrangment/corporateimages/5.jpg";
 
 //---------------------------------------------------------birthday event data--------------------------------------------------
 import BED1 from "@/images/EventArrangment/birthdayimages/birthday_3.jpg";
@@ -223,7 +223,7 @@ import {
 // event management slider images meta data
 export const eventArrangmentSliderImages: eventArrangmentSliderImagesType[] = [
   {
-    id: "1",
+    id: 1,
     src: image1,
     heading: "The Wedding",
     description:
@@ -231,7 +231,7 @@ export const eventArrangmentSliderImages: eventArrangmentSliderImagesType[] = [
     href: "/gallery/wedding-event",
   },
   {
-    id: "2",
+    id: 2,
     src: image2,
     heading: "Birthday",
     description:
@@ -239,7 +239,7 @@ export const eventArrangmentSliderImages: eventArrangmentSliderImagesType[] = [
     href: "/gallery/birthday-event",
   },
   {
-    id: "3",
+    id: 3,
     src: image3,
     heading: "Corporate Events",
     description:
@@ -247,7 +247,7 @@ export const eventArrangmentSliderImages: eventArrangmentSliderImagesType[] = [
     href: "/gallery/corporate-event",
   },
   {
-    id: "4",
+    id: 4,
     src: image4,
     heading: "Other",
     description:
@@ -259,36 +259,56 @@ export const eventArrangmentSliderImages: eventArrangmentSliderImagesType[] = [
 // Menu card data
 export const menuCardData: MenuCardDataType[] = [
   {
-    id: "1",
+    id: 1,
     src: image5,
+    title: "A fine selection of international dishes.",
     heading: "Desi Food",
     href: "/menu",
-    description:
-      "Event Management: Effortlessly organize any event, from birthday parties to weddings and concerts, with our advanced event management platform",
+    points: [
+      "Rich in traditional spices and flavors",
+      "Includes famous dishes like Biryani and Karahi",
+      "Authentic taste with homemade-style cooking",
+      "Perfect blend of aroma and taste for every occasion",
+    ],
   },
   {
-    id: "2",
+    id: 2,
     src: image6,
     heading: "Fresh From Kitchen",
+    title: "A fine selection of international dishes.",
     href: "/menu",
-    description:
-      "Smart Culling: Automatically filter out closed-eye, blurred, and duplicate images with simple steps. Check out more here.",
+    points: [
+      "Prepared with the freshest ingredients",
+      "Served hot with a focus on quality",
+      "Handcrafted by expert chefs for premium taste",
+      "A variety of options for every food lover",
+    ],
   },
   {
-    id: "3",
+    id: 3,
     src: image7,
     heading: "Continental Food",
+    title: "A fine selection of international dishes.",
     href: "/menu",
-    description:
-      "Smart Share: Share images effortlessly with facial recognition. Recipients get a QR code to access their images and download them.",
+    points: [
+      "Inspired by European and Western flavors",
+      "Includes pasta, grilled meats, and creamy sauces",
+      "Light and flavorful, perfect for all taste preferences",
+      "Balanced nutrition with a gourmet touch",
+    ],
   },
   {
-    id: "4",
+    id: 4,
     src: image8,
     heading: "High Tea",
+    title: "A fine selection of international dishes.",
     href: "/menu",
-    description:
-      "Smart Share: Share images effortlessly with facial recognition. Recipients get a QR code to access their images and download them.",
+    points: [
+      "An elegant selection of snacks and teas",
+      "Includes sandwiches, pastries, and scones",
+      "Perfect for social gatherings and evening relaxation",
+      "Served with a variety of refreshing beverages",
+    ],
   },
 ];
 
@@ -299,50 +319,50 @@ export const freshFromKitchenMenu1: detailMenuCardType = {
   // Main Course
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: FFKM1_1, // Replace with the actual image source for this item
       heading: "Mutton Yekhni Pullao",
       description: "A delicious mutton rice dish with rich Yekhni spices.",
     },
     {
-      id: "2",
+      id: 2,
       src: FFKM1_2,
       heading: "Chicken Badami Qorma",
       description: "Tender chicken cooked in a creamy almond-based gravy.",
     },
     {
-      id: "3",
+      id: 3,
       src: FFKM1_3,
       heading: "Chicken Steam Roast",
       description: "Steamed chicken roast with aromatic spices.",
     },
     {
-      id: "4",
+      id: 4,
       src: FFKM1_4,
       heading: "Pasta Counter 2 Types",
       description:
         "Two types of freshly made pasta with sauces of your choice.",
     },
     {
-      id: "5",
+      id: 5,
       src: FFKM1_5,
       heading: "Grilled Fish Lemon Butter Sauce",
       description: "Grilled fish served with a tangy lemon butter sauce.",
     },
     {
-      id: "6",
+      id: 6,
       src: FFKM1_6,
       heading: "Jumbo Fried Prawns",
       description: "Large prawns fried to perfection with a crispy coating.",
     },
     {
-      id: "7",
+      id: 7,
       src: FFKM1_7,
       heading: "Salad Bar Raita",
       description: "A refreshing yogurt-based salad bar with seasonal veggies.",
     },
     {
-      id: "8",
+      id: 8,
       src: FFKM1_8,
       heading: "Nan Taftan Tandoor",
       description: "Soft and fluffy naan bread freshly baked in a tandoor.",
@@ -352,27 +372,27 @@ export const freshFromKitchenMenu1: detailMenuCardType = {
   // Desserts
   Desserts: [
     {
-      id: "9",
+      id: 9,
       src: FFKM1_9,
       heading: "Dessert Bar 10 Items",
       description:
         "A variety of 10 delicious desserts to satisfy your sweet tooth.",
     },
     {
-      id: "10",
+      id: 10,
       src: FFKM1_10,
       heading: "Ice Cream",
       description:
         "Chilled, creamy ice cream with various flavors to choose from.",
     },
   ],
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"11",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 11,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // Second Menu
@@ -380,45 +400,45 @@ export const freshFromKitchenMenu2: detailMenuCardType = {
   // Main Course
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: FFKM2_1, // Replace with the actual image source for this item
       heading: "Singaporean Rice",
       description:
         "A flavorful rice dish with a mix of Asian spices and veggies.",
     },
     {
-      id: "2",
+      id: 2,
       src: FFKM2_2,
       heading: "Chicken Karahi",
       description:
         "A spicy and aromatic chicken dish cooked in a traditional wok.",
     },
     {
-      id: "3",
+      id: 3,
       src: FFKM2_3,
       heading: "Bhora Fried Chicken",
       description: "Crispy fried chicken with a unique and spicy seasoning.",
     },
     {
-      id: "4",
+      id: 4,
       src: FFKM2_4,
       heading: "Fried Fish (Sormai)",
       description: "Crispy fried fish prepared with special spices.",
     },
     {
-      id: "5",
+      id: 5,
       src: FFKM2_5,
       heading: "Chapli Kebab",
       description: "Minced meat kebabs with aromatic spices, shallow fried.",
     },
     {
-      id: "6",
+      id: 6,
       src: FFKM2_6,
       heading: "Dynamite Chicken",
       description: "Spicy and crispy chicken served with a tangy sauce.",
     },
     {
-      id: "7",
+      id: 7,
       src: FFKM2_7,
       heading: "Salad Bar",
       description: "A refreshing mix of seasonal veggies and dressing.",
@@ -428,13 +448,13 @@ export const freshFromKitchenMenu2: detailMenuCardType = {
   // Desserts
   Desserts: [
     {
-      id: "8",
+      id: 8,
       src: FFKM2_8,
       heading: "Gulab Jaman",
       description: "Deep-fried dough balls soaked in sweet syrup.",
     },
     {
-      id: "9",
+      id: 9,
       src: FFKM2_9,
       heading: "Kulfi Stick",
       description: "Frozen traditional Indian dessert on a stick.",
@@ -444,7 +464,7 @@ export const freshFromKitchenMenu2: detailMenuCardType = {
   // Beverages
   Beverages: [
     {
-      id: "10",
+      id: 10,
       src: FFKM2_10,
       heading: "Chai Pathan",
       description: "Traditional spiced tea served hot.",
@@ -452,13 +472,13 @@ export const freshFromKitchenMenu2: detailMenuCardType = {
   ],
 
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"11",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 11,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // Third Menu
@@ -466,49 +486,49 @@ export const freshFromKitchenMenu3: detailMenuCardType = {
   // Main Course
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: FFKM3_1, // Replace with the actual image source for this item
       heading: "Chicken Biryani Masala Wali Aloo",
       description: "Aromatic chicken biryani with spiced potatoes.",
     },
     {
-      id: "2",
+      id: 2,
       src: FFKM3_2,
       heading: "Mutton Kunna",
       description: "Tender mutton cooked in a flavorful gravy with spices.",
     },
     {
-      id: "3",
+      id: 3,
       src: FFKM3_3,
       heading: "Turkish Kebab (Chicken)",
       description: "Juicy chicken kebabs grilled to perfection.",
     },
     {
-      id: "4",
+      id: 4,
       src: FFKM3_4,
       heading: "Balochi Tikka",
       description: "Spiced chicken or mutton grilled with Balochi spices.",
     },
     {
-      id: "5",
+      id: 5,
       src: FFKM3_5,
       heading: "Chomien Vegetable",
       description: "A mix of vegetables stir-fried with noodles.",
     },
     {
-      id: "6",
+      id: 6,
       src: FFKM3_6,
       heading: "Grilled Fish",
       description: "Fish grilled with herbs and spices, served hot.",
     },
     {
-      id: "7",
+      id: 7,
       src: FFKM3_7,
       heading: "Salad Bar Raita",
       description: "A refreshing yogurt-based salad with seasonal veggies.",
     },
     {
-      id: "8",
+      id: 8,
       src: FFKM3_8,
       heading: "Nan Taftan – Tandoor",
       description: "Soft, fluffy naan baked in a traditional tandoor.",
@@ -518,13 +538,13 @@ export const freshFromKitchenMenu3: detailMenuCardType = {
   // Desserts
   Desserts: [
     {
-      id: "9",
+      id: 9,
       src: FFKM3_9,
       heading: "Roasted Ice Cream",
       description: "Creamy ice cream roasted with a crispy outer layer.",
     },
     {
-      id: "10",
+      id: 10,
       src: FFKM3_10,
       heading: "Crunch Kulfi",
       description: "Frozen kulfi with a crunchy texture on top.",
@@ -534,7 +554,7 @@ export const freshFromKitchenMenu3: detailMenuCardType = {
   // Beverages
   Beverages: [
     {
-      id: "11",
+      id: 11,
       src: FFKM3_11,
       heading: "Green Tea",
       description: "Freshly brewed green tea with a calming aroma.",
@@ -542,13 +562,13 @@ export const freshFromKitchenMenu3: detailMenuCardType = {
   ],
 
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"12",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 12,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // --------------------------------------------Traditional Desi Food Menu------------------------------------------
@@ -557,46 +577,46 @@ export const freshFromKitchenMenu3: detailMenuCardType = {
 export const TraditionalDesiFoodMenu1: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: TDFM1_1,
       heading: "Mutton Pulao",
       description:
         "A rich and aromatic rice dish cooked with tender mutton and spices.",
     },
     {
-      id: "2",
+      id: 2,
       src: TDFM1_2,
       heading: "Chicken Korma",
       description:
         "A creamy and flavorful chicken curry prepared with a blend of spices.",
     },
     {
-      id: "3",
+      id: 3,
       src: TDFM1_3,
       heading: "Jumbo Prawns",
       description: "Large prawns marinated in spices and cooked to perfection.",
     },
     {
-      id: "4",
+      id: 4,
       src: TDFM1_4,
       heading: "Chicken Reshmi Kabab",
       description:
         "Juicy and tender chicken kababs infused with rich cream and spices.",
     },
     {
-      id: "5",
+      id: 5,
       src: TDFM1_5,
       heading: "Chicken Boti Tikka",
       description: "Grilled chicken cubes marinated with traditional spices.",
     },
     {
-      id: "6",
+      id: 6,
       src: TDFM1_6,
       heading: "Taftan & Nan",
       description: "Soft and flavorful traditional bread served fresh.",
     },
     {
-      id: "7",
+      id: 7,
       src: TDFM1_7,
       heading: "Salad Bar",
       description:
@@ -605,14 +625,14 @@ export const TraditionalDesiFoodMenu1: detailMenuCardType = {
   ],
   Desserts: [
     {
-      id: "8",
+      id: 8,
       src: TDFM1_8,
       heading: "Falooda",
       description:
         "A sweet and creamy dessert with vermicelli, basil seeds, and rose syrup.",
     },
     {
-      id: "9",
+      id: 9,
       src: TDFM1_9,
       heading: "Doodh Dulari",
       description:
@@ -621,77 +641,77 @@ export const TraditionalDesiFoodMenu1: detailMenuCardType = {
   ],
   Beverages: [
     {
-      id: "11",
+      id: 11,
       src: TDFM1_10,
       heading: "Tea",
       description: "Traditional hot tea, perfect to end the meal.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"12",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 12,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // menu 2
 export const TraditionalDesiFoodMenu2: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: TDFM2_1,
       heading: "Wonton",
       description: "Crispy wontons filled with flavorful chicken stuffing.",
     },
     {
-      id: "2",
+      id: 2,
       src: TDFM2_2,
       heading: "Chicken Tikka",
       description: "Tender and spicy chicken pieces grilled to perfection.",
     },
     {
-      id: "3",
+      id: 3,
       src: TDFM2_3,
       heading: "Chicken Reshmi Kabab",
       description: "Juicy and creamy chicken kababs with a hint of spice.",
     },
     {
-      id: "4",
+      id: 4,
       src: TDFM2_4,
       heading: "Fish Lahori",
       description:
         "Deep-fried fish fillets marinated in traditional Lahori spices.",
     },
     {
-      id: "5",
+      id: 5,
       src: TDFM2_5,
       heading: "Mutton Palak",
       description:
         "Tender mutton cooked with fresh spinach and aromatic spices.",
     },
     {
-      id: "6",
+      id: 6,
       src: TDFM2_6,
       heading: "Chicken Karahi",
       description: "A spicy and tangy chicken curry cooked in a wok.",
     },
     {
-      id: "7",
+      id: 7,
       src: TDFM2_7,
       heading: "Chicken Biryani",
       description: "Fragrant basmati rice layered with spiced chicken.",
     },
     {
-      id: "8",
+      id: 8,
       src: TDFM2_8,
       heading: "Taftan & Live Tandoor",
       description: "Soft and flavorful bread baked fresh at the live counter.",
     },
     {
-      id: "9",
+      id: 9,
       src: TDFM2_9,
       heading: "Salad Bar",
       description: "Freshly prepared salads with a variety of dressings.",
@@ -699,19 +719,19 @@ export const TraditionalDesiFoodMenu2: detailMenuCardType = {
   ],
   Desserts: [
     {
-      id: "10",
+      id: 10,
       src: TDFM2_10,
       heading: "Kulfi",
       description: "Creamy frozen dessert with a hint of cardamom and saffron.",
     },
     {
-      id: "11",
+      id: 11,
       src: TDFM2_11,
       heading: "Egg Pudding",
       description: "A soft and creamy dessert made with eggs and milk.",
     },
     {
-      id: "12",
+      id: 12,
       src: TDFM2_12,
       heading: "Pan Stall",
       description:
@@ -720,69 +740,69 @@ export const TraditionalDesiFoodMenu2: detailMenuCardType = {
   ],
   Beverages: [
     {
-      id: "13",
+      id: 13,
       src: TDFM2_13,
       heading: "Juice",
       description: "Freshly squeezed juice with seasonal flavors.",
     },
     {
-      id: "14",
+      id: 14,
       src: TDFM2_14,
       heading: "Espresso Coffee",
       description: "Strong and aromatic coffee brewed to perfection.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"15",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 15,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // menu 3
 export const TraditionalDesiFoodMenu3: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: TDFM3_1,
       heading: "Chicken Malai Boti",
       description: "Creamy and juicy chicken chunks grilled to perfection.",
     },
     {
-      id: "2",
+      id: 2,
       src: TDFM3_2,
       heading: "Gola Kabab",
       description: "Delicious kababs made with spiced minced meat.",
     },
     {
-      id: "3",
+      id: 3,
       src: TDFM3_3,
       heading: "Fried Fish",
       description: "Crispy fish fillets served with tangy sauces.",
     },
     {
-      id: "4",
+      id: 4,
       src: TDFM3_4,
       heading: "Mutton Kunna Korma",
       description: "A traditional slow-cooked mutton curry with a rich gravy.",
     },
     {
-      id: "5",
+      id: 5,
       src: TDFM3_5,
       heading: "Chicken Biryani",
       description: "Flavorful rice dish layered with spiced chicken.",
     },
     {
-      id: "6",
+      id: 6,
       src: TDFM3_6,
       heading: "Nan & Raita",
       description: "Freshly baked nan bread served with cool yogurt raita.",
     },
     {
-      id: "7",
+      id: 7,
       src: TDFM3_7,
       heading: "Salad Bar",
       description: "A mix of fresh vegetables and dressings.",
@@ -790,13 +810,13 @@ export const TraditionalDesiFoodMenu3: detailMenuCardType = {
   ],
   Desserts: [
     {
-      id: "8",
+      id: 8,
       src: TDFM3_8,
       heading: "Cream Caramel",
       description: "Soft and creamy caramel pudding.",
     },
     {
-      id: "9",
+      id: 9,
       src: TDFM3_9,
       heading: "Ice Cream",
       description: "A variety of creamy and refreshing ice cream flavors.",
@@ -804,20 +824,20 @@ export const TraditionalDesiFoodMenu3: detailMenuCardType = {
   ],
   Beverages: [
     {
-      id: "10",
+      id: 10,
       src: TDFM3_10,
       heading: "Green Tea",
       description: "A light and refreshing beverage to cleanse the palate.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"11",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 11,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // --------------------------------------------Continental Style Food menu------------------------------------------
@@ -826,50 +846,50 @@ export const TraditionalDesiFoodMenu3: detailMenuCardType = {
 export const continentalFoodMenu1: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: CSFM1_1,
       heading: "Chicken Cheesy Ball",
       description: "Crispy on the outside with a cheesy chicken filling.",
     },
     {
-      id: "2",
+      id: 2,
       src: CSFM1_2,
       heading: "Chicken Dynamite",
       description: "Spicy and crispy chicken coated in a rich dynamite sauce.",
     },
     {
-      id: "3",
+      id: 3,
       src: CSFM1_3,
       heading: "Chicken Fried Rice",
       description: "Flavorful fried rice with seasoned chicken pieces.",
     },
     {
-      id: "4",
+      id: 4,
       src: CSFM1_4,
       heading: "Beef Dry Chili",
       description: "Tender beef slices stir-fried with chilies and spices.",
     },
     {
-      id: "5",
+      id: 5,
       src: CSFM1_5,
       heading: "Chicken Chaowmien",
       description: "Stir-fried noodles with vegetables and chicken.",
     },
     {
-      id: "6",
+      id: 6,
       src: CSFM1_6,
       heading: "Grilled Chicken with Creamy Perry Sauce",
       description:
         "Juicy grilled chicken served with a creamy peri-peri sauce.",
     },
     {
-      id: "7",
+      id: 7,
       src: CSFM1_7,
       heading: "Live Pizza Station",
       description: "Freshly baked pizzas with a variety of toppings.",
     },
     {
-      id: "8",
+      id: 8,
       src: CSFM1_8,
       heading: "Pasta Red and White",
       description: "Delicious pasta served with red and white sauces.",
@@ -877,77 +897,77 @@ export const continentalFoodMenu1: detailMenuCardType = {
   ],
   Desserts: [
     {
-      id: "9",
+      id: 9,
       src: CSFM1_9,
       heading: "Dessert Bar",
       description:
         "A variety of sweet treats to satisfy your dessert cravings.",
     },
     {
-      id: "10",
+      id: 10,
       src: CSFM1_10,
       heading: "Ice Cream Vanilla and Chocolate",
       description: "Classic vanilla and chocolate ice cream flavors.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"11",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 11,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 //menu2
 export const continentalFoodMenu2: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: CSFM2_1,
       heading: "Chicken Cheesy Ball",
       description: "Crispy on the outside with a cheesy chicken filling.",
     },
     {
-      id: "2",
+      id: 2,
       src: CSFM2_2,
       heading: "Pop Corn Okra",
       description: "Crunchy popcorn okra, a unique and flavorful snack.",
     },
     {
-      id: "3",
+      id: 3,
       src: CSFM2_3,
       heading: "Vegetable / Garlic / Egg Fried Rice",
       description: "A choice of vegetable, garlic, or egg-fried rice.",
     },
     {
-      id: "4",
+      id: 4,
       src: CSFM2_4,
       heading: "Chicken Shashlik/Green Chili",
       description: "Tender chicken skewers served with a green chili kick.",
     },
     {
-      id: "5",
+      id: 5,
       src: CSFM2_5,
       heading: "Grilled Fish with Lemon Butter Sauce",
       description:
         "Perfectly grilled fish drizzled with a tangy lemon butter sauce.",
     },
     {
-      id: "6",
+      id: 6,
       src: CSFM2_6,
       heading: "Chicken Dynamite",
       description: "Spicy and crispy chicken coated in a rich dynamite sauce.",
     },
     {
-      id: "7",
+      id: 7,
       src: CSFM2_7,
       heading: "Pasta Station Red and White",
       description: "Freshly prepared pasta with red and white sauces.",
     },
     {
-      id: "8",
+      id: 8,
       src: CSFM2_8,
       heading: "Fish and Chips",
       description: "Golden fried fish served with crispy chips.",
@@ -955,70 +975,70 @@ export const continentalFoodMenu2: detailMenuCardType = {
   ],
   Desserts: [
     {
-      id: "9",
+      id: 9,
       src: CSFM2_9,
       heading: "Ice Cream",
       description: "Classic ice cream in a variety of flavors.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"10",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 10,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // menu3
 export const continentalFoodMenu3: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: CSFM3_1,
       heading: "Chicken Dynamite",
       description: "Spicy and crispy chicken coated in a rich dynamite sauce.",
     },
     {
-      id: "2",
+      id: 2,
       src: CSFM3_2,
       heading: "Caesar Salad",
       description: "Fresh greens topped with Caesar dressing and croutons.",
     },
     {
-      id: "3",
+      id: 3,
       src: CSFM3_3,
       heading: "Vegetable / Garlic / Egg Fried Rice",
       description: "A choice of vegetable, garlic, or egg-fried rice.",
     },
     {
-      id: "4",
+      id: 4,
       src: CSFM3_4,
       heading: "Beef Chili",
       description: "Tender beef cooked with spicy chili sauce.",
     },
     {
-      id: "5",
+      id: 5,
       src: CSFM3_5,
       heading: "Grilled Chicken with Creamy Perry Sauce",
       description:
         "Juicy grilled chicken served with a creamy peri-peri sauce.",
     },
     {
-      id: "6",
+      id: 6,
       src: CSFM3_6,
       heading: "Chow Mien",
       description: "Stir-fried noodles with vegetables and chicken.",
     },
     {
-      id: "7",
+      id: 7,
       src: CSFM3_7,
       heading: "Chicken Teriyaki",
       description: "Grilled chicken glazed with a savory teriyaki sauce.",
     },
     {
-      id: "8",
+      id: 8,
       src: CSFM3_8,
       heading: "Jumbo Prawns",
       description: "Delicious jumbo prawns grilled to perfection.",
@@ -1026,20 +1046,20 @@ export const continentalFoodMenu3: detailMenuCardType = {
   ],
   Desserts: [
     {
-      id: "9",
+      id: 9,
       src: CSFM3_9,
       heading: "Dessert Bar/Eclairs/Ice Cream",
       description: "A variety of desserts including eclairs and ice cream.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"10",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 10,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // --------------------------------------------Formal Tea Gathering Menu------------------------------------------
@@ -1048,38 +1068,38 @@ export const continentalFoodMenu3: detailMenuCardType = {
 export const formalTeaGatheringMenu1: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: FTGM1_1,
       heading: "Mini Chicken Sandwich",
       description: "Soft bread with flavorful chicken filling.",
     },
     {
-      id: "2",
+      id: 2,
       src: FTGM1_2,
       heading: "Fish Finger",
       description:
         "Crispy and golden-brown fish fingers served with tartar sauce.",
     },
     {
-      id: "3",
+      id: 3,
       src: FTGM1_3,
       heading: "Mini Spring Rolls",
       description: "Crispy spring rolls with a savory filling.",
     },
     {
-      id: "4",
+      id: 4,
       src: FTGM1_4,
       heading: "Chicken Drum Stick",
       description: "Juicy chicken drumsticks seasoned and fried to perfection.",
     },
     {
-      id: "5",
+      id: 5,
       src: FTGM1_5,
       heading: "Dry Nut Pastries",
       description: "Delicious pastries topped with crunchy dry nuts.",
     },
     {
-      id: "6",
+      id: 6,
       src: FTGM1_6,
       heading: "Tea + Coffee",
       description:
@@ -1087,119 +1107,119 @@ export const formalTeaGatheringMenu1: detailMenuCardType = {
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"7",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 7,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // menu2
 export const formalTeaGatheringMenu2: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: FTGM2_1,
       heading: "Assorted Sandwiches",
       description: "A variety of sandwiches with diverse flavors.",
     },
     {
-      id: "2",
+      id: 2,
       src: FTGM2_2,
       heading: "Chicken Patties",
       description: "Flaky pastries filled with seasoned chicken.",
     },
     {
-      id: "3",
+      id: 3,
       src: FTGM2_3,
       heading: "Mini Pizza",
       description: "Cheesy mini pizzas topped with chicken and veggies.",
     },
     {
-      id: "4",
+      id: 4,
       src: FTGM2_4,
       heading: "Fruit Cake Slice",
       description: "Moist cake slices with chunks of fruits.",
     },
     {
-      id: "5",
+      id: 5,
       src: FTGM2_5,
       heading: "Mix Cookies",
       description: "A variety of freshly baked cookies.",
     },
     {
-      id: "6",
+      id: 6,
       src: FTGM2_6,
       heading: "Tea + Coffee",
       description: "Freshly brewed tea and coffee to complement the menu.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"7",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 7,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // menu 3
 export const formalTeaGatheringMenu3: detailMenuCardType = {
   mainCourses: [
     {
-      id: "1",
+      id: 1,
       src: FTGM3_1,
       heading: "Cold Sandwich",
       description: "Delicious cold sandwiches with a creamy chicken filling.",
     },
     {
-      id: "2",
+      id: 2,
       src: FTGM3_2,
       heading: "Chicken Samosa",
       description: "Golden and crispy samosas filled with spiced chicken.",
     },
     {
-      id: "3",
+      id: 3,
       src: FTGM3_3,
       heading: "Chicken Nuggets",
       description: "Tender and crispy chicken nuggets.",
     },
     {
-      id: "4",
+      id: 4,
       src: FTGM3_4,
       heading: "One Bite Pastries",
       description: "Mini pastries perfect for one bite indulgence.",
     },
     {
-      id: "5",
+      id: 5,
       src: FTGM3_5,
       heading: "Plain Cake Slice",
       description: "Classic plain cake slices with a soft texture.",
     },
     {
-      id: "6",
+      id: 6,
       src: FTGM3_6,
       heading: "Tea + Coffee",
       description: "Hot tea and coffee to complete the menu.",
     },
   ],
   // price per head
-  PricePerHead:[
+  PricePerHead: [
     {
-      id:"7",
-      heading:"Price Per Head",
-      description:"1900 PKR"
-    }
-  ]
+      id: 7,
+      heading: "Price Per Head",
+      description: "1900 PKR",
+    },
+  ],
 };
 
 // --------------------------------------------------------------------- Corporate event data ---------------------------------------
 export const corporateEventsData: CorporateEventDataType[] = [
   {
-    id: "1",
+    id: 1,
     heading: "PRODUCT LAUNCHES & BRAND ACTIVATION",
     description: [
       "Venues and catering",
@@ -1220,7 +1240,7 @@ export const corporateEventsData: CorporateEventDataType[] = [
     src: CED1,
   },
   {
-    id: "2",
+    id: 2,
     heading: "EXHIBITIONS & TRADE SHOWS",
     description: [
       "Venues and catering",
@@ -1240,7 +1260,7 @@ export const corporateEventsData: CorporateEventDataType[] = [
     src: CED2,
   },
   {
-    id: "3",
+    id: 3,
     heading: "GOVERNMENT SUMMITS & EVENTS",
     description: [
       "Strategic project planning & guidance",
@@ -1278,7 +1298,7 @@ export const corporateEventsData: CorporateEventDataType[] = [
 // birthday event data
 export const birthdayEventData: BirthdayEventDataType[] = [
   {
-    id: "1",
+    id: 1,
     src: BED1, // Replace this with the actual StaticImageData path
     heading: "Birthday Services",
     bullets: [
@@ -1296,7 +1316,7 @@ export const birthdayEventData: BirthdayEventDataType[] = [
     ],
   },
   {
-    id: "2",
+    id: 2,
     heading: "The Fun",
     description:
       "What’s a party if it's not fun?! We bring for you entertaining activities that would keep the kids engaged at all times. At our parties, boredom never strikes!! We offer kids Playing Area, kids Art activities, jumbo Slides, Bouncing Slides & Castles, Trampolines, Party Music, Bowling alley, mini golf, electronic Rides, face painting, Pop Corn, Candy floss, chocolate fountains, Funny Clowns, and more, or you may customize your option.",
@@ -1304,11 +1324,11 @@ export const birthdayEventData: BirthdayEventDataType[] = [
 ];
 
 // birthday pricing data
-export const birthdayPricingData:BirthdayEventPriceType[] = [
+export const birthdayPricingData: BirthdayEventPriceType[] = [
   {
-    id: "1",
+    id: 1,
     heading: "Make a Wish",
-    description:"A nice party",
+    description: "A nice party",
     bullets: [
       "1800 Balloons Arrangement",
       "4 Balloon Arches",
@@ -1330,9 +1350,9 @@ export const birthdayPricingData:BirthdayEventPriceType[] = [
     price: "Rs.195,000",
   },
   {
-    id: "1",
+    id: 1,
     heading: "Born to Party",
-    description:"A nice party",
+    description: "A nice party",
     bullets: [
       "1000 Balloons Arrangement",
       "2 Balloon Arches",
@@ -1350,9 +1370,9 @@ export const birthdayPricingData:BirthdayEventPriceType[] = [
     price: "Rs.125,000",
   },
   {
-    id: "2",
+    id: 2,
     heading: "Hip Hip Hurray",
-    description:"A nice party",
+    description: "A nice party",
     bullets: [
       "700 Balloons Arrangement",
       "Balloon Arch",
@@ -1368,9 +1388,9 @@ export const birthdayPricingData:BirthdayEventPriceType[] = [
     price: "Rs.55,000",
   },
   {
-    id: "3",
+    id: 3,
     heading: "Let Me Eat Cake",
-    description:"A nice party",
+    description: "A nice party",
     bullets: [
       "Basic Balloon Bunches (500 Balloons)",
       "Cake Table Backdrop",
@@ -1380,26 +1400,26 @@ export const birthdayPricingData:BirthdayEventPriceType[] = [
     ],
     price: "Rs.35,000",
   },
-]
+];
 
 // How it works data
 // export const howItWorksData: HowItWorksDataType[] = [
 //   {
-//     id: "1",
+//     id: 1,
 //     src: image9,
 //     heading: "Sign Up",
 //     description:
 //       "Create an account in just a few steps to unlock a personalized event management experience tailored to your needs.",
 //   },
 //   {
-//     id: "2",
+//     id: 2,
 //     src: image10,
 //     heading: "Event Details",
 //     description:
 //       "Fill out our comprehensive form with essential details like the event type, date, and preferences to help us customize the arrangements.",
 //   },
 //   {
-//     id: "3",
+//     id: 3,
 //     src: image11,
 //     heading: "Relax & Enjoy",
 //     description:

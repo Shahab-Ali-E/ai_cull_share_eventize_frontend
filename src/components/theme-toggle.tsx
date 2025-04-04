@@ -1,40 +1,36 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
-import { useTheme } from "next-themes"
+import * as React from "react";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import { useTheme } from "next-themes";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-import { Button } from "@/components/ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+export function ThemeToggle({ className }: { className?: string }) {
+  const { setTheme, theme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
 
-export function ThemeToggle({className}:{className?:string}) {
-  const { setTheme, theme } = useTheme()
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+
+  const isDarkMode = theme === "dark";
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="icon" className="bg-yellow-300 hover:bg-yellow-200 dark:hover:bg-gray-400 dark:bg-gray-500">
-          <SunIcon className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-black"/>
-          <MoonIcon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <span className="sr-only">Toggle theme</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className={`bg-card ${className}`}>
-        <DropdownMenuItem onClick={() => setTheme("light")} className={`${theme==="light" ? "bg-secondary":""}`}>
-          Light
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("dark")} className={`${theme==="dark" ? "bg-secondary":""}`}>
-          Dark
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme("system")} className={`${theme==="system" ? "bg-secondary":""}`}>
-          System
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
+    <Button
+      variant="outline"
+      size="icon"
+      onClick={() => setTheme(isDarkMode ? "light" : "dark")}
+      className={cn("bg-yellow-300 hover:bg-yellow-200 dark:bg-muted dark:hover:bg-muted-foreground/40 rounded-full p-2", className)}
+    >
+      {isDarkMode ? (
+        <MoonIcon className="h-5 w-5 text-primary" />
+      ) : (
+        <SunIcon className="h-5 w-5 text-primary" />
+      )}
+      <span className="sr-only">Toggle theme</span>
+    </Button>
+  );
 }

@@ -1,3 +1,5 @@
+import Custom404 from "@/components/custom-404";
+
 export default async function Await<T>({
     promise,
     children,
@@ -11,9 +13,7 @@ export default async function Await<T>({
       // If data contains a 404-like response, render the "Not found" message
       if (!data || (data as any)?.error) {
         return (
-          <section className="text-primary bg-secondary">
-            <h1>Not found</h1>
-          </section>
+          <Custom404 title="Not Found" description={`${(data as any)?.error}`}/>
         );
       }
   
@@ -22,9 +22,7 @@ export default async function Await<T>({
     } catch {
       // Catch any API errors and display "Not found"
       return (
-        <section className="text-primary bg-secondary">
-          <h1>Not found</h1>
-        </section>
+        <Custom404 />
       );
     }
   }

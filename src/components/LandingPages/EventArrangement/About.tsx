@@ -9,6 +9,8 @@ import {
   MotionValue,
   easeIn,
 } from "framer-motion";
+import backgroundImage from "@/images/EventArrangment/LandingPage/blurry_background_gradient.jpeg";
+import { useTheme } from "next-themes";
 
 function About({ words }: { words: string }) {
   const wordsArray = words.split(" ");
@@ -18,16 +20,31 @@ function About({ words }: { words: string }) {
     offset: ["start 0.9", "start 0.25"], // Adjust for a more gradual trigger
   });
 
+  const { theme } = useTheme();
+
+
   return (
-    <div className="flex flex-col w-full text-start gap-2 max-w-5xl font-inter sticky top-10">
+    <div
+      className="flex flex-col w-full text-start gap-2 max-w-5xl font-inter sticky top-10 py-14"
+      style={
+        theme === "dark"
+          ? {
+              backgroundImage: `url(${backgroundImage.src})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }
+          : {}
+      }
+    >
       <p className="text-[#81b1ff]">About</p>
       <div
-        className="flex flex-wrap gap-2 w-full line-clamp-3 text-6xl"
+        className="flex flex-wrap gap-x-1.5 md:gap-2 w-full line-clamp-3 text-3xl md:text-6xl"
         ref={animateTextRef}
       >
         {wordsArray.map((word, index) => {
           const start = index / wordsArray.length;
-          const end = start + 0.5 / wordsArray.length; // Smooth start-end distribution
+          const end = start + 0.4 / wordsArray.length; // Smooth start-end distribution
           return (
             <Words key={index} range={[start, end]} progress={scrollYProgress}>
               {word}

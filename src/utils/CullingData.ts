@@ -54,22 +54,22 @@ export const cullingStepsData:cullingStepsDataProps[] = [
 // smart culling slider images meta data
 export const smartCullSliderImages: BaseDataType[] = [
     {
-      id: '1',
+      id: 1,
       src: image1,
       description: 'Separate blurs',
     },
     {
-      id: '2',
+      id: 2,
       src: image2,
       description: 'Identify similar images',
     },
     {
-      id: '3',
+      id: 3,
       src: image3,
       description: 'Detect closed eyes',
     },
     {
-      id: '4',
+      id: 4,
       src: image4,
       description: 'Extract faces from images',
     }

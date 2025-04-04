@@ -4,14 +4,13 @@ import Link from "next/link";
 import { Sheet, SheetTrigger, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { JSX, SVGProps, useEffect } from "react";
-import logo from "@/images/logo.png";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import UserProfile from "@/components/user-profile";
 import { useAuth } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import SlideInFromTop from "./LandingPages/SlideInFromTop";
-
+import Logo from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -20,15 +19,11 @@ export default function Navbar() {
   useEffect(() => {
     const logToken = async () => {
       const token = await getToken();
-      if (token) {
-        console.log("Bearer Token:", token);
-      }
+      if (token) console.log("Bearer Token:", token);
     };
-
     logToken();
   }, [getToken]);
 
-  // Define the navigation links
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "Event Arrangement", href: "/event-arrangment" },
@@ -38,66 +33,66 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-transparent">
-      {/* Logo */}
-      <div className="flex items-center space-x-2">
-        <Image
-          src={logo}
-          alt="Logo"
-          width={30}
-          height={30}
-          className="h-14 w-14"
-        />
-      </div>
-
-      {/* Navigation Links (Desktop) */}
+    <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-lg bg-muted/20 dark:bg-black/10 border-b-[3px] border-muted-foreground/15">
       <SlideInFromTop duration={0.2} delay={0.3}>
-        <div className="hidden lg:flex items-center space-x-1 p-1 rounded-full bg-purple-400/10 outline outline-1 outline-purple-300/20">
-          {navLinks.map(({ name, href }) => (
-            <Link
-              key={href}
-              href={href}
-              className={cn(
-                "font-inter text-primary text-sm font-medium hover:bg-purple-400/10 px-4 py-2 rounded-full",
-                pathname === href ? "bg-purple-400/10" : ""
-              )}
-            >
-              {name}
-            </Link>
-          ))}
-        </div>
-      </SlideInFromTop>
+        <div className="flex items-center justify-between px-6 py-4">
+          {/* Logo */}
+          <Logo />
 
-      {/* User Profile / Login */}
-      <div className="flex gap-2">
-        <UserProfile />
-      </div>
-
-      {/* Mobile Navigation Menu */}
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="lg:hidden">
-            <MenuIcon className="h-6 w-6" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left" className="bg-card text-primary">
-          <div className="grid w-[200px] p-4 gap-5">
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex gap-6">
             {navLinks.map(({ name, href }) => (
               <Link
                 key={href}
                 href={href}
-                className={`text-lg font-medium hover:underline underline-offset-4 ${
-                  pathname === href ? "underline" : ""
-                }`}
-                prefetch={false}
+                className={cn(
+                  "text-muted-foreground text-sm font-medium hover:text-primary transition",
+                  pathname === href ? "text-primary font-semibold" : ""
+                )}
               >
                 {name}
               </Link>
             ))}
           </div>
-        </SheetContent>
-      </Sheet>
+
+          {/* User Profile (Desktop) */}
+          <div className="hidden md:flex gap-4 items-center">
+            <ThemeToggle />
+            <UserProfile />
+          </div>
+
+          {/* Mobile Menu */}
+          <div className="flex md:hidden items-center gap-2">
+            <Sheet>
+              <div className="flex gap-2 bg-primary p-1.5 rounded-sm md:hidden">
+                <ThemeToggle />
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="md:hidden hover:bg-primary"
+                  >
+                    <MenuIcon className="h-6 w-6 text-primary-foreground hover:text-primary-foreground" />
+                  </Button>
+                </SheetTrigger>
+              </div>
+              <SheetContent side="left" className="bg-black text-white">
+                <div className="grid p-4 gap-5">
+                  {navLinks.map(({ name, href }) => (
+                    <Link
+                      key={href}
+                      href={href}
+                      className="text-lg font-medium hover:underline"
+                    >
+                      {name}
+                    </Link>
+                  ))}
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </SlideInFromTop>
     </nav>
   );
 }

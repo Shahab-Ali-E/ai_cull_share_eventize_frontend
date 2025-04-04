@@ -42,7 +42,7 @@ const WorkspaceCard = ({
 }: WorkspaceCardProps) => {
   return (
     <div
-      className={`relative flex flex-col rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out hover:shadow-muted hover:shadow-xl w-44 sm:w-[225px] ${
+      className={`relative flex flex-col rounded-lg shadow-lg overflow-hidden transition-shadow duration-300 ease-in-out hover:shadow-muted hover:shadow-xl w-44 md:w-[225px] ${
         disabled ? "cursor-not-allowed opacity-70" : ""
       }`}
     >

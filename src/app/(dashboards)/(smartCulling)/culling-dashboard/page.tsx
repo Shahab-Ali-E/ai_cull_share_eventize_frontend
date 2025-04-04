@@ -78,7 +78,7 @@ const CullingDashboard = async ({
     limit: searchParams.limit || 10,
     token:token
   });
-
+ 
   return (
     <section className="flex flex-col px-3 sm:px-6 overflow-y-auto">
       <div className="flex flex-col pb-5 space-y-3">

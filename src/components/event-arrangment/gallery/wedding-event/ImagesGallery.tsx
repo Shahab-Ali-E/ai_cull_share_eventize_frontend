@@ -39,6 +39,7 @@ function ZoomableImage({
             alt={alt}
             fill
             className="object-cover rounded-lg cursor-pointer"
+            placeholder="blur"
           />
         </div>
       </DialogTrigger>
@@ -49,6 +50,7 @@ function ZoomableImage({
             alt={alt}
             fill
             className="h-full w-full object-contain"
+            placeholder="blur"
           />
         </div>
       </DialogContent>

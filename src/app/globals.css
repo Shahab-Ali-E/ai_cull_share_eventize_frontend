@@ -15,7 +15,27 @@
 body {
   @apply bg-[var(--background)] text-[var(--foreground)];
   font-family: Arial, Helvetica, sans-serif;
+  /* cursor: none; */
 }
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+  z-index: 9999999999999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center;
+  opacity: 0;
+}
+
+/* *{
+  cursor: none !important;
+} */
+
 
 @layer utilities {
   .text-balance {
@@ -32,6 +52,10 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+.custom-text-8xl {
+  font-size:90px;
+  line-height: 1;
 }
 
 .fade-in {
@@ -150,8 +174,6 @@ video {
   }
 }
 
-
-
 @font-face {
   font-family: 'mclawsui-macdonald';
   src: url('./fonts/mclawsui.ttf') format('truetype');
@@ -190,6 +212,11 @@ video {
 
 .cl-formFieldLabel{
   color: hsl(var(--muted-foreground));
+}
+
+.cl-internal-2iusy0{
+  color: hsl(var(--primary));
+  font-weight: 600;
 }
 
 .cl-formFieldInput{

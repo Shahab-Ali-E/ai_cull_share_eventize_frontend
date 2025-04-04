@@ -1,15 +1,13 @@
-import React from "react";
-import CullingDropZone from "@/components/Culling/WorkSpaceComponents/CullingDropZone";
+// import React from "react";
+// import CullingDropZone from "@/components/Culling/WorkSpaceComponents/CullingDropZone";
+// import UploadingImagesProgress from "@/components/Culling/WorkSpaceComponents/UploadingImagesProgress";
+// function UploadImages({ workSpaceId, uploadingImagesTaskId }: { workSpaceId: string, uploadingImagesTaskId: string }) {
 
-function UploadImages({ workSpaceId }: { workSpaceId: string }) {
-  return (
-    <div className="mt-10 p-5">
-      <CullingDropZone
-        className="flex flex-col items-center"
-        workSpaceId={workSpaceId}
-      />
-    </div>
-  );
-}
+//   console.log("uploadingImagesTaskId in upload images component", uploadingImagesTaskId);
 
-export default UploadImages;
+//   return (
+   
+//   );
+// }
+
+// export default UploadImages;

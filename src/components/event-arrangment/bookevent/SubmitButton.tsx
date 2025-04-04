@@ -1,9 +1,8 @@
-'use client';
+"use client";
 
-import { useFormStatus } from 'react-dom';
-import { Spinner } from '../../ui/spinner';
-import { Button } from '../../ui/button';
-import { IoIosArrowForward } from 'react-icons/io';
+import { Spinner } from "../../ui/spinner";
+import { Button } from "../../ui/button";
+import { IoIosArrowForward } from "react-icons/io";
 
 interface SubmitButtonProps {
   text: string;
@@ -17,11 +16,14 @@ export default function SubmitButton({ text, loading }: SubmitButtonProps) {
       type="submit"
       disabled={loading} // Disable button when loading
     >
-      <span className='text-base flex items-center'>
+      <span className="text-base flex items-center">
         {loading ? (
-          <Spinner size="small"></Spinner>
+          <div className="flex items-center">
+            <span>{text}</span>
+            <Spinner size="small" className="h-4 w-4 ml-2 text-white"></Spinner>
+          </div>
         ) : (
-          <div className='flex items-center'>
+          <div className="flex items-center">
             <span>{text}</span>
             <IoIosArrowForward className="h-4 w-4 ml-2" />
           </div>

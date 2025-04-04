@@ -25,14 +25,15 @@ interface EventComboxBoxProps{
     data:{value:string, label:string}[],
     value:string | undefined;
     setValue:React.Dispatch<React.SetStateAction<string>>
+    disabled?:boolean;
 }
 
-export default function EventComboxBox({defaultText, data, value, setValue}:EventComboxBoxProps) {
+export default function EventComboxBox({defaultText, data, value, setValue, disabled=false}:EventComboxBoxProps) {
   const [open, setOpen] = React.useState(false)
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
+      <PopoverTrigger asChild disabled={disabled}>
         <Button
           variant="outline"
           role="combobox"

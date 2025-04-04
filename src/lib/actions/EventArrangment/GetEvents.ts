@@ -7,8 +7,8 @@ import {
   GET_EVENT_BY_ID
 } from "@/constants/ApiUrls";
 import { EventDetails } from "@/@types/event-managment";
-import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+import { getClerkToken } from "../clerk-token";
 
 // For fetching all events from the backend
 export const getAllEvents = async ({
@@ -25,12 +25,7 @@ export const getAllEvents = async ({
   sort_order?: string;
 }): Promise<{ events?: EventDetails[]; totalCount?:number; error?: string }> => {
   // getting jwt token from clerk so that we can access backend resorces
-  const { getToken } = await auth();
-  const token = await getToken({ template: "AI_Cull_Share_Eventize" });
-  if (!token) {
-    console.error("Failed to fetch Clerk token");
-    redirect("/sign-in");
-  }
+  const token = await getClerkToken();
 
   try {
     // Construct query parameters using URLSearchParams
@@ -82,13 +77,8 @@ export const getEventById = async ({
 }: {
   eventId: string;
 }): Promise<{ data?: EventDetails; error?: string }> => {
-  // getting jwt token from clerk so that we can access backend resorces
-  const { getToken } = await auth();
-  const token = await getToken({ template: "AI_Cull_Share_Eventize" });
-  if (!token) {
-    console.error("Failed to fetch Clerk token");
-    redirect("/sign-in");
-  }
+  // getting clerk token
+  const token = await getClerkToken();
 
   try {
     const apiUrl = `${GET_EVENT_BY_ID}/${eventId}`;

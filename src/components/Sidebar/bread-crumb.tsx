@@ -25,21 +25,22 @@ function getPathSegments(pathname: string) {
 function mapActiveDashboardName(
   firstName: string | null | undefined,
   lastName: string | null | undefined,
+  username: string | null | undefined,
   activePath: string
 ) {
-  // userName = userName
-  //   ? userName.charAt(0).toUpperCase() + userName.slice(1)
-  //   : "loading...";
+  const displayName = firstName && lastName 
+    ? `${firstName} ${lastName}`
+    : username || 'User';
 
   switch (activePath) {
     case "culling-dashboard":
-      return `${firstName} ${lastName}'s Culling`;
+      return `${displayName}'s Culling`;
     case "event-arrangment-dashboard":
-      return `${firstName} ${lastName}'s Booked Event`;
+      return `${displayName}'s Booked Event`;
     case "smart-share-dashboard":
-      return `${firstName} ${lastName}'s Event`;
+      return `${displayName}'s Event`;
     case "dashboard":
-      return `${firstName} ${lastName}'s Dashboard`;
+      return `${displayName}'s Dashboard`;
   }
 }
 
@@ -52,6 +53,7 @@ export default function BreadCrumb() {
   const initialName = mapActiveDashboardName(
     user?.firstName,
     user?.lastName,
+    user?.username,
     pathSegments[0]
   );
 

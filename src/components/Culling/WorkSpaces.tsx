@@ -11,6 +11,7 @@ function WorkSpaces({ workSpacesData }: { workSpacesData: MultipleWorkspaceDataI
   useEffect(()=>{
     setWorkSpacesData(workSpacesData)
   },[setWorkSpacesData, workSpacesData])
+  
   return (
     <div className="flex flex-col pb-4">
       {toggleView ? (

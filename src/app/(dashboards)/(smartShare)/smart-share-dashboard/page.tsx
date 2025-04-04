@@ -8,13 +8,54 @@ import Await from "./Await";
 import CreateEvent from "@/components/SmartShare/CreateEvent";
 
 //loading skeleton
-import EventsSkeleton from "@/components/SmartShare/EventsSkeleton";
+import { WorkSpacesSkeleton } from "@/components/Culling/WorkSpaceSkeleton";
 
 //api
 import { getAllEvents } from "@/lib/actions/SmartShare/GetEvents";
 import GridListView from "@/components/SmartShare/GridListView";
 import { PaginationWithLink } from "@/components/pagination-with-links";
 import { getClerkToken } from "@/lib/actions/clerk-token";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Smart Share Dashboard",
+  description:
+    "Create, manage, and organize your events. View event details, sort, paginate, and delete event to maintain an efficient photo sharing process.",
+  keywords: [
+    "smart share",
+    "events worksapces management",
+    "create event workspaces",
+    "sort event workspaces",
+    "paginate events",
+    "delete event",
+    "AI image sharing",
+    "face recognition",
+  ],
+  openGraph: {
+    title: "Smart Share Dashboard",
+    description:
+    "Create, manage, and organize your events. View event details, sort, paginate, and delete event to maintain an efficient photo sharing process.",
+    url: "https://yourwebsite.com/culling-dashboard",
+    type: "website",
+    images: [
+      {
+        url: "https://yourwebsite.com/images/culling-dashboard-preview.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Smart Share Dashboard preview",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Smart Share Dashboard",
+    description:
+    "Create, manage, and organize your events. View event details, sort, paginate, and delete event to maintain an efficient photo sharing process.",
+    images: ["https://yourwebsite.com/images/culling-dashboard-preview.jpg"],
+  },
+};
+
+
 
 type SearchParams = {
   sort_order: string | undefined;
@@ -75,7 +116,7 @@ const SmartShareDashboard = async ({
       </div>
       {/* rest of smart dashboard page */}
       <div className="flex flex-col relative overflow-y-auto">
-        <Suspense fallback={<EventsSkeleton />}>
+        <Suspense fallback={<WorkSpacesSkeleton />}>
           <Await promise={eventsPromise}>
             {({ data, totalCount }) => (
               <>

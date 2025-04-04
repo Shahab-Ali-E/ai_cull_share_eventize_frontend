@@ -9,7 +9,7 @@ export interface ImagePreviewType{
     culling data  
 */
 export interface BaseDataType {
-    id: string;
+    id: number;
     src: StaticImageData;
     heading?: string;
     description: string;
@@ -21,8 +21,10 @@ export interface eventArrangmentSliderImagesType extends  BaseDataType{
 }
   
 // Type for menu card data
-export interface MenuCardDataType extends BaseDataType {
+export interface MenuCardDataType extends Omit<BaseDataType, "description"> {
+    title:string;
     href: string;
+    points:string[];
 }
 
 // food card component type

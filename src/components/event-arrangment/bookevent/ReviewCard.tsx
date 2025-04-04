@@ -15,7 +15,7 @@ interface ReviewCardProps {
 
 function ReviewCard({ data, cardHeading }: ReviewCardProps) {
   return (
-    <Card className="bg-primary-foreground rounded-lg shadow-lg w-full">
+    <Card className="bg-secondary rounded-lg shadow-lg w-full">
       <CardHeader className="text-xl font-semibold">
         {cardHeading}
       </CardHeader>

@@ -99,6 +99,7 @@ function AdditionalInformation() {
                       imagesData={portfolioToRenderBaseOnEventType}
                       selectedPortfolio={field.value ?? null}
                       setSelectedPortfolio={field.onChange}
+                      disabled={loading}
                     />
                   </FormControl>
                   <FormDescription>
@@ -126,6 +127,7 @@ function AdditionalInformation() {
                       "border h-40 resize-none text-primary rounded-sm",
                       error ? "border-destructive" : "border-muted-foreground"
                     )}
+                    disabled={loading}
                     {...field}
                   />
                 </FormControl>
@@ -139,7 +141,7 @@ function AdditionalInformation() {
 
         {/* Submit and Back Buttons */}
         <div className="flex justify-between">
-          <BackButton />
+          <BackButton disabled={loading}/>
           <SubmitButton text="Next" loading={loading}/>
         </div>
       </form>

@@ -119,7 +119,7 @@ function Review() {
             description: response.error,
           });
         } else if (response?.formId) {
-          router.push("/event-arrangment-dashboard");
+          router.replace("/event-arrangment-dashboard");
           resetForm();
           toast.success("Successfully submitted", {
             description: `Submitted at ${formattedDate}`,
