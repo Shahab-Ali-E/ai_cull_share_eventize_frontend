@@ -18,15 +18,22 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { uploadCullingImagesToServer } from "@/lib/actions/Culling/UploadImagesForCulling";
+// import { uploadCullingImagesToServer } from "@/lib/actions/Culling/UploadImagesForCulling";
 
-import { toast } from "sonner";
-import Iphoneloader from "@/components/uiVerse/iphone-loader";
+// import Iphoneloader from "@/components/uiVerse/iphone-loader";
 import { Badge } from "@/components/ui/badge";
+// import axios, { AxiosResponse } from "axios";
+// import { UPLOAD_CULLING_IMAGES } from "@/constants/ApiUrls";
+// import { useRouter } from "next/navigation";
+// import { toast } from "sonner";
+// import { useAuth } from "@clerk/nextjs";
+import UploadingImagesProgress from "@/components/UploadingImagesProgress";
+import { useCullingS3Uploader } from "@/hooks/useCullingS3Uploader";
 
 interface CullingDropZoneProps {
   className?: string;
   workSpaceId: string;
+  workSpaceName: string;
 }
 
 export interface FileWithPreview extends File {
@@ -34,12 +41,22 @@ export interface FileWithPreview extends File {
   preview: string;
 }
 
-function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
+function CullingDropZone({
+  className,
+  workSpaceId,
+  workSpaceName,
+}: CullingDropZoneProps) {
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false); // Control the alert visibility
   const [files, setFiles] = useState<FileWithPreview[]>([]); // for setting files which are accepcted
   const [, setRejected] = useState<FileRejection[]>([]); // for setting files which are rejected
-  const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
+  // const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
+  // const [progress, setProgress] = useState(0); // 0–100%
+  // const [uploadedCount, setUploadedCount] = useState(0); // # files done
+  // const [eta, setEta] = useState("0 sec"); // human‑readable time
+
+  // const router = useRouter();
+  // const { getToken } = useAuth();
 
   // This function will trigger when the user drops a file on it
   const onDrop = (
@@ -47,6 +64,17 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
     rejectedFiles: FileRejection[]
   ) => {
     if (acceptedFiles?.length) {
+      // const newFiles = acceptedFiles.map(file => ({
+      //   id: uuidv4(),
+      //   name: file.name,
+      //   size: file.size,
+      //   type: file.type,
+      //   // Delay preview generation
+      //   preview: () => URL.createObjectURL(file) 
+      // }));
+    
+      // setFiles(prev => [...prev, ...newFiles]);
+      
       setFiles((previousFiles: FileWithPreview[]) => [
         ...previousFiles,
         ...acceptedFiles.map((file) =>
@@ -101,42 +129,26 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
     }
   };
 
-  // for handling uploading images to the backend server
-  const handleUploadImagesToServer = async ({
-    workSpaceId,
-  }: {
-    workSpaceId: string;
-  }) => {
-    if (files.length > 0) {
-      setImagesUploading(true);
+  // uploading images
+  const { isUploading, progress, uploadedCount, eta, handleUpload } =
+  useCullingS3Uploader(workSpaceName, workSpaceId);
 
-      const formData = new FormData();
-      files.forEach((file) => {
-        formData.append("images", file);
-      });
-
-      try {
-        const { error } = await uploadCullingImagesToServer({
-          workSpaceId: workSpaceId,
-          imagesData: formData,
-        });
-
-        if (error) {
-          toast.error("Sorry, can't upload images", {
-            description: error,
-          });
-        }
-      } catch {
-        toast.error("Sorry, something went wrong while uploading images");
-      } finally {
-        setFiles([]);
-        setImagesUploading(false);
-      }
+  useEffect(() => {
+    // whenever uploading starts, hide the modal
+    if (isUploading) {
+      setShowImagePreviewModal(false);
     }
-  };
+  }, [isUploading]);
 
-  if (imagesUploading) {
-    return <Iphoneloader description="Loading images, please wait..." />;
+  if (isUploading) {
+    return (
+      <UploadingImagesProgress
+        progress={progress}
+        totalFiles={files.length}
+        uploadedCount={uploadedCount}
+        eta={eta}
+      />
+    );
   }
 
   return (
@@ -233,9 +245,7 @@ function CullingDropZone({ className, workSpaceId }: CullingDropZoneProps) {
                   type="button"
                   variant={"default"}
                   className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-xs md:text-sm"
-                  onClick={() => {
-                    handleUploadImagesToServer({ workSpaceId });
-                  }}
+                  onClick={() => handleUpload(files)}
                 >
                   Upload
                 </Button>

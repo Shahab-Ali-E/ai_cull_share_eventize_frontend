@@ -87,7 +87,7 @@ function Destination() {
       >
         {/* Step Description */}
         <StepDescription
-          heading="Destination Information"
+          heading="Select Destination"
           description="Please provide your event destination details."
           className="mb-7"
         />

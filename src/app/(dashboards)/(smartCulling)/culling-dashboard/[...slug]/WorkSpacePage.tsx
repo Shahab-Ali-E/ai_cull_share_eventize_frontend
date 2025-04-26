@@ -6,7 +6,6 @@ import React from "react";
 import ImagesHighlights from "./ImagesHighlights";
 import CulledImagesFolders from "./CulledImagesFolder";
 import StartCulling from "./StartCulling"; // Import StartCulling here
-import UploadingImagesProgress from "@/components/UploadingImagesProgress";
 import CullingDropZone from "@/components/Culling/WorkSpaceComponents/CullingDropZone";
 
 interface WorkSpacePageProps {
@@ -35,7 +34,10 @@ function WorkSpacePage({ workSpaceData }: WorkSpacePageProps) {
         {workSpaceData?.culling_done ? (
           <CulledImagesFolders workSpaceId={workSpaceData.id} />
         ) : workSpaceData?.culling_in_progress ? (
-          <StartCulling workSpaceId={workSpaceData.id} />
+          <StartCulling
+            workSpaceId={workSpaceData.id}
+            cullingTaskIds={workSpaceData.culling_task_ids}
+          />
         ) : tempImagesUrls ? (
           <div className="px-2 sm:px-5">
             <ImagesHighlights
@@ -46,14 +48,11 @@ function WorkSpacePage({ workSpaceData }: WorkSpacePageProps) {
         ) : (
           <div className="mt-8 p-5">
             {/* if the uploading images task id is not null then show the uploading images progress otherwise show the culling drop zone */}
-            {workSpaceData.uploading_in_progress ? (
-              <UploadingImagesProgress
-                uploadingImagesTaskId={workSpaceData.uploading_task_id}
-              />
-            ) : (
+            {workSpaceData.temporary_images_urls.length == 0 && (
               <CullingDropZone
                 className="flex flex-col items-center"
                 workSpaceId={workSpaceData.id}
+                workSpaceName={workSpaceData.name}
               />
             )}
           </div>
@@ -61,7 +60,6 @@ function WorkSpacePage({ workSpaceData }: WorkSpacePageProps) {
       </div>
     </section>
   );
-  
 }
 
 export default WorkSpacePage;

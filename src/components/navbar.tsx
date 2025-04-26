@@ -18,7 +18,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const logToken = async () => {
-      const token = await getToken();
+      const token = await getToken({template:"AI_Cull_Share_Eventize"});
       if (token) console.log("Bearer Token:", token);
     };
     logToken();

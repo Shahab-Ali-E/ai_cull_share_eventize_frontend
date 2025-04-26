@@ -25,7 +25,9 @@ export const GET_BEFORE_CULL_PRESIGNED_URL:string = `${CULLING_BASE_URL}/before_
 export const GET_CULLED_IMAGES:string = `${CULLING_BASE_URL}/culled_images_metadata`
 
 export const CREATE_CULLING_WORKSPACE:string = `${CULLING_BASE_URL}/create_directory` //create a working directory in backend
+export const EDIT_CULLING_WORKSPACE:string = `${CULLING_BASE_URL}/edit` //create a working directory in backend
 export const UPLOAD_CULLING_IMAGES:string = `${CULLING_BASE_URL}/upload_images` //for uplaoding images to backend 
+export const UPLOAD_BEFORE_CULLING_IMAGES_METADATA:string = `${CULLING_BASE_URL}/save_uploaded_images_metadata` //for uplaoding before culling images metadata to backend 
 export const START_CULLING:string = `${CULLING_BASE_URL}/start_culling/` //for uplaoding images to backend 
 export const DELETE_CULLING_WORKSPACE:string = `${CULLING_BASE_URL}/delete-folder` //for uplaoding images to backend 
 
@@ -42,6 +44,7 @@ export const CREATE_EVENT:string = `${SMART_SHARE_BASE_URL}/create_event` // for
 export const UPDATE_EVENT:string = `${SMART_SHARE_BASE_URL}/update_event` // for updating event
 export const DELETE_EVENT:string = `${SMART_SHARE_BASE_URL}/delete_event` // for deleting event
 export const UPLOAD_SMART_SHARE_IMAGES:string = `${SMART_SHARE_BASE_URL}/upload_images` //for uploading images
+export const UPLOAD_EVENT_IMAGES_METADATA:string = `${SMART_SHARE_BASE_URL}/save_event_images_meta` //for uplaoding before culling images metadata to backend 
 export const PUBLISH_EVENT:string = `${SMART_SHARE_BASE_URL}/share_images` //for uploading images
 export const ASSOCIATE_USER_WITH_EVENT:string = `${SMART_SHARE_BASE_URL}/associate-user` //for association user with event when accessing event
 export const GET_IMAGES_BY_FACE:string = `${SMART_SHARE_BASE_URL}/get_images` //you will pass your face image and then backend will provide matching images 

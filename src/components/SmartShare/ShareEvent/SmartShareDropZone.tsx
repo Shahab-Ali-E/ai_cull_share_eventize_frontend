@@ -18,13 +18,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { toast } from "sonner";
-import { uploadSmartShareImages } from "@/lib/actions/SmartShare/UploadImages";
-import Iphoneloader from "@/components/uiVerse/iphone-loader";
+import UploadingImagesProgress from "@/components/UploadingImagesProgress";
+import { useSmartShareS3Uploader } from "@/hooks/useSmartShareS3Uploader";
 
 interface SmartShareDropZoneProps {
   className?: string;
   eventId: string;
+  eventName: string;
 }
 
 export interface FileWithPreview extends File {
@@ -32,10 +32,13 @@ export interface FileWithPreview extends File {
   preview: string;
 }
 
-function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
+function SmartShareDropZone({
+  className,
+  eventId,
+  eventName,
+}: SmartShareDropZoneProps) {
   const [files, setFiles] = useState<FileWithPreview[]>([]); // for setting files which are accepcted
   const [, setRejected] = useState<FileRejection[]>([]); // for setting files which are rejected
-  const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false); // Control the alert visibility
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
 
@@ -100,40 +103,60 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
   };
 
   // for handling uploading images
-  const handleUploadImagesToServer = async ({
-    eventId,
-  }: {
-    eventId: string;
-  }) => {
-    if (files.length > 0) {
-      setImagesUploading(true);
+  // const handleUploadImagesToServer = async ({
+  //   eventId,
+  // }: {
+  //   eventId: string;
+  // }) => {
+  //   if (files.length > 0) {
+  //     setImagesUploading(true);
 
-      const formData = new FormData();
-      files.forEach((file) => {
-        formData.append("images", file);
-      });
+  //     const formData = new FormData();
+  //     files.forEach((file) => {
+  //       formData.append("images", file);
+  //     });
 
-      try {
-        const { error } = await uploadSmartShareImages({
-          eventId: eventId,
-          imagesData: formData,
-        });
+  //     try {
+  //       const { error } = await uploadSmartShareImages({
+  //         eventId: eventId,
+  //         imagesData: formData,
+  //       });
 
-        if (error) {
-          toast.error("Sorry, can't upload images", {
-            description: error,
-          });
-        } 
-      } catch {
-        toast.error("Sorry, something went wrong while uploading images");
-      } finally {
-        setFiles([]);
-        setImagesUploading(false);
-      }
+  //       if (error) {
+  //         toast.error("Sorry, can't upload images", {
+  //           description: error,
+  //         });
+  //       }
+  //     } catch {
+  //       toast.error("Sorry, something went wrong while uploading images");
+  //     } finally {
+  //       setFiles([]);
+  //       setImagesUploading(false);
+  //     }
+  //   }
+  // };
+
+  
+  // uploading images
+  const { isUploading, progress, uploadedCount, eta, handleUpload } =
+  useSmartShareS3Uploader(eventName, eventId);
+  
+  useEffect(() => {
+    // whenever uploading starts, hide the modal
+    if (isUploading) {
+      setShowImagePreviewModal(false);
     }
-  };
-  if (imagesUploading) {
-    return <Iphoneloader description="Loading images, please wait..." />;
+  }, [isUploading]);
+
+  if (isUploading) {
+    return (
+      <UploadingImagesProgress
+        progress={progress}
+        totalFiles={files.length}
+        uploadedCount={uploadedCount}
+        eta={eta}
+      />
+    );
   }
 
   return (
@@ -151,7 +174,7 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
                 : "border-muted-foreground"
             } rounded-lg cursor-pointer transition duration-300 ease-in-out`}
           >
-            <IoCloudUploadOutline className="h-14 w-14 md:h-20 md:w-20 text-accent-foreground"/>
+            <IoCloudUploadOutline className="h-14 w-14 md:h-20 md:w-20 text-accent-foreground" />
 
             <div className="mt-2 space-y-2 text-center text-primary">
               {isDragActive ? (
@@ -224,7 +247,7 @@ function SmartShareDropZone({ className, eventId }: SmartShareDropZoneProps) {
                   variant={"default"}
                   className="w-full border border-muted-foreground h-10 rounded-sm font-medium text-sm"
                   onClick={() => {
-                    handleUploadImagesToServer({ eventId });
+                    handleUpload(files);
                   }}
                 >
                   Upload

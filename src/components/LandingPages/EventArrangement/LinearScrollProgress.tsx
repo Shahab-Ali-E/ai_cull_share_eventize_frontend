@@ -31,11 +31,11 @@ function LinearScrollProgress() {
   ];
 
   const videoSources = useMemo(() => [
-    "/videos/video1.mp4",
-    "/videos/video2.mp4",
-    "/videos/video3.mp4",
-    "/videos/video4.mp4",
-    "/videos/video5.mp4",
+    "/videos/1st.mp4",
+    "/videos/2nd.mp4",
+    "/videos/3rd.mp4",
+    "/videos/4th.mp4",
+    "/videos/5th.mp4",
   ], []);
 
   // Preload videos when component mounts

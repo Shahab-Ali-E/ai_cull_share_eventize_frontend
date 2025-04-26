@@ -71,7 +71,7 @@ function EventDetails() {
       >
         {/* Description */}
         <StepDescription
-          heading="Event Information"
+          heading="Event Details"
           description="Please provide your event details below."
           className="mb-12"
         />

@@ -8,8 +8,7 @@ export interface MultipleWorkspaceDataInterface {
   created_at: string;
   culling_done: boolean;
   culling_in_progress: boolean;
-  uploading_in_progress:boolean;
-  uploading_task_id:string | null;
+  culling_task_ids:string[];
 }
 
 // after successfull culling the backend return this type of data

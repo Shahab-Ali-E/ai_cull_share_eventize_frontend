@@ -31,7 +31,7 @@ export async function generateMetadata({
     };
   }
 
-  const titleBase = `Culling dashboard | ${workspaceResponse.data.name}`;
+  const titleBase = `Culling Dashboard | ${workspaceResponse.data.name}`;
   const title = extraTitle ? `${titleBase} | ${extraTitle}` : titleBase;
 
   return {

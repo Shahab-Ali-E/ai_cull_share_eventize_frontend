@@ -5,7 +5,6 @@ import { Label } from "@/components/ui/label";
 import { GET_TASK_STATUS } from "@/constants/ApiUrls";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
-import useCullingStore from "@/zustand/CullingStore";
 import { fetchEventSource } from "@microsoft/fetch-event-source";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
@@ -17,6 +16,7 @@ interface CullingTimelineProgressProps {
     containerClassName?: string;
     timelineStyles?: Partial<TimelineStyles>;   
     initialActiveIndex?: number;
+    cullingTaskIds:string[];
 }
 
 export default function CullingTimelineProgress({
@@ -24,14 +24,13 @@ export default function CullingTimelineProgress({
     title,
     containerClassName,
     timelineStyles,
-    workSpaceId
+    workSpaceId,
+    cullingTaskIds
+
 }: CullingTimelineProgressProps) {
-    const { cullingTaskIds, clearCullingTaskIds } = useCullingStore();
     const { toast } = useToast();
     const [taskStatuses, setTaskStatuses] = useState<TimelineEvent[]>(events || []);
     const router = useRouter();
-
-    const taskIds = cullingTaskIds[workSpaceId] || [];
 
     const updateTaskStatus = useCallback((taskIndex: number, status: "Pending" | "Progress" | "Completed" | "Retry" | "Failed", progress?: number) => {
       setTaskStatuses((prev) =>
@@ -42,11 +41,10 @@ export default function CullingTimelineProgress({
     }, []);
 
     const monitorCulling = useCallback(async () => {
-      if (!taskIds.length) return;
-
+      console.log("culling task ids", cullingTaskIds);
       try {
         await Promise.all(
-          taskIds.map(async (taskId, i) => {
+          cullingTaskIds.map(async (taskId, i) => {
             return fetchEventSource(`${GET_TASK_STATUS}/${taskId}`, 
               {
                 method: "GET",
@@ -70,6 +68,7 @@ export default function CullingTimelineProgress({
               onmessage(ev) {
                 try {
                   const parsedData = JSON.parse(ev.data);
+                  console.log("parse data ", parsedData);
                   if (parsedData.state === "PENDING" && parsedData.progress?.progress !== undefined) {
                     updateTaskStatus(i, "Pending", parsedData.progress.progress);
                   } else if (parsedData.state === "PROGRESS" && parsedData.progress?.progress !== undefined) {
@@ -94,23 +93,24 @@ export default function CullingTimelineProgress({
           })
         );
       } finally {
-        clearCullingTaskIds(workSpaceId);
         router.refresh();
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [taskIds, clearCullingTaskIds, workSpaceId, updateTaskStatus]);
+    }, [cullingTaskIds, workSpaceId, updateTaskStatus]);
     
   
     useEffect(() => {
-      if (taskIds.length === 0) return;
+      if (cullingTaskIds.length === 0) return;
   
       monitorCulling();
   
       // Cleanup function to prevent memory leaks
       return () => {
       };
-    }, [monitorCulling]);
+    }, [cullingTaskIds.length, monitorCulling]);
       
+
+    console.log("task status", taskStatuses)
 
     return (
         <div

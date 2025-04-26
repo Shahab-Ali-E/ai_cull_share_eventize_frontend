@@ -87,12 +87,13 @@ const WorkspaceCard = ({
       <div className="flex flex-row p-4 bg-primary-foreground">
         <div className="flex flex-col w-1/2 justify-between">
           <Label
-            className={`text-primary text-base sm:text-xl font-bold ${
+            className={`text-primary text-base md:text-xl font-bold max-w-sm break-words ${
               disabled ? "cursor-not-allowed" : ""
             }`}
           >
             {workspaceName}
           </Label>
+
           <Label
             className={`text-muted-foreground text-xs ${
               disabled ? "cursor-not-allowed" : ""

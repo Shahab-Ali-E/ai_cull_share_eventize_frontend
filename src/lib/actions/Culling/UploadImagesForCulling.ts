@@ -4,101 +4,71 @@ import { UPLOAD_CULLING_IMAGES } from "@/constants/ApiUrls";
 import { revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { getClerkToken } from "../clerk-token";
-import fs from "fs/promises";
-import path from "path";
+import axios from "axios";
+import type {AxiosResponse} from "axios"
+
 
 // Interface for the upload
 interface uploadCullingImages {
   workSpaceId: string;
   imagesData: FormData;
-}
-
-// Helper function to write error to file
-async function writeErrorToFile(errorData: string) {
-  const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
-  const errorFileName = `error-response-${timestamp}.html`;
-  const errorDir = path.join(process.cwd(), "error_logs");
-
-  try {
-    await fs.mkdir(errorDir, { recursive: true });
-    await fs.writeFile(path.join(errorDir, errorFileName), errorData);
-    console.error(
-      `Full error response saved to: ${path.join(errorDir, errorFileName)}`
-    );
-  } catch (fileError) {
-    console.error("Failed to save error file:", fileError);
-  }
+  progress: (val: number) => void; // callback to pass progress to client
 }
 
 export const uploadCullingImagesToServer = async ({
   workSpaceId,
   imagesData,
+  progress,
 }: uploadCullingImages): Promise<{
   data?: { task_id: string };
+  progress: number;
   error?: string;
 }> => {
-  let response;
-  let responseText = "";
+  let finalProgress = 0;
+  let response: AxiosResponse;
 
   try {
-    // getting jwt token from clerk so that we can access backend resources
     const token = await getClerkToken();
     const apiUrl = `${UPLOAD_CULLING_IMAGES}/${workSpaceId}`;
 
-    // Make the request
-    response = await fetch(apiUrl, {
-      cache: "no-cache",
-      method: "POST",
-      credentials: "include",
+    console.log(`[Upload] Starting upload to: ${apiUrl}`);
+
+    response = await axios.post(apiUrl, imagesData, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
       },
-      body: imagesData,
+      onUploadProgress: (progressEvent) => {
+        const percent = Math.round((progressEvent.loaded / progressEvent.total!) * 50);
+        finalProgress = percent;
+        progress(percent); // Send progress to client via callback
+        console.log(`[Upload Progress] ${percent}%`);
+      },
     });
 
-    // Get raw response text first
-    responseText = await response.text();
+    const status = response.status;
+    const data = response.data;
+    finalProgress = 100;
+    progress(100); // Final update to progress
 
-    // Try to parse as JSON
-    try {
-      const jsonResponse = JSON.parse(responseText);
+    console.log(`[Upload] Upload complete. Status: ${status}`);
 
-      if (!response.ok) {
-        console.error("Error Response:", responseText);
-        return { error: jsonResponse.detail || responseText };
-      }
-
-      if (response.status === 401) {
-        redirect("/login");
-      } else if (response.status === 415) {
-        return { error: jsonResponse.detail };
-      } else if (response.status === 500 || !response.ok) {
-        return { error: jsonResponse.detail };
-      } else {
-        revalidateTag("getCullingWorkspaceById");
-        return { data: jsonResponse };
-      }
-    } catch {
-      // If JSON parsing fails, save the full response to file
-      const errorData = [
-        `URL: ${apiUrl}`,
-        `Status: ${response.status}`,
-        `Headers: ${JSON.stringify(
-          Object.fromEntries(response.headers.entries()),
-          null,
-          2
-        )}`,
-        `Body:\n${responseText}`,
-      ].join("\n\n");
-
-      await writeErrorToFile(errorData);
-
-      return {
-        error: `Server returned non-JSON response. Status: ${response.status}. Check error log file for details.`,
-      };
+    if (status === 401) {
+      console.warn(`[Upload] Unauthorized - redirecting to login`);
+      redirect("/login");
     }
+
+    if (status === 415 || status === 500) {
+      return { error: data?.details || "Upload failed", progress: finalProgress };
+    }
+
+    revalidateTag("getCullingWorkspaceById");
+
+    return {
+      data: data,
+      progress: finalProgress,
+    };
   } catch (e) {
-    // For network errors or other exceptions
     let errorMessage = "Unknown error occurred";
     let stackTrace = "No stack trace available";
 
@@ -107,20 +77,18 @@ export const uploadCullingImagesToServer = async ({
       stackTrace = e.stack || stackTrace;
     }
 
-    // Save the error details to file
-    const errorData = [
-      `Error: ${errorMessage}`,
+    const errorLog = [
+      `Error Message: ${errorMessage}`,
       `Stack Trace:\n${stackTrace}`,
       `API URL: ${UPLOAD_CULLING_IMAGES}/${workSpaceId}`,
-      `Response Text (if any):\n${responseText}`,
-      `Response Status (if any): ${response?.status || "No response"}`,
+      `Response Status: ${response.status || "No response"}`,
     ].join("\n\n");
 
-    await writeErrorToFile(errorData);
 
-    console.error("An error occurred while uploading images:", e);
+    console.error("[Upload Error]", errorLog);
     return {
-      error: "Failed to upload images. Check error log file for details.",
+      error: "Failed to upload images. Check error log for details.",
+      progress: finalProgress,
     };
   }
 };
