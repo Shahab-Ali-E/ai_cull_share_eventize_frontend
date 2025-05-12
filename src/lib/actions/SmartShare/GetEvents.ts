@@ -4,7 +4,7 @@ import { SmartShareEventDataByIdInterface, SmartShareEventsDataInterface } from 
 import { GET_SMART_SHARE_EVENT_BY_ID, GET_ALL_SMART_SHARE_EVENTS, GET_SMART_SHARE_PUBLISHED_EVENT } from "@/constants/ApiUrls";
 import { redirect } from "next/navigation";
 import { unstable_cache } from "next/cache";
-import { getClerkToken } from "../clerk-token";
+import { getClerkToken } from "../clerk-token"; 
 
 // For fetching all events from the backend
 export const getAllEvents = unstable_cache(
@@ -28,6 +28,7 @@ export const getAllEvents = unstable_cache(
       params.set("limit", limit.toString());
 
       const apiUrl = `${GET_ALL_SMART_SHARE_EVENTS}?${params.toString()}`;
+      console.log("apiurl", apiUrl)
 
       const response = await fetch(apiUrl, {
         method: "GET",
@@ -37,6 +38,8 @@ export const getAllEvents = unstable_cache(
           "Content-Type": "application/json",
         },
       });
+
+      console.log("response",response)
 
       const jsonResponse = await response.json();
       console.log("get all events", jsonResponse);

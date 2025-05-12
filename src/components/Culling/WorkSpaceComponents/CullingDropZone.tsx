@@ -18,15 +18,7 @@ import {
   DialogHeader,
 } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-// import { uploadCullingImagesToServer } from "@/lib/actions/Culling/UploadImagesForCulling";
-
-// import Iphoneloader from "@/components/uiVerse/iphone-loader";
 import { Badge } from "@/components/ui/badge";
-// import axios, { AxiosResponse } from "axios";
-// import { UPLOAD_CULLING_IMAGES } from "@/constants/ApiUrls";
-// import { useRouter } from "next/navigation";
-// import { toast } from "sonner";
-// import { useAuth } from "@clerk/nextjs";
 import UploadingImagesProgress from "@/components/UploadingImagesProgress";
 import { useCullingS3Uploader } from "@/hooks/useCullingS3Uploader";
 
@@ -49,14 +41,8 @@ function CullingDropZone({
   const [showImagePreviewModal, setShowImagePreviewModal] = useState(false); // Control the alert visibility
   const [files, setFiles] = useState<FileWithPreview[]>([]); // for setting files which are accepcted
   const [, setRejected] = useState<FileRejection[]>([]); // for setting files which are rejected
-  // const [imagesUploading, setImagesUploading] = useState<boolean>(false); // make it true when uploading images so to show progress bar
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
-  // const [progress, setProgress] = useState(0); // 0–100%
-  // const [uploadedCount, setUploadedCount] = useState(0); // # files done
-  // const [eta, setEta] = useState("0 sec"); // human‑readable time
 
-  // const router = useRouter();
-  // const { getToken } = useAuth();
 
   // This function will trigger when the user drops a file on it
   const onDrop = (
@@ -64,16 +50,6 @@ function CullingDropZone({
     rejectedFiles: FileRejection[]
   ) => {
     if (acceptedFiles?.length) {
-      // const newFiles = acceptedFiles.map(file => ({
-      //   id: uuidv4(),
-      //   name: file.name,
-      //   size: file.size,
-      //   type: file.type,
-      //   // Delay preview generation
-      //   preview: () => URL.createObjectURL(file) 
-      // }));
-    
-      // setFiles(prev => [...prev, ...newFiles]);
       
       setFiles((previousFiles: FileWithPreview[]) => [
         ...previousFiles,
@@ -130,8 +106,7 @@ function CullingDropZone({
   };
 
   // uploading images
-  const { isUploading, progress, uploadedCount, eta, handleUpload } =
-  useCullingS3Uploader(workSpaceName, workSpaceId);
+  const { isUploading, progress, uploadedCount, eta, handleUpload } = useCullingS3Uploader(workSpaceName, workSpaceId);
 
   useEffect(() => {
     // whenever uploading starts, hide the modal

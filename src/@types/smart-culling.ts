@@ -20,8 +20,7 @@ export interface ImagesMetadataResponse {
   image_download_validity: string;
 }
 
-export interface SingleWorkspaceDataInterface
-  extends MultipleWorkspaceDataInterface {
+export interface SingleWorkspaceDataInterface extends MultipleWorkspaceDataInterface {
   temporary_images_urls: ImagesMetadataResponse[];
 }
 

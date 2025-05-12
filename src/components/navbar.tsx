@@ -25,11 +25,11 @@ export default function Navbar() {
   }, [getToken]);
 
   const navLinks = [
-    { name: "Home", href: "/" },
+    { name: "Home", href: "/Home" },
     { name: "Event Arrangement", href: "/event-arrangment" },
     { name: "Smart Culling", href: "/culling-home" },
     { name: "Smart Share", href: "/smart-share" },
-    { name: "About", href: "/contact-us" },
+    { name: "About", href: "/about-us" },
   ];
 
   return (

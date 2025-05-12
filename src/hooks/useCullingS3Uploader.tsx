@@ -105,40 +105,6 @@ export function useCullingS3Uploader(workspaceName: string, workspaceId: string)
 
       // 7) Perform the uploads
       const loadedMap = Array(files.length).fill(0);
-      // await Promise.all(
-      //   presignedImagesMetadata.map(({ uploadUrl }, idx) =>{
-      //     const file = files[idx];
-      //     const fileStream = file.stream(); 
-      //     axios.put(uploadUrl, fileStream, {
-      //       headers: {
-      //         "Content-Type": file.type,
-      //         "Content-Length": file.size.toString()
-      //       },
-      //       onUploadProgress: (evt) => {
-      //         loadedMap[idx] = evt.loaded;
-      //         const loadedAll = loadedMap.reduce((a, b) => a + b, 0);
-      //         const pct = Math.floor((loadedAll / totalSize) * 100);
-      //         setProgress(pct);
-      //         setUploadedCount(
-      //           Math.floor((loadedAll / totalSize) * files.length)
-      //         );
-
-      //         // update ETA
-      //         const elapsed = Date.now() - startTimeRef.current;
-      //         if (loadedAll > 0) {
-      //           const rate = elapsed / loadedAll;
-      //           const remaining = totalSize - loadedAll;
-      //           const secs = Math.ceil((rate * remaining) / 1000);
-      //           setEta(
-      //             secs > 60
-      //               ? `${Math.floor(secs / 60)}m ${secs % 60}s`
-      //               : `${secs}s`
-      //           );
-      //         }
-      //       },
-      //     })
-      // })
-      // );
 
       await Promise.all(
         presignedImagesMetadata.map(({ uploadUrl }, idx) => {

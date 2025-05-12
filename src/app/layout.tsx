@@ -48,6 +48,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`flex flex-col ${geistSans.variable} ${geistMono.variable} ${inter.variable} ${workSans.variable} antialiased`}
+        suppressHydrationWarning={true}
       >
         <ClerkProvider publishableKey={clerkPubKey}>
           <ThemeProvider

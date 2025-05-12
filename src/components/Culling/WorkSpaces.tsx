@@ -8,6 +8,7 @@ import { MultipleWorkspaceDataInterface } from "@/@types/smart-culling";
 
 function WorkSpaces({ workSpacesData }: { workSpacesData: MultipleWorkspaceDataInterface[] }) {
   const { toggleView, setWorkSpacesData } = useCullingStore();
+  
   useEffect(()=>{
     setWorkSpacesData(workSpacesData)
   },[setWorkSpacesData, workSpacesData])

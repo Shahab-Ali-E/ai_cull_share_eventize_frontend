@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 // API calls
 import { CullingStore, MultipleWorkspaceDataInterface } from "@/@types/smart-culling";
 
-const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskIds: Record<string, string[]>; workspacesData: MultipleWorkspaceDataInterface[]}]]>(
+const useCullingStore = create<CullingStore, [["zustand/persist", { workspacesData: MultipleWorkspaceDataInterface[]}]]>(
   persist(
   (set) => ({
     toggleView:true,
@@ -42,7 +42,7 @@ const useCullingStore = create<CullingStore, [["zustand/persist", { cullingTaskI
   }),
     {
       name: 'culling-store',
-      partialize: (state) => ({ cullingTaskIds: state.cullingTaskIds, workspacesData:state.workspacesData }), // Only persist selected states
+      partialize: (state) => ({workspacesData:state.workspacesData }), // Only persist selected states
     }
   )
 );

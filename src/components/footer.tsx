@@ -17,7 +17,7 @@ function Footer() {
     { name: "Event Arrangement", href: "/event-arrangment" },
     { name: "Smart Culling", href: "/culling-home" },
     { name: "Smart Share", href: "/smart-share" },
-    { name: "About", href: "/contact-us" },
+    { name: "About", href: "/about-us" },
   ];
 
   const socialLinks = [
@@ -39,7 +39,7 @@ function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <IoSparkles className="h-8 w-8 text-primary" fill={isDarkMode ? "#ffffff" : "#000000"} />
-              <span className="text-xl font-bold font-inter text-primary">SnapCull Ai</span>
+              <span className="text-xl font-bold font-inter text-primary">AICSE</span>
             </div>
             <p className="text-muted-foreground text-sm mt-4 max-w-xs">
               AI Cull, Share, and Eventize is an intelligent media management platform that automates culling, 
@@ -119,7 +119,7 @@ function Footer() {
         <div className="mt-12 pt-6 border-t border-muted-foreground/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-muted-foreground text-sm">
-              &copy; {new Date().getFullYear()} SnapCull AI. All rights reserved.
+              &copy; {new Date().getFullYear()} Ai Cull Share Eventize. All rights reserved.
             </p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <Link href="/privacy-policy" className="text-muted-foreground hover:text-primary text-sm transition-colors duration-200">

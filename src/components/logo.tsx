@@ -21,7 +21,7 @@ function Logo() {
     <Link href="/" className="flex items-center text-primary gap-2">
       <IoSparkles className="h-10 w-10 text-primary" fill={isDarkMode?"#ffffff" : "#000000" }/>
       <span className="text-base md:text-2xl font-bold font-inter">
-        SnapCull Ai
+        AICSE
       </span>
     </Link>
   );

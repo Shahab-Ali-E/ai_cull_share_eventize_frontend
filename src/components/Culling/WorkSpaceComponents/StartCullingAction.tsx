@@ -27,17 +27,17 @@ function StartCullingAction({
 
   const { setCullingTaskIds } = useCullingStore();
 
-
   if (!workSpaceId) {
     return <NotFound />;
   }
   // For starting culling
   const handleStartCulling = async () => {
+    setLoading(true); // Start loading when culling starts
     if (temporaryImagesUrl) {
       const imagesUrls = temporaryImagesUrl.map((ele) => ele);
 
       try {
-        setLoading(true); // Start loading when culling starts
+        // start culling api is hitting here
         const { data, error } = await StartCulling({
           workSpaceId: workSpaceId,
           imagesUrl: imagesUrls,
@@ -48,7 +48,7 @@ function StartCullingAction({
             ? error.map((ele) => ele.msg).join(", ")
             : "Refresh the page, these image links have expired";
 
-          toast.error("Server Error",{
+          toast.error("Server Error", {
             description: errorMessage,
           });
           console.error("Error from backend:", error);
@@ -70,7 +70,7 @@ function StartCullingAction({
                 response.status !== 429
               ) {
                 const errorText = await response.text();
-                toast.error("Server Error",{
+                toast.error("Server Error", {
                   description: errorText || "An unexpected error occurred.",
                 });
               }
@@ -84,31 +84,37 @@ function StartCullingAction({
                     workSpaceId: workSpaceId,
                     ids: extractedIds,
                   });
-                  toast.success("Culling started successfully")
+                  toast.success("Culling started successfully");
                   console.log("task id", data.task_id);
                 }
               } catch (error) {
-                toast.error("Server Error",{
+                toast.error("Server Error", {
                   description: String(error) || "Sorry can't start culling",
                 });
               }
             },
             onerror(err) {
-              toast.error("Unable to start culling",{
+              toast.error("Unable to start culling", {
                 description: err || "Sorry can't start culling",
-              });           
+              });
+            },
+            onclose() {
+              console.log("Connection closed");
+              router.refresh(); // Refresh the page to get the latest data
+              setLoading(false); // Stop loading when connection is closed
             },
           });
         }
       } catch (error) {
-        toast.error("Network Error",{
+        toast.error("Network Error", {
           description: String(error),
         });
         console.error("Network error:", error);
-      } finally {
-        router.refresh();
-        setLoading(false); // Stop loading
       }
+      // finally {
+      //   // router.refresh();
+      //   setLoading(false); // Stop loading
+      // }
     }
   };
 
@@ -121,14 +127,14 @@ function StartCullingAction({
       )}
 
       <div className="flex w-full sm:justify-end justify-center">
-          {enableCullingButton && (
-            <GradientButton
-              className="w-3/4 sm:w-36 h-10 xl:h-10 lg:h-10 md:h-10 text-xs sm:text-sm rounded-sm"
-              onClick={() => handleStartCulling()}
-            >
-              Start Culling
-            </GradientButton>
-          )}
+        {enableCullingButton && (
+          <GradientButton
+            className="w-3/4 sm:w-36 h-10 xl:h-10 lg:h-10 md:h-10 text-xs sm:text-sm rounded-sm"
+            onClick={() => handleStartCulling()}
+          >
+            Start Culling
+          </GradientButton>
+        )}
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import React from "react";
 import { ReactLenis } from "@/utils/lenis";
 import Footer from "@/components/footer";
+import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
   title: "Smart Culling",
@@ -42,6 +43,7 @@ function CullingHomeLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex flex-col min-h-screen bg-card">
       <ReactLenis root>
+        <Navbar />
         {children}
         <Footer />
       </ReactLenis>

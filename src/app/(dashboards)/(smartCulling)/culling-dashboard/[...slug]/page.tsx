@@ -54,6 +54,7 @@ export async function generateMetadata({
 
 
 const WorkspaceMain = async ({ params }: { params: { slug: string[] } }) => {
+ 
   const workSpaceId = String(params.slug[0]);
   // getting clerk token to access backend end apis
   const token = await getClerkToken();

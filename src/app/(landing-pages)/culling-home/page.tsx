@@ -63,28 +63,28 @@ import CullingEyebrow from "@/components/LandingPages/SmartCulling/CullingEyebro
 import HowToCull from "@/components/LandingPages/SmartCulling/HowToCull";
 import { Carousel } from "@/components/ui/carousel";
 
-import carouselImage1 from "@/images/closed_eyes.jpg";
-import carouselImage2 from "@/images/closed_eyes.jpg";
-import carouselImage3 from "@/images/closed_eyes.jpg";
-import carouselImage4 from "@/images/closed_eyes.jpg";
+import carouselImage1 from "@/images/LandingPages/SmartCulling/blurimage.jpg";
+import carouselImage2 from "@/images/LandingPages/SmartCulling/closedeye.png";
+import carouselImage3 from "@/images/LandingPages/SmartCulling/duplicate.jpg";
+import carouselImage4 from "@/images/LandingPages/SmartCulling/AfterCullFolders.png";
 import SlideInFromBottom from "@/components/LandingPages/SlideInFromBottom";
-import CullingGetStartedButton from "@/components/LandingPages/SmartCulling/CullingGetStartedButton";
+import CullingGetStartedButton from "@/components/LandingPages/GetStartedButton";
 
 const slideData = [
   {
-    title: "Mystic Mountains",
+    title: "Blurred",
     src: carouselImage1,
   },
   {
-    title: "Urban Dreams",
+    title: "Closed Eyes",
     src: carouselImage2,
   },
   {
-    title: "Neon Nights",
+    title: "Duplicate",
     src: carouselImage3,
   },
   {
-    title: "Desert Whispers",
+    title: "Organized",
     src: carouselImage4,
   },
 ];
@@ -178,8 +178,8 @@ const CullingHome = () => {
         <div className="flex flex-col justify-center w-full space-y-20 md:space-y-32 pt-24 md:pt-40">
           <SlideInFromBottom delay={0}>
             <CullingEyebrow
-              heading="How to perform culling"
-              description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos."
+              heading="How AI Culling Works"
+              description="AI Culling removes blurry, closed-eye, and duplicate photos to highlight the best shots."
             />
           </SlideInFromBottom>
           <SlideInFromBottom delay={0.3}>

@@ -120,6 +120,7 @@ const CullingDashboard = async ({
             {({ data, totalCount }) => (
               <>
                 <CullingDashboardPage workSpaces={data} />
+                
                 {data?.length != 0 && (
                   <div className="flex mt-10 mb-5">
                     <PaginationWithLink

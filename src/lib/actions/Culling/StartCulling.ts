@@ -3,6 +3,7 @@
 import { START_CULLING } from "@/constants/ApiUrls";
 import { redirect } from "next/navigation";
 import { getClerkToken } from "../clerk-token";
+import { revalidateTag } from "next/cache";
 
 // Interface for the upload
 interface uploadCullingImages {
@@ -46,6 +47,7 @@ export const StartCulling = async ({
         error: jsonResponse.detail,
       };
     } else {
+      revalidateTag('getCullingWorkspaceById');
       return { data: jsonResponse };
     }
   } catch (e) {

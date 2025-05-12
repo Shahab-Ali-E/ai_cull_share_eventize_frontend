@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React from "react";
 
-function CullingGetStartedButton({ href }: { href: string }) {
+function GetStartedButton({ href }: { href: string }) {
   return (
     <Link
       href={href}
@@ -15,4 +15,4 @@ function CullingGetStartedButton({ href }: { href: string }) {
   );
 }
 
-export default CullingGetStartedButton;
+export default GetStartedButton;
