@@ -1,5 +1,12 @@
 import Navbar from '@/components/navbar';
 import React from 'react'
+import { Metadata } from "next";
+
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description: "Get in touch with us for any inquiries, support, or collaboration opportunities. We're here to help!",
+};
 
 function EventManagmentLayout({
     children,
