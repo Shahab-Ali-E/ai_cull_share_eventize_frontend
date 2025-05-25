@@ -22,7 +22,7 @@ function TestimonialCard({
       key={name}
     >
       <div className="relative h-full w-32 flex-shrink-0 overflow-hidden sm:w-full sm:h-40">
-        <image src={image} alt={name} width={100} height={100} className="h-full w-full object-cover" />
+        <Image src={image} alt={name} width={100} height={100} className="h-full w-full object-cover" />
       </div>
       <div className="px-4 py-2 sm:p-4 sm:text-center">
         <span className="block text-lg font-bold text-foreground sm:text-base">

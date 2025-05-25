@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
 
 function DynamicImagePlaceholder({ src, alt }: { src: string; alt: string }) {
   // const [imageBlur, setImageBlur] = useState<string | null>(null);
