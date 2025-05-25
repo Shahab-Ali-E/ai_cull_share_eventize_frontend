@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 interface EventCardProps {
   EventName: string;
   createdDate: string;
-  coverPhoto: string;
+  coverPhoto: string | File;
   size: number;
   href: string;
   status: "Not Published" | "Published" | "Pending";
@@ -46,25 +46,25 @@ const EventCardView = ({
         return {
           icon: <CheckCircle className="h-6 w-6 text-green-500" />,
           color: "bg-green-500/20",
-          title: "Published"
+          title: "Published",
         };
       case "Pending":
         return {
           icon: <Clock className="h-6 w-6 text-yellow-500" />,
           color: "bg-yellow-500/20",
-          title: "Pending"
+          title: "Pending",
         };
       case "Not Published":
         return {
           icon: <AlertCircle className="h-6 w-6 text-red-500" />,
           color: "bg-red-500/20",
-          title: "Not Published"
+          title: "Not Published",
         };
       default:
         return {
           icon: null,
           color: "",
-          title: ""
+          title: "",
         };
     }
   };
@@ -77,7 +77,11 @@ const EventCardView = ({
       <Link href={href} passHref>
         <div className="w-full hover:cursor-pointer relative">
           <Image
-            src={coverPhoto || AltCoverImage}
+            src={
+              coverPhoto instanceof File
+                ? AltCoverImage
+                : coverPhoto || AltCoverImage
+            }
             alt={"Cover Image"}
             height={100}
             width={200}
@@ -90,7 +94,7 @@ const EventCardView = ({
             <div
               className={`absolute flex p-1.5 top-2 right-2 rounded-full ${color}`}
             >
-              <Tooltip >
+              <Tooltip>
                 <TooltipTrigger>{icon}</TooltipTrigger>
                 <TooltipContent
                   side="left"

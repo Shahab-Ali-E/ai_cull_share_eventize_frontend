@@ -29,7 +29,7 @@ function EventDetailModal({
   eventId: string;
   eventName: string;
   description: string;
-  coverImage: string;
+  coverImage: string | File;
 }) {
   const [qrCodeSrc, setQrCodeSrc] = useState<string>("");
 
@@ -37,8 +37,8 @@ function EventDetailModal({
   const generateQrCode = async (eventId: string) => {
     try {
       const src = await QRCode.toDataURL(
-        // `http://localhost:3000/get-images/${eventId}`
-        `https://5e35-182-191-129-81.ngrok-free.app/get-images/${eventId}`
+        `http://localhost:3000/get-images/${eventId}`
+        // `https://5e35-182-191-129-81.ngrok-free.app/get-images/${eventId}`
       );
       setQrCodeSrc(src);
     } catch (err) {

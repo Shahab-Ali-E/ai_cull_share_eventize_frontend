@@ -1,17 +1,28 @@
-export default async function Await<T>({
+import Custom404 from "@/components/custom-404";
+type WithOptionalError<T> = T & { error?: string };
+
+export default async function Await<T extends object>({
   promise,
   children,
 }: {
   promise: Promise<T>;
   children: (value: T) => JSX.Element;
 }) {
-  const data = await promise;
-  // Check if data contains a 404 error and return NotFound if so
-  if (data.error) {
-    return <section>
-      <h1 className="text-green-500 text-3xl">Not found</h1>
-    </section>;
-  }
+  try {
+    const data = await promise as WithOptionalError<T>;
 
-  return children(data as T); // Pass data to children (WorkSpacePage)
+    if (!data || data.error) {
+      return (
+        <Custom404
+          title="Not Found"
+          description={`${data.error ?? "Something went wrong"}`}
+        />
+      );
+    }
+
+    return children(data);
+  } catch {
+    return <Custom404 />;
+  }
 }
+

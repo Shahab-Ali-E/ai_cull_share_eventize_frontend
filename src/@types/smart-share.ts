@@ -3,7 +3,7 @@
 export interface SmartShareEventsDataInterface{
     id: string;
     name: string;
-    cover_image:string;
+    cover_image:string | File;
     description:string;
     total_size: number;
     created_at: string;

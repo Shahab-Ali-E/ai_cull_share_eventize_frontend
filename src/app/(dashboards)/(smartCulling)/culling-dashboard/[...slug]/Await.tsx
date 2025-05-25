@@ -1,18 +1,24 @@
 import NotFound from "./not-found";
 
-export default async function Await<T>({
+type WithOptionalError<T> = T & { error?: string };
+
+export default async function Await<T extends object>({
   promise,
   children,
 }: {
   promise: Promise<T>;
   children: (value: T) => JSX.Element;
 }) {
-  const data = await promise;
-  console.log("data from await comp:",data)
-  // Check if data contains a 404 error and return NotFound if so
-  if (data.error) {
+  try {
+    const data = await promise as WithOptionalError<T>;
+
+    if (!data || data.error) {
+      return <NotFound />;
+    }
+
+    return children(data);
+  } catch {
     return <NotFound />;
   }
-
-  return children(data as T); // Pass data to children (WorkSpacePage)
 }
+

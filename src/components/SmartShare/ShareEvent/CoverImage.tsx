@@ -1,5 +1,3 @@
-"use client";
-
 import Image, { StaticImageData } from "next/image";
 import React, { useState } from "react";
 import altCoverImage from "@/images/event-management-slider.jpg";
@@ -8,12 +6,16 @@ import useSmartShareStore from "@/zustand/SmartShare";
 function CoverImage({
   coverImage,
 }: {
-  coverImage?: string;
+  coverImage?: string | File;
   totalImages?: number;
 }) {
-  const [currentCoverImage, setCurrentCoverImage] = useState<
-    string | StaticImageData
-  >(coverImage || altCoverImage);
+  const [currentCoverImage, setCurrentCoverImage] = useState<string | StaticImageData>(
+    typeof coverImage === "string"
+      ? coverImage
+      : coverImage instanceof File
+      ? URL.createObjectURL(coverImage)
+      : altCoverImage
+  );
 
   const { currentEventData, setCurrentEventData } = useSmartShareStore();
 
