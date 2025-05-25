@@ -26,19 +26,37 @@ const nextConfig = {
       },
     ],
   },
-  webpack(config) {
-    // Use Next.js's built-in Webpack version
-    config.resolve.alias["webpack"] = require.resolve("next/dist/compiled/webpack/webpack-lib");
+  // webpack(config) {
+  //   // Use Next.js's built-in Webpack version
+  //   config.resolve.alias["webpack"] = require.resolve("next/dist/compiled/webpack/webpack-lib");
     
+  //   config.module.rules.push({
+  //     test: /\.svg$/i,
+  //     issuer: /\.[jt]sx?$/,
+  //     use: ["@svgr/webpack"],
+  //   });
+  //   return config;
+  // },
+  webpack(config) {
+    config.resolve.alias["webpack"] = require.resolve("next/dist/compiled/webpack/webpack-lib");
+  
     config.module.rules.push({
       test: /\.svg$/i,
       issuer: /\.[jt]sx?$/,
       use: ["@svgr/webpack"],
     });
+  
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      fs: false,
+    };
+  
     return config;
-  },
+  }
 };
 
-export default withHydrationOverlay({
-  appRootSelector: "main",
-})(nextConfig);
+const isDev = process.env.NODE_ENV === "development";
+
+export default isDev
+  ? withHydrationOverlay({ appRootSelector: "main" })(nextConfig)
+  : nextConfig;
