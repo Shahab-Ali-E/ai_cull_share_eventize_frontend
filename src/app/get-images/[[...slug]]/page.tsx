@@ -1,9 +1,16 @@
 import React, { Suspense } from "react";
 import EventAvailabilityPage from "./EventAvailabilityPage";
-import FaceRecognitionPage from "./FaceRecognitionPage";
+// import FaceRecognitionPage from "./FaceRecognitionPage";
 import { getPublishedEvent } from "@/lib/actions/SmartShare/GetEvents";
 import Await from "./Await";
 import FaceRecognitionResultPage from "./FaceRecognitionResultPage";
+import dynamic from "next/dynamic";
+
+
+const FaceRecognitionPage = dynamic(
+  () => import('./FaceRecognitionPage'),
+  { ssr: false }
+);
 
 async function Page({ params }: { params: { slug: string[] } }) {
   if (params?.slug && params.slug.length > 0) {

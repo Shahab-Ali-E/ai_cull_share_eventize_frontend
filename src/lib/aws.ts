@@ -24,7 +24,7 @@ export async function getDownloadUrl(objectName: string, bucketName:string) {
       Bucket: bucketName,
       Key: objectName,
     }),
-    { expiresIn: parseInt(process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "3600") }
+    { expiresIn: parseInt(process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "36000") }
   );
 }
 
@@ -50,13 +50,13 @@ export async function getPresignedUrl({
 
   // const url = await getSignedUrl(s3Client, command, {
   //   expiresIn: parseInt(
-  //     process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "3600",
+  //     process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "36000",
   //     10
   //   ),
   // });
   const url = await getSignedUrl(s3Client, command, {
     expiresIn: parseInt(
-      process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "3600",
+      process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "36000",
       10
     ),
     signableHeaders: new Set(['content-type', 'content-length']) // Allow these headers
@@ -72,7 +72,7 @@ export async function getFileUrl({ key, bucketName }: { key: string; bucketName:
       Bucket: bucketName,
       Key: key,
     }),
-    { expiresIn: parseInt(process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "3600") }
+    { expiresIn: parseInt(process.env.NEXT_PRESIGNED_URL_EXPIRY_SEC || "36000") }
   );
 
   return url;

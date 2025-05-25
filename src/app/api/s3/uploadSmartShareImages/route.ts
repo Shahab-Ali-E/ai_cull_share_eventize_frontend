@@ -37,6 +37,7 @@ export async function POST(req: NextRequest) {
           key,
           bucketName: bucket,
           contentType: file.type,
+          fileSize: file.size,
         });
 
         // 3) generate the GET URL

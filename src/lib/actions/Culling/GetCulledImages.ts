@@ -51,4 +51,4 @@ export const GetCulledImagesMetadata = unstable_cache(
       return { data: [], error: "Failed to fetch culled images metadata" };
     }
   }
-) 
+);

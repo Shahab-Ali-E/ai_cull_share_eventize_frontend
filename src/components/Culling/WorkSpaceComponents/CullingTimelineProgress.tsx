@@ -39,7 +39,9 @@ export default function CullingTimelineProgress({
   const router = useRouter();
   const { cullingTaskIds: zustandTaskIds } = useCullingStore(); // Zustand
   const specificWorkspaceTaskIds = zustandTaskIds[workSpaceId];
-  const effectiveTaskIds = propTaskIds?.length ? propTaskIds : specificWorkspaceTaskIds;
+  const effectiveTaskIds = propTaskIds?.length
+    ? propTaskIds
+    : specificWorkspaceTaskIds;
   console.log("effective task ids", effectiveTaskIds);
 
   const updateTaskStatus = useCallback(
@@ -103,9 +105,16 @@ export default function CullingTimelineProgress({
               }
             },
             onerror(err) {
-              toast.error("Unable to start culling", {
-                description: err || "Sorry can't start culling",
-              });
+              // Safely extract a string
+              const description =
+                typeof err === "string"
+                  ? err
+                  : err instanceof Error
+                  ? err.message
+                  : "Sorry, can't start culling";
+
+              // toast.error("Unable to start culling", { description });
+              console.log("unable to start culling",description);
             },
           });
         })
