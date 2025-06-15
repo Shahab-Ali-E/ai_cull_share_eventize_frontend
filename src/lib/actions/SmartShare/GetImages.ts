@@ -1,8 +1,8 @@
-'use server';
+"use server";
 
-import { SmartShareImagesMetadata } from '@/@types/smart-share';
-import { GET_IMAGES_BY_FACE } from '@/constants/ApiUrls';
-import { getClerkToken } from '../clerk-token';
+import { SmartShareImagesMetadata } from "@/@types/smart-share";
+import { GET_IMAGES_BY_FACE } from "@/constants/ApiUrls";
+import { getClerkToken } from "../clerk-token";
 
 // Interface for the upload
 interface GetImagesByFaceRecognitionProps {
@@ -13,17 +13,20 @@ interface GetImagesByFaceRecognitionProps {
 export const GetImagesByFaceRecognition = async ({
   eventId,
   faceImage,
-}: GetImagesByFaceRecognitionProps): Promise<{ data?: SmartShareImagesMetadata[]; error?: string }> => {
+}: GetImagesByFaceRecognitionProps): Promise<{
+  data?: SmartShareImagesMetadata[];
+  error?: string;
+}> => {
   try {
     // getting jwt token from clerk so that we can access backend resorces
-        const token = await getClerkToken();
+    const token = await getClerkToken();
 
     const apiUrl = `${GET_IMAGES_BY_FACE}/${eventId}`;
 
     const response = await fetch(apiUrl, {
-      cache: 'no-cache',
-      method: 'POST',
-      credentials: 'include',
+      cache: "no-cache",
+      method: "POST",
+      credentials: "include",
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -34,7 +37,10 @@ export const GetImagesByFaceRecognition = async ({
 
     if (!response.ok) {
       // Ensure the error is a string
-      const errorMsg = typeof jsonResponse === 'string' ? jsonResponse : JSON.stringify(jsonResponse);
+      const errorMsg =
+        typeof jsonResponse === "string"
+          ? jsonResponse
+          : JSON.stringify(jsonResponse);
       return { error: errorMsg };
     }
     if (response.status === 200) {
@@ -42,10 +48,10 @@ export const GetImagesByFaceRecognition = async ({
     }
 
     // Fallback in case the response status is not handled
-    console.log('Response from backend of get-images:', jsonResponse);
-    return { error: 'Unexpected response status' };
+    console.log("Response from backend of get-images:", jsonResponse);
+    return { error: "Unexpected response status" };
   } catch (e) {
-    console.error('Error occurred while fetching the images:', e);
-    return { error: 'Failed to fetch images' };
+    console.error("Error occurred while fetching the images:", e);
+    return { error: "Failed to fetch images" };
   }
 };

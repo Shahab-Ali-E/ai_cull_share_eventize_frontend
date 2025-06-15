@@ -39,6 +39,6 @@ export const createEvent = async ({ EventName }: { EventName: string }) => {
     }
   } catch (e) {
     console.error("An error occurred while creating the event:", e);
-    return { error: "An error occurred while deleting the event." };
+    return { error: "An error occurred while creating the event." };
   }
 };
