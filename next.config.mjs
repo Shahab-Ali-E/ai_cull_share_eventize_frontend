@@ -87,7 +87,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "api.aicullshareeventizebackend.online",
+        hostname: "aicullshareeventizebackend.online",
       },
     ],
   },

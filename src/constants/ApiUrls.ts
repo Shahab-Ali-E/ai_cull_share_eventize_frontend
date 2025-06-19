@@ -1,6 +1,6 @@
-// export const BASE_URL:string="https://api.aicullshareeventizebackend.online"
+export const BASE_URL:string="https://aicullshareeventizebackend.online"
 // export const BASE_URL:string="http://127.0.0.1:8000"
-export const BASE_URL:string="http://80.225.192.74:8000"
+// export const BASE_URL:string="http://80.225.192.74:8000"
 
 // signup
 export const SIGNUP_URL:string = `${BASE_URL}/Auth/sign_up` //for login
