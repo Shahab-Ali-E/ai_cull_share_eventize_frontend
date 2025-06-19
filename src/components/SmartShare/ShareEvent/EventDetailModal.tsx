@@ -59,6 +59,8 @@ function EventDetailModal({
     link.click();
   };
 
+  console.log("cover image url", coverImage);
+
   return (
     <Dialog>
       {/* Button to trigger the modal */}
